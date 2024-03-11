@@ -99,23 +99,7 @@ export class ClintService {
 
 
 
-  activeBots(data: any) {
-    const userUrl = 'https://api.cryptozack.com/algo-strategy/runtime-bots'
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${data.token}`
-    });
 
-    const params = new HttpParams()
-      .set('userId', data.userId)
-      .set('page', data.pageCount.page)
-      .set('limit', data.pageCount.limit)
-
-    return this.http.get(userUrl, { headers, params })
-      .pipe(map(res => {
-        return res
-      }),
-      );
-  }
 
 
 }

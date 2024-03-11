@@ -1,11 +1,10 @@
-import { END } from '@angular/cdk/keycodes';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ClintService } from '../Providers/clint.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { StrategyService } from '../provider/strategy.service';
 
 export enum DateRangeEnum {
   Last30Dayds = '30Days',
@@ -18,23 +17,25 @@ export enum DateRangeEnum {
 }
 
 @Component({
-  selector: 'app-clint',
-  templateUrl: './clint.component.html',
-  styleUrls: ['./clint.component.scss']
+  selector: 'app-strategy-list',
+  templateUrl: './strategy-list.component.html',
+  styleUrls: ['./strategy-list.component.scss']
 })
 
 
-export class ClintComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'email', 'strategy', 'signupDate', 'action'];
+export class StrategyListComponent implements OnInit {
+  displayedColumns: string[] = ['name','profit','signupDate', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
-  showLoader = false;
+  showLoader = false
   parseData: any
   filter: any
   DateRangeEnum = DateRangeEnum;
   @Input() SelectedDateRange: DateRangeEnum = DateRangeEnum.Last7Days;
   selectedDefaultValue: any = DateRangeEnum.Last30Dayds;
   totalLength: any
+  userId: any
+  userName='Regaan Khan'
 
   range = new FormGroup({
     from: new FormControl(),
@@ -42,23 +43,27 @@ export class ClintComponent implements OnInit {
   })
 
   constructor(
-    private clientService: ClintService,
+    private router: ActivatedRoute,
     private ngxService: NgxUiLoaderService,
-    private router: Router,
-
+    private navigateRouter: Router,
+    private strategyService: StrategyService
   ) {
+    this.router.queryParams.subscribe(res => {
+      if (res['userId']) {
+        this.userId = res['userId']
+      }
+    });
+
     let data = localStorage.getItem('userinfo')
     if (data) {
       this.parseData = JSON.parse(data);
     }
   }
 
-
   ngOnInit(): void {
     this.initializeFilter();
     this.getDefaultData();
   }
-
 
   initializeFilter() {
     var start = new Date();
@@ -70,7 +75,7 @@ export class ClintComponent implements OnInit {
       token: this.parseData.token,
       pageCount: {
         page: 1,
-        limit: 5
+        limit: Number.MAX_SAFE_INTEGER
       },
       dateRange: {
         from: start.toISOString(),
@@ -78,60 +83,13 @@ export class ClintComponent implements OnInit {
       },
       filter: {
         text: ''
-      }
+      },
+      userId: this.userId
     }
     this.filter = obj;
   }
 
-  // GET ALL USER LIST
-  getUserData() {
-    this.showLoader = true;
-    this.ngxService.start();
-    this.clientService.getUsers(this.filter).subscribe((res: any) => {
-      // console.log("getUserData getUserData",res)
-      this.dataSource = res.data.results
-      this.totalLength = res.data.totalCount;
-      this.showLoader = false;
-      this.ngxService.stop();
-    }, error => {
-      this.showLoader = false;
-      this.ngxService.stop();
-    })
-  }
-
-  // GET USER WALLET DETAIL
-  walletDetails(data: any) {
-    this.router.navigate(["admin/userWallet"], { queryParams: { userId: data.id } });
-  }
-
-
-  pageChange(event: PageEvent) {
-    this.filter.pageCount.page = event.pageIndex + 1;
-    this.filter.pageCount.limit = event.pageSize;
-    this.getUserData();
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.filter.filter = {
-      text: filterValue,
-    }
-    console.log("filterValue filterValue", this.filter)
-    if (this.filter.filter.text.length >= 2) {
-      this.getUserData();
-    } else if (this.filter.filter.text.length <= 0) {
-      this.filter.filter = {
-        text: ''
-      }
-      this.filter.pageCount = {
-        page: 1,
-        limit: 5
-      }
-      this.getUserData()
-    }
-  }
-
-  // GET DEFAULT DATA OF LAST 7 DAYS
+  // GET DEFAULT DATA OF LAST 30 DAYS
   getDefaultData() {
     var obj = {
       value: this.selectedDefaultValue,
@@ -139,11 +97,25 @@ export class ClintComponent implements OnInit {
     this.selectionChange(obj);
   }
 
+
+  strategyLists() {
+    this.strategyService.activeBots(this.filter).subscribe((res) => {
+      console.log("goToActiveStrategy 2222222222", res)
+      this.dataSource =res.results
+      this.totalLength = res.count;
+    })
+  }
+
+  // BACK NAVIGATE TO USER LISTS
+  backToUser() {
+    this.navigateRouter.navigate(['/admin/client'])
+  }
+
   // DATE FILTER FROM TO END DATE
   selectionChange(event: any) {
     const selectedValue = event.value;
     if (selectedValue === DateRangeEnum.Last30Dayds) {
-      var start = new Date();    // console.log("filterValue filterValue",filterValue)
+      var start = new Date();
 
       var today = new Date();
       var last30Days = new Date(today.getTime() - (30 * 24 * 3600000));
@@ -152,7 +124,7 @@ export class ClintComponent implements OnInit {
         from: last30Days.toISOString(),
         to: start.toISOString()
       }
-      this.getUserData()
+      this.strategyLists()
     } else if (selectedValue === DateRangeEnum.Last7Days) {
       var start = new Date();
 
@@ -163,7 +135,7 @@ export class ClintComponent implements OnInit {
         from: last7Days.toISOString(),
         to: start.toISOString()
       }
-      this.getUserData();
+      this.strategyLists();
     } else if (selectedValue === DateRangeEnum.Today) {
       var start = new Date();
       start.setUTCHours(0, 0, 0, 0);
@@ -173,7 +145,7 @@ export class ClintComponent implements OnInit {
         from: start.toISOString(),
         to: end.toISOString()
       }
-      this.getUserData();
+      this.strategyLists();
     }
   }
 
@@ -186,7 +158,7 @@ export class ClintComponent implements OnInit {
         from: new Date(from).toISOString(),
         to: new Date(to).toISOString()
       }
-      this.getUserData();
+      this.strategyLists();
     }
   }
 
@@ -202,13 +174,10 @@ export class ClintComponent implements OnInit {
     return 'Custom';
   }
 
-
-
-
-  goToActiveStrategy(data: any) {
-    this.router.navigate(["admin/strategy"], { queryParams: { userId: data } });
+  pageChange(event: PageEvent) {
+    this.filter.pageCount.page = event.pageIndex + 1;
+    this.filter.pageCount.limit = event.pageSize;
+    this.strategyLists();
   }
 
-
 }
-
