@@ -1,0 +1,302 @@
+.main-card {
+  width: 95%;
+  margin: auto;
+  margin-top: 2%;
+}
+
+.datepicker {
+  color: black;
+  margin-top: 7px;
+  width: 100%;
+  margin-left: 5px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 23% 30% 23% 23%;
+}
+
+.content {
+  margin-top: 10px;
+  margin-right: 10px;
+  text-align: center;
+
+}
+
+.title {
+  text-align: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.formField {
+  margin-top: 10%;
+}
+
+.grid-container1 {
+  margin-top: 5%;
+}
+
+.appchart {
+  margin-top: 5%;
+}
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  min-width: 100%;
+
+  .table {
+    font-size: 50px;
+    font-family: Optimum, Helvetica, sans-serif;
+    border-collapse: collapse
+  }
+
+  th {
+    font-weight: bold;
+    background-color: #fcf6f6;
+  }
+
+  td {
+    cursor: pointer;
+    font-size: 12px;
+    cursor: pointer;
+  }
+}
+
+
+
+.countPlanField {
+  margin-left: 10px;
+  width: 20%;
+}
+
+.countPeriodField {
+  margin-left: 20px;
+  width: 20%;
+
+}
+
+.countDateField {
+  top: 7px;
+  margin-left: 20px;
+  width: 22%;
+}
+
+.searchData {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.countCard {
+  position: relative;
+  float: right;
+  margin-right: 7px;
+  width: 21%;
+  height: 78px;
+  margin-top: -48px;
+
+}
+
+.resetIcon {
+  cursor: pointer;
+  opacity: .1;
+}
+
+.resetIcon:hover {
+  opacity: 0.7;
+
+}
+
+.soldSummary {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: inherit;
+  height: 120px;
+  perspective: 1000px;
+  margin: 5px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: white;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+
+}
+
+.flip-card-back p {
+  margin-top: 5px;
+  margin-bottom: 9px;
+}
+
+.flip-card-front h4 {
+  margin-top: 20px;
+}
+
+
+.revanuecard {
+  background-color: transparent;
+  // width: 300px;
+  padding: 10px;
+  // margin-top: 10px;
+
+  height: 110px;
+  perspective: 1000px;
+  margin-left: -10px;
+
+}
+
+.revanuecard:hover .revanuecard-inner {
+  transform: rotateY(180deg);
+}
+
+.revanuecard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+}
+
+.revanuecard-front h4 {
+  margin-top: 25px;
+}
+
+
+.revanuecard-front,
+.revanuecard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 4px;
+
+}
+
+.revanuecard-front {
+  background-color: white;
+  color: black;
+  border-radius: 4px;
+
+}
+
+.revanuecard-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+  border-radius: 4px;
+
+}
+
+
+.starterData {
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.reset {
+  margin-top: -33px;
+  margin-left: 36px;
+  opacity: .3;
+  cursor: pointer;
+}
+
+.reset:hover {
+  opacity: .8;
+}
+
+.soldPlans {
+  color: green;
+  margin-right: 10px;
+  ;
+}
+
+/* For tablets: */
+@media only screen and (max-width: 900px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  .tableContainer {
+    width: 100%;
+    overflow: scroll;
+  }
+
+  .soldSummary {
+    display: flex;
+  }
+
+  .flip-card {
+    background-color: transparent;
+    width: -webkit-fill-available;
+    height: 120px;
+    perspective: 1000px;
+    margin: 5px;
+  }
+}
+
+
+/* For mobiles: */
+@media only screen and (max-width: 500px) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto;
+  }
+
+  .soldSummary {
+    display: block;
+  }
+
+  .flip-card {
+    background-color: transparent;
+    width: inherit;
+    height: 120px;
+    perspective: 1000px;
+    margin: 5px;
+  }
+  .datepicker {
+    mat-form-field{
+      width: 96%;
+    }
+  }
+}
