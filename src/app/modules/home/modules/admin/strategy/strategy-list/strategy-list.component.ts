@@ -5,6 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { StrategyService } from '../provider/strategy.service';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 export enum DateRangeEnum {
   Last30Dayds = '30Days',
@@ -24,7 +25,7 @@ export enum DateRangeEnum {
 
 
 export class StrategyListComponent implements OnInit {
-  displayedColumns: string[] = ['name','profit','signupDate', 'action'];
+  displayedColumns: string[] = ['name', 'profit', 'status', 'signupDate', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false
@@ -35,7 +36,10 @@ export class StrategyListComponent implements OnInit {
   selectedDefaultValue: any = DateRangeEnum.Last30Dayds;
   totalLength: any
   userId: any
-  userName='Regaan Khan'
+  userName: any
+  status: any
+  totalProfit: any
+  todayProfit: any
 
   range = new FormGroup({
     from: new FormControl(),
@@ -51,6 +55,8 @@ export class StrategyListComponent implements OnInit {
     this.router.queryParams.subscribe(res => {
       if (res['userId']) {
         this.userId = res['userId']
+        this.userName = res['user']
+        this.status = res['status']
       }
     });
 
@@ -60,9 +66,11 @@ export class StrategyListComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.allBotsList();
     this.initializeFilter();
     this.getDefaultData();
+
   }
 
   initializeFilter() {
@@ -75,7 +83,7 @@ export class StrategyListComponent implements OnInit {
       token: this.parseData.token,
       pageCount: {
         page: 1,
-        limit: Number.MAX_SAFE_INTEGER
+        limit: 5
       },
       dateRange: {
         from: start.toISOString(),
@@ -84,7 +92,10 @@ export class StrategyListComponent implements OnInit {
       filter: {
         text: ''
       },
-      userId: this.userId
+      userId: this.userId,
+    }
+    if (this.status == 'Active') {
+      obj.botStatus = 'active'
     }
     this.filter = obj;
   }
@@ -97,13 +108,22 @@ export class StrategyListComponent implements OnInit {
     this.selectionChange(obj);
   }
 
-
+  // GET ACTIVE STRATEGY LISTS
   strategyLists() {
-    this.strategyService.activeBots(this.filter).subscribe((res) => {
-      console.log("goToActiveStrategy 2222222222", res)
-      this.dataSource =res.results
+    this.showLoader = true;
+    this.ngxService.start();
+    this.strategyService.activeBots(this.filter).subscribe((res: any) => {
+      this.dataSource = res.results
       this.totalLength = res.count;
+      this.showLoader = false;
+    }, error => {
+      this.showLoader = false;
     })
+  }
+
+  // CHANGE VALUE IN TWO DIGITS
+  formetValues(data: any) {
+    return data = data !== 0 ? data.toFixed(2) : '0'
   }
 
   // BACK NAVIGATE TO USER LISTS
@@ -162,7 +182,6 @@ export class StrategyListComponent implements OnInit {
     }
   }
 
-
   getCustomOptiontext() {
     if (this.range && this.range.value && (this.range.value.to || this.range.value.from)) {
       let to = this.range.value.to || new Date();
@@ -178,6 +197,41 @@ export class StrategyListComponent implements OnInit {
     this.filter.pageCount.page = event.pageIndex + 1;
     this.filter.pageCount.limit = event.pageSize;
     this.strategyLists();
+  }
+
+
+  // GET ALL BOTS LISTS
+  async allBotsList() {
+    const obj: any = {
+      token: this.parseData.token,
+      pageCount: {
+        page: 1,
+        limit: Number.MAX_SAFE_INTEGER
+      },
+      filter: {
+        text: ''
+      },
+      userId: this.userId,
+    }
+
+    if (this.status == 'Active') {
+      obj.botStatus = 'active'
+    }
+
+    try {
+      const res = await this.strategyService.allBots(obj).toPromise();
+      let totalUsdtAmount = 0;
+      for (const item of res.results) {
+        totalUsdtAmount += item.currentProfit || 0;
+      }
+      this.totalProfit = totalUsdtAmount !== 0 ? totalUsdtAmount.toFixed(2) : '0'
+    } catch {
+    }
+  }
+
+
+  strategyTransaction(data:AnyCatcher){
+    this.navigateRouter.navigate(["admin/strategy/str_transaction"], { queryParams: { userId: this.userId,user:this.userName,status:this.status } });
   }
 
 }

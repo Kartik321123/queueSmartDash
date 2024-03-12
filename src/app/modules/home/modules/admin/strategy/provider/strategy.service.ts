@@ -13,25 +13,67 @@ export class StrategyService {
     private http: HttpClient
   ) { }
 
-
-  activeBots(data: any) {
-    const userUrl = 'https://api.cryptozack.com/algo-strategy/bots'
+// ALL BOTS LIST
+  allBots(data: any) {
+    const userUrl = 'https://api.cryptozack.com/algo-strategy/runtime-bots'
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${data.token}`
     });
-    console.log("comming data",data)
-
-    const params = new HttpParams()
+    let params = new HttpParams()
       .set('userId', data.userId)
       .set('page', data.pageCount.page)
       .set('limit', data.pageCount.limit)
 
+    if (data.botStatus) {
+      params = params.set('botStatus', data.botStatus);
+    }
+
     return this.http.get(userUrl, { headers, params })
-      .pipe(map((res:any) => {
+      .pipe(map((res: any) => {
         return res.data
       }),
       );
   }
+
+  // ACTIVE BOTS LIST
+  activeBots(data: any) {
+    const userUrl = 'https://api.cryptozack.com/algo-strategy/runtime-bots'
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${data.token}`
+    });
+    let params = new HttpParams()
+      .set('userId', data.userId)
+      .set('page', data.pageCount.page)
+      .set('limit', data.pageCount.limit)
+
+    if (data.botStatus) {
+      params = params.set('botStatus', data.botStatus);
+    }
+
+    return this.http.get(userUrl, { headers, params })
+      .pipe(map((res: any) => {
+        return res.data
+      }),
+      );
+  }
+
+
+    // STRATEGY TRANSACTION LIST
+    strategyTransaction(data: any) {
+      const userUrl = 'https://api.cryptozack.com/wallet/get-strategy-trade'
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${data.token}`
+      });
+      let params = new HttpParams()
+        .set('userId', data.userId)
+  
+      return this.http.get(userUrl, { headers, params })
+        .pipe(map((res: any) => {
+          return res
+        }),
+        );
+    }
+
 
 
 }

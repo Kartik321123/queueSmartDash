@@ -116,7 +116,6 @@ export class ClintComponent implements OnInit {
     this.filter.filter = {
       text: filterValue,
     }
-    console.log("filterValue filterValue", this.filter)
     if (this.filter.filter.text.length >= 2) {
       this.getUserData();
     } else if (this.filter.filter.text.length <= 0) {
@@ -203,10 +202,26 @@ export class ClintComponent implements OnInit {
   }
 
 
-
-
+  // ACTIVE STRATEGY
   goToActiveStrategy(data: any) {
-    this.router.navigate(["admin/strategy"], { queryParams: { userId: data } });
+    if (data.activeBot > 0) {
+      const user = `${data.firstName} ${data.lastName}`.trim();
+      const status = 'Active'
+      this.router.navigate(["admin/strategy"], { queryParams: { userId: data.id, user: user, status: status } });
+    } else {
+      alert('Strategy Not Active')
+    }
+  }
+
+  // ALL STRATEGY
+  goToInActiveStrategy(data: any) {
+    if (data.inActiveBot > 0) {
+      const status = 'All'
+      const user = `${data.firstName} ${data.lastName}`.trim();
+      this.router.navigate(["admin/strategy"], { queryParams: { userId: data.id, user: user, status: status } });
+    } else {
+      alert('Strategy Not Found')
+    }
   }
 
 
