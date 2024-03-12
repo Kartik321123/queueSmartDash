@@ -1,8 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { StrategyService } from '../provider/strategy.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-strategy-transaction',
@@ -10,7 +11,7 @@ import { StrategyService } from '../provider/strategy.service';
   styleUrls: ['./strategy-transaction.component.scss']
 })
 export class StrategyTransactionComponent {
-  displayedColumns: string[] = ['name', 'email'];
+  displayedColumns: string[] = ['amount', 'time'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
@@ -18,7 +19,8 @@ export class StrategyTransactionComponent {
   filter: any
   totalLength: any
   userId: any
-  routeResult:any
+  routeResult: any
+  totalTransaction:any
 
 
   constructor(
@@ -26,14 +28,8 @@ export class StrategyTransactionComponent {
     private activatedRoute: ActivatedRoute,
     private strategyService: StrategyService,
     private navigateRouter: Router,
-
+    @Inject(MAT_DIALOG_DATA) public values:any
   ) {
-    this.activatedRoute.queryParams.subscribe((res) => {
-      this.routeResult= res
-      if (res['userId']) {
-        this.userId = res['userId']
-      }
-    });
     let data = localStorage.getItem('userinfo')
     if (data) {
       this.parseData = JSON.parse(data);
@@ -46,14 +42,27 @@ export class StrategyTransactionComponent {
     this.getTransactionDetails();
   }
 
+
   getTransactionDetails() {
+    this.showLoader = true;
+    this.ngxService.start();
     const obj: any = {
       token: this.parseData.token,
-      userId: this.userId,
+      userId: this.values.userId,
+      botId: this.values.botId
     }
 
     this.strategyService.strategyTransaction(obj).subscribe((res) => {
-      console.log("getTransactionDetails getTransactionDetails", res)
+      this.dataSource = res.data.transaction
+      this.paginator = res.data.transaction.length
+
+      let totalUsdtAmount = 0;
+      for (const item of res.data.transaction) {
+        totalUsdtAmount += item.usdtAmount || 0;
+        
+      }
+      this.totalTransaction= totalUsdtAmount.toFixed(2)
+      this.showLoader = false;
     })
 
   }
@@ -62,11 +71,6 @@ export class StrategyTransactionComponent {
     this.filter.pageCount.page = event.pageIndex + 1;
     this.filter.pageCount.limit = event.pageSize;
     // this.getUserData();
-  }
-
-  // BACK NAVIGATE TO USER STRATEGY LIST
-  backToUser() {
-    this.navigateRouter.navigate(["admin/strategy"], { queryParams: { userId: this.userId,user:this.routeResult.user,status:this.routeResult.status } });
   }
 
 

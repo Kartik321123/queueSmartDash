@@ -66,6 +66,8 @@ export class StrategyService {
       });
       let params = new HttpParams()
         .set('userId', data.userId)
+        .set('id', data.botId)
+
   
       return this.http.get(userUrl, { headers, params })
         .pipe(map((res: any) => {

@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { StrategyService } from '../provider/strategy.service';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
+import { MatDialog } from '@angular/material/dialog';
+import { StrategyTransactionComponent } from '../strategy-transaction/strategy-transaction.component';
 
 export enum DateRangeEnum {
   Last30Dayds = '30Days',
@@ -50,7 +52,9 @@ export class StrategyListComponent implements OnInit {
     private router: ActivatedRoute,
     private ngxService: NgxUiLoaderService,
     private navigateRouter: Router,
-    private strategyService: StrategyService
+    private strategyService: StrategyService,
+    private matDialog: MatDialog,
+
   ) {
     this.router.queryParams.subscribe(res => {
       if (res['userId']) {
@@ -113,6 +117,7 @@ export class StrategyListComponent implements OnInit {
     this.showLoader = true;
     this.ngxService.start();
     this.strategyService.activeBots(this.filter).subscribe((res: any) => {
+      console.log("strategyLists strategyLists",res)
       this.dataSource = res.results
       this.totalLength = res.count;
       this.showLoader = false;
@@ -230,8 +235,18 @@ export class StrategyListComponent implements OnInit {
   }
 
 
-  strategyTransaction(data:AnyCatcher){
-    this.navigateRouter.navigate(["admin/strategy/str_transaction"], { queryParams: { userId: this.userId,user:this.userName,status:this.status } });
+  strategyTransaction(data:any){
+    this.matDialog.open(StrategyTransactionComponent,{
+      width:"700px",
+      data:{
+        userId:this.userId,
+        user:this.userName,
+        botId:data,
+        status:this.status
+      }
+    })
+    
+    // this.navigateRouter.navigate(["admin/strategy/str_transaction"], { queryParams: { userId: this.userId, botId:data,user:this.userName,status:this.status } });
   }
 
 }

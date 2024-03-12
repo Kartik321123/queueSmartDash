@@ -142,7 +142,7 @@ export class ClintComponent implements OnInit {
   selectionChange(event: any) {
     const selectedValue = event.value;
     if (selectedValue === DateRangeEnum.Last30Dayds) {
-      var start = new Date();    // console.log("filterValue filterValue",filterValue)
+      var start = new Date(); 
 
       var today = new Date();
       var last30Days = new Date(today.getTime() - (30 * 24 * 3600000));

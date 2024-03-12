@@ -2,7 +2,23 @@
     padding: 0px 10px;
 }
 
-.back_arrow:hover {
-    color: #1e88e5;
-    cursor: pointer;
+.header {
+    padding: 10px;
+
+    h3{
+        color: #33475B;
+        margin: 0px;
+    }
 }
+
+.table_container{
+    max-height: 500px;
+}
+.usdt {
+    font-size: 9px;
+    font-weight: bold;
+}
+.ml-10{
+    margin-left: 10px;
+}
+
