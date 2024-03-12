@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { WithdrawalService } from '../provider/withdrawal.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent } from 'src/app/_shared/modules/alert/alert.component';
 
 
 @Component({
@@ -22,6 +24,8 @@ export class RequestsComponent implements OnInit {
   constructor(
     private withdrawalService: WithdrawalService,
     private ngxService: NgxUiLoaderService,
+    private matDialog: MatDialog,
+
   ) {
     let data = localStorage.getItem('userinfo');
     if (data) {
@@ -60,7 +64,17 @@ export class RequestsComponent implements OnInit {
 
   // APPROVE USER REQUESTS
   approveRequest(data: any) {
-    console.log("approveRequest approveRequest", data)
+    this.matDialog.open(AlertComponent, {
+      width: "300px"
+    }).afterClosed().subscribe((res) => {
+      if (res == true) {
+        this._approveRequest(data);
+      }
+    })
+  }
+
+  _approveRequest(data: any) {
+    alert("Done")
   }
 
 
