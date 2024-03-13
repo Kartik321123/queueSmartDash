@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   showFiller = false;
   vistorMenuAdded = false;
   close = false
+  userData: any
 
   showSubSubMenu: boolean = false;
   fixedMenus: NavItem[] = [
@@ -36,14 +37,16 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    // private toastr: ToastrService,
     private loader: NgxUiLoaderService
   ) {
-
+    const data: any = localStorage.getItem('userinfo')
+    if (data) {
+      this.userData = JSON.parse(data)
+    }
   }
 
 
-  
+
   mouseenter() {
     if (!this.isExpanded) {
       this.isShowing = true;
@@ -98,7 +101,7 @@ export class HomeComponent implements OnInit {
         // iconName: 'person',
         isSubSubmenu: false
       },
- 
+
       // {
       //   displayName: 'Wallet',
       //   route: 'admin/userWallet',

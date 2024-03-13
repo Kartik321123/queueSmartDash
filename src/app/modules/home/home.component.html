@@ -28,6 +28,9 @@
 
         <div class="spacer"></div>
 
+        <p class="capital userName">{{userData?.admin.firstName}} {{userData?.admin.lastName || ''}}</p>
+
+
         <div class="profile-menu">
             <button mat-icon-button [matMenuTriggerFor]="menu" class="">
                 <mat-icon matTooltip="Logout" style="font-size: 25px;">account_circle</mat-icon>

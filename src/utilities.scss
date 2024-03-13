@@ -222,8 +222,23 @@ tr.cursor-pointer:hover {
     height: 33px;
     padding: 5px;
 
-    .mat-mdc-select-value{
+    .mat-mdc-select-value {
         color: #687888;
         font-size: 14px;
+    }
+}
+
+/* For mobiles: */
+@media only screen and (max-width: 500px) {
+    .search {
+        width: 100px;
+        input {
+            width: 100px;
+        }
+    }
+
+    .visitor-select-box {
+        width: 125px;
+
     }
 }

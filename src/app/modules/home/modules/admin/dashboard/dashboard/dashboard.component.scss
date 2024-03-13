@@ -1,302 +1,115 @@
-.main-card {
-  width: 95%;
-  margin: auto;
-  margin-top: 2%;
+.main_container {
+  padding: 0px 10px;
 }
 
-.datepicker {
-  color: black;
-  margin-top: 7px;
-  width: 100%;
+.rewenue {
+  line-height: 5px;
   margin-left: 5px;
-}
 
-.grid-container {
-  display: grid;
-  grid-template-columns: 23% 30% 23% 23%;
-}
-
-.content {
-  margin-top: 10px;
-  margin-right: 10px;
-  text-align: center;
-
-}
-
-.title {
-  text-align: center;
-  justify-content: center;
-  justify-items: center;
-}
-
-.formField {
-  margin-top: 10%;
-}
-
-.grid-container1 {
-  margin-top: 5%;
-}
-
-.appchart {
-  margin-top: 5%;
-}
-
-.tableContainer {
-  display: flex;
-  flex-direction: column;
-  max-height: 100%;
-  min-width: 100%;
-
-  .table {
-    font-size: 50px;
-    font-family: Optimum, Helvetica, sans-serif;
-    border-collapse: collapse
+  h1 {
+    margin: 0px;
+    color: green;
+    font-weight: 600;
   }
 
-  th {
-    font-weight: bold;
-    background-color: #fcf6f6;
-  }
-
-  td {
-    cursor: pointer;
-    font-size: 12px;
-    cursor: pointer;
+  p {
+    margin: 0px;
+    color: #687888;
+    font-weight: 500;
   }
 }
 
-
-
-.countPlanField {
-  margin-left: 10px;
-  width: 20%;
-}
-
-.countPeriodField {
-  margin-left: 20px;
-  width: 20%;
-
-}
-
-.countDateField {
-  top: 7px;
-  margin-left: 20px;
-  width: 22%;
-}
-
-.searchData {
-  cursor: pointer;
-  margin-left: 20px;
-}
-
-.countCard {
-  position: relative;
-  float: right;
-  margin-right: 7px;
-  width: 21%;
-  height: 78px;
-  margin-top: -48px;
-
-}
-
-.resetIcon {
-  cursor: pointer;
-  opacity: .1;
-}
-
-.resetIcon:hover {
-  opacity: 0.7;
-
-}
-
-.soldSummary {
-  display: grid;
-  grid-template-columns: auto auto auto;
-}
-
-.flip-card {
-  background-color: transparent;
-  width: inherit;
-  height: 120px;
-  perspective: 1000px;
-  margin: 5px;
-}
-
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front,
-.flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-.flip-card-front {
-  background-color: white;
-  color: black;
-}
-
-.flip-card-back {
-  background-color: #2980b9;
-  color: white;
-  transform: rotateY(180deg);
-
-}
-
-.flip-card-back p {
-  margin-top: 5px;
-  margin-bottom: 9px;
-}
-
-.flip-card-front h4 {
-  margin-top: 20px;
-}
-
-
-.revanuecard {
-  background-color: transparent;
-  // width: 300px;
-  padding: 10px;
-  // margin-top: 10px;
-
-  height: 110px;
-  perspective: 1000px;
-  margin-left: -10px;
-
-}
-
-.revanuecard:hover .revanuecard-inner {
-  transform: rotateY(180deg);
-}
-
-.revanuecard-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-
-}
-
-.revanuecard-front h4 {
-  margin-top: 25px;
-}
-
-
-.revanuecard-front,
-.revanuecard-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 4px;
-
-}
-
-.revanuecard-front {
-  background-color: white;
-  color: black;
-  border-radius: 4px;
-
-}
-
-.revanuecard-back {
-  background-color: #2980b9;
-  color: white;
-  transform: rotateY(180deg);
-  border-radius: 4px;
-
-}
-
-
-.starterData {
-  margin-left: 10px;
-  font-size: 20px;
+.usdtTotal {
+  font-size: 15px;
   font-weight: bold;
 }
 
-.reset {
-  margin-top: -33px;
-  margin-left: 36px;
-  opacity: .3;
-  cursor: pointer;
+.company_details {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 24.5% 24.5% 24.5% 24.5%;
+  gap: 8px;
+  border-radius: 5px;
+
+  .detail {
+    // margin-right: 10px;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 5px;
+    padding: 15px;
+    border-radius: 4px;
+
+    .value_graph {
+      display: grid;
+      grid-template-columns: 60% 40%;
+
+      .value {
+        line-height: 10px;
+        margin-top: 35px;
+      }
+
+      .para {
+        font-size: 14px;
+        color: #687888;
+      }
+    }
+  }
 }
 
-.reset:hover {
-  opacity: .8;
+.para_value {
+  font-size: 25px;
+  font-weight: 600;
+  margin: 0px;
+  color: rgba(51, 71, 91, 1);
 }
 
-.soldPlans {
-  color: green;
-  margin-right: 10px;
-  ;
+.para_heading {
+  color: #687888;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0px;
 }
+
+.usdt {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.company_rewenue_graph {
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 5px;
+  margin-top: 10px;
+}
+
 
 /* For tablets: */
-@media only screen and (max-width: 900px) {
-  .grid-container {
+@media only screen and (max-width: 950px) {
+  .company_details {
     display: grid;
-    grid-template-columns: auto auto;
-  }
-
-  .tableContainer {
-    width: 100%;
-    overflow: scroll;
-  }
-
-  .soldSummary {
-    display: flex;
-  }
-
-  .flip-card {
-    background-color: transparent;
-    width: -webkit-fill-available;
-    height: 120px;
-    perspective: 1000px;
-    margin: 5px;
+    grid-template-columns: 50% 49%;
   }
 }
 
 
 /* For mobiles: */
 @media only screen and (max-width: 500px) {
-  .grid-container {
-    display: grid;
-    grid-template-columns: auto;
-  }
-
-  .soldSummary {
+  .company_details {
     display: block;
+
+    .detail {
+      margin-top: 15px;
+
+    }
   }
 
-  .flip-card {
-    background-color: transparent;
-    width: inherit;
-    height: 120px;
-    perspective: 1000px;
-    margin: 5px;
+  .header {
+    display: none;
   }
-  .datepicker {
-    mat-form-field{
-      width: 96%;
+
+  .rewenue {
+    margin-top: 15px;
+
+    h1 {
+      font-size: 23px;
     }
   }
 }

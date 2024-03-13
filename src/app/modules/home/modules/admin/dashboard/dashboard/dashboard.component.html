@@ -8,9 +8,132 @@
     <div class="flex pad-8 header">
 
         <!-- HEADING -->
-        <p class="heading">Dashboard</p>
+        <p class="heading capital">Hello , {{userData?.admin.firstName}} {{userData?.admin.lastName || ''}}</p>
         <div class="spacer"></div>
 
     </div>
+    
+    <div class="rewenu_filter flex">
+
+        <!-- TOTAL REWENUE -->
+        <div class="rewenue">
+            <h1>300.00 <span class="usdtTotal">(USDT)</span></h1>
+            <p>Total rewenue</p>
+        </div>  
+
+        <div class="spacer"></div>
+
+        <!-- SELECT DURATION DAYS -->
+        <div class="select-box visitor-select-box">
+            <mat-select #select [(value)]="selectedDefaultValue" placeholder="Select Date" ngmo
+                (selectionChange)="selectionChange($event)">
+                <mat-option [value]="DateRangeEnum.Today">
+                    Today
+                </mat-option>
+                <mat-option [value]="DateRangeEnum.Last7Days">
+                    Last 7 Days
+                </mat-option>
+                <mat-option [value]="DateRangeEnum.Last30Dayds">
+                    Last 30 Days
+                </mat-option>
+                <mat-option [value]="DateRangeEnum.Custom" (click)="picker.open()">
+                    {{getCustomOptiontext()}}
+                </mat-option>
+            </mat-select>
+        </div>
+
+        <div class="simple-hidden">
+            <mat-form-field color="accent" appearance="fill">
+                <mat-label>From</mat-label>
+                <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
+                    <input matStartDate formControlName="from" #dateRangeStart placeholder="Start date">
+                    <input matEndDate formControlName="to" #dateRangeEnd placeholder="End date"
+                        (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker" #datepicker></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+            </mat-form-field>
+        </div>
+
+
+    </div>
+
+    <div class="company_details">
+
+        <div class="detail">
+            <p class="para_heading capital">{{filterDays}} rewenue</p>
+
+            <div class="value_graph">
+
+                <div class="value">
+                    <p class="para_value " style="color: green;">20 <span class="usdtTotal">(USDT)</span></p>
+                    <p class="para">{{filterDays}}</p>
+                </div>
+
+                <div class="graph">
+                    <img src="../../../../../../../assets/images/images.jpeg" width="100%" alt="">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="detail">
+            <p class="para_heading">New subscription</p>
+
+            <div class="value_graph">
+
+                <div class="value">
+                    <p class="para_value">{{clientsLength}}</p>
+                    <p class="para">{{filterDays}}</p>
+                </div>
+
+                <div class="graph">
+                    <img src="../../../../../../../assets/images/images.jpeg" width="100%" alt="">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="detail">
+            <p class="para_heading">New orders</p>
+
+            <div class="value_graph">
+
+                <div class="value">
+                    <p class="para_value">10</p>
+                    <p class="para">{{filterDays}}</p>
+                </div>
+
+                <div class="graph">
+                    <img src="../../../../../../../assets/images/images.jpeg" width="100%" alt="">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="detail">
+            <p class="para_heading">Avg. order rewenue</p>
+
+            <div class="value_graph">
+
+                <div class="value">
+                    <p class="para_value">20</p>
+                    <p class="para">{{filterDays}}</p>
+                </div>
+
+                <div class="graph">
+                    <img src="../../../../../../../assets/images/images.jpeg" width="100%" alt="">
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="company_rewenue_graph">
+        <apx-chart [series]="chartOptions['series']" [chart]="chartOptions['chart']"
+            [xaxis]="chartOptions['xaxis']"></apx-chart>
+    </div>
+
 
 </div>

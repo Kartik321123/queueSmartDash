@@ -1,6 +1,3 @@
-// @import '../../../vizitor-lighttheme.scss';
-// $accent: map-get($vizitor-app-theme , accent);
-// $primary: map-get($vizitor-app-theme, primary);
 
 .drawer {
     position: fixed;
@@ -9,7 +6,6 @@
     transition-timing-function: linear;
     background-color: #1e88e5;
 }
-
 
 body {
     overflow: hidden;
@@ -20,17 +16,7 @@ body {
     justify-content: space-between;
 }
 
-// .drawer .contents {
-//     // padding: 16px;
-// }
-
-// .main {
-
-// }
-
-
 .menu-container {
-    // color: #282c36 !important;
     padding: 8px;
     display: flex;
     margin: 8px;
@@ -51,9 +37,6 @@ body {
     width: 100%;
     z-index: 999;
     height: 80px;
-    ;
-
-
 }
 
 
@@ -72,7 +55,6 @@ body {
 
     .logo-container {
         margin-top: 16px;
-// 
         .logo-img {
             width: 100px;
         }
@@ -82,13 +64,10 @@ body {
 }
 
 
-
 .mat-icon {
     font-size: 18px;
     margin-right: 8px;
 }
-
-
 
 .menu-main {
     height: 100%;
@@ -96,138 +75,12 @@ body {
     overflow: hidden;
 }
 
+.userName{
+    display: none;
+}
 
-// .header-menu {
-//     width: 7%;
-
-//     button {
-//         margin-left: 8px;
-//     }
-
-//     .mat-icon {
-//         font-size: 24px !important;
-//         // color: #fff;
-//     }
-// }
-
-// .mat-drawer-inner-container {
-//     // background-color: mat-color($primary);
-// }
-
-// .profile-menu {
-//     .mat-icon {
-//         font-size: 40px !important;
-//     }
-// }
-
-// .profile-menu:hover {
-//     color: rgb(233, 226, 226);
-// }
-
-// .mainHeader {
-
-//     .profile-menu {
-//         display: flex;
-//         float: right;
-//         margin-left: 120%;
-//     }
-// }
-
-// .buttons {
-//     display: flex;
-//     float: right;
-//     margin-left: 82%;
-// }
-
-// .example-toolbar {
-//     margin: 0%;
-//     padding: 0%;
-//     width: 100%;
-
-// }
-
-// .submenu.expanded {
-//     transform: scaleY(1);
-// }
-
-// .profile-menu {
-//     margin-left: 92%;
-// }
-
-
-// a {
-//     padding: 10px 8px 8px 32px;
-//     text-decoration: none;
-//     font-size: 35px;
-//     color: white;
-//     display: block;
-//     transition: 0.3s;
-// }
-
-
-// @media only screen and (max-width: 1100px) {
-//     .profile-menu {
-//         margin-left: 90%;
-//     }
-
-// }
-
-// @media only screen and (max-width: 950px) {
-//     .profile-menu {
-//         margin-left: 86%;
-//     }
-
-// }
-
-
-// /* For tablets: */
-// @media only screen and (max-width: 810px) {
-//     .drawer {
-//         position: fixed;
-//         height: 100vh;
-//         width: 0px;
-//     }
-
-//     .drawer1 {
-//         display: initial;
-//     }
-
-//     .profile-menu {
-//         margin-left: 83%;
-//     }
-
-//     .logo-img {
-//         display: none;
-//     }
-// }
-
-
-// @media only screen and (max-width: 450px) {
-//     .drawer {
-//         position: fixed;
-//         height: 100vh;
-//         width: 0px;
-//     }
-
-//     .drawer1 {
-//         display: initial;
-//     }
-
-//     .profile-menu {
-//         margin-left: 78%;
-//     }
-
-// }
-
-
-// @media only screen and (max-width: 450px) {
-//     .drawer1 {
-//         position: fixed;
-//         height: 100vh;
-//         width: 60px;
-//     }
-
-
-
-
-// }
+@media only screen and (max-width: 500px) {
+    .userName{
+        display: block;
+    }
+}

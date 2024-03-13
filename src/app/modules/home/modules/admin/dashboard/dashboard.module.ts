@@ -19,6 +19,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -45,13 +46,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatOptionModule,
     MatCardModule,
     MatIconModule,
-    MatTooltipModule
-    
-
-
-
-
-
+    MatTooltipModule,
+    NgApexchartsModule
   ]
 })
 export class DashboardModule { }
