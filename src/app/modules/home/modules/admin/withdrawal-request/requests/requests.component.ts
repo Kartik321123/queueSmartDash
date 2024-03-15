@@ -4,6 +4,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { WithdrawalService } from '../provider/withdrawal.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertComponent } from 'src/app/_shared/modules/alert/alert.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class RequestsComponent implements OnInit {
     private withdrawalService: WithdrawalService,
     private ngxService: NgxUiLoaderService,
     private matDialog: MatDialog,
-
+    private toastr:ToastrService
   ) {
     let data = localStorage.getItem('userinfo');
     if (data) {
@@ -74,7 +75,8 @@ export class RequestsComponent implements OnInit {
   }
 
   _approveRequest(data: any) {
-    alert("Done")
+    this.toastr.success("Request approved for transaction")
+    console.log("coooooooo")
   }
 
 

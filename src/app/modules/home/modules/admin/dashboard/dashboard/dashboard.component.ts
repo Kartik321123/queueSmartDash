@@ -30,6 +30,9 @@ export class DashboardComponent implements OnInit {
   userData: any
   clientsLength: any
   filterDays: any
+  totalProfit: any
+  filteredProfit: any
+
   range = new FormGroup({
     from: new FormControl(),
     to: new FormControl()
@@ -52,7 +55,7 @@ export class DashboardComponent implements OnInit {
   };
 
   constructor(
-    private dashSrvice: DashboardService,
+    private dashService: DashboardService,
     private ngxService: NgxUiLoaderService,
     private clientService: ClintService,
   ) {
@@ -65,6 +68,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.initializeFilter();
     this.getDefaultData();
+    this.getCompanyTotalProfit();
   }
 
 
@@ -78,7 +82,7 @@ export class DashboardComponent implements OnInit {
       token: this.userData.token,
       pageCount: {
         page: 1,
-        limit: 5
+        limit: Number.MAX_SAFE_INTEGER
       },
       dateRange: {
         from: start.toISOString(),
@@ -86,7 +90,8 @@ export class DashboardComponent implements OnInit {
       },
       filter: {
         text: ''
-      }
+      },
+      transactionType: 'COMPANY_PROFIT',
     }
     this.filter = obj;
   }
@@ -102,6 +107,41 @@ export class DashboardComponent implements OnInit {
     }, error => {
       this.showLoader = false;
       this.ngxService.stop();
+    })
+  }
+
+  // COMPANY TOTAL PROFIT
+  getCompanyTotalProfit() {
+    const data = {
+      token: this.userData.token,
+      transactionType: 'COMPANY_PROFIT',
+      pageCount: {
+        page: 1,
+        limit: Number.MAX_SAFE_INTEGER
+      },
+    }
+    this.dashService.companyTotalProfit(data).subscribe((res) => {
+      this.totalProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0'
+    })
+  }
+
+  // FILTER COMPANY PROFIT BASES OF DATE
+  getCompanyFilteredProfit() {
+    this.dashService.companyProfit(this.filter).subscribe((res) => {
+      this.filteredProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0'
+
+      const groupedByDate = res.results.reduce((acc: any, curr: any) => {
+        const date = curr.createdAt.split('T')[0];
+        acc[date] = (acc[date] || 0) + curr.usdtAmount;
+        return acc;
+      }, {});
+
+      const newarray = Object.entries(groupedByDate).map(([createdAt, usdtAmount]) => ({
+        createdAt,
+        usdtAmount: typeof usdtAmount === 'number' ? usdtAmount.toFixed(2) : '0.00' 
+      }));
+
+      console.log("getCompanyFilteredProfit 22222222222", newarray);
     })
   }
 
@@ -142,6 +182,7 @@ export class DashboardComponent implements OnInit {
         to: start.toISOString()
       }
       this.getUserData()
+      this.getCompanyFilteredProfit();
     } else if (selectedValue === DateRangeEnum.Last7Days) {
       var start = new Date();
 
@@ -153,6 +194,7 @@ export class DashboardComponent implements OnInit {
         to: start.toISOString()
       }
       this.getUserData();
+      this.getCompanyFilteredProfit();
     } else if (selectedValue === DateRangeEnum.Today) {
       var start = new Date();
       start.setUTCHours(0, 0, 0, 0);
@@ -163,6 +205,7 @@ export class DashboardComponent implements OnInit {
         to: end.toISOString()
       }
       this.getUserData();
+      this.getCompanyFilteredProfit();
     }
   }
 

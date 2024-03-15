@@ -56,7 +56,7 @@ export class StrategyTransactionComponent {
       this.dataSource = res.data.transaction
       this.paginator = res.data.transaction.length
 
-      let totalUsdtAmount = 0;
+      let totalUsdtAmount = 0;  
       for (const item of res.data.transaction) {
         totalUsdtAmount += item.usdtAmount || 0;
         

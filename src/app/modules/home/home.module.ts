@@ -46,7 +46,7 @@ import { AdminModule } from './modules/admin/admin.module';
     NgxUiLoaderModule,
     MatMenuModule,
     MatTooltipModule,
-    ToastrModule,
+    ToastrModule.forRoot(),
     AdminModule
   ]
 })

@@ -13,6 +13,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { WithdrawalRequestRoutingModule } from './withdrawal-request-routing.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { WithdrawalRequestRoutingModule } from './withdrawal-request-routing.mod
     MatPaginatorModule,
     MatToolbarModule,
     MatTooltipModule,
-    WithdrawalRequestRoutingModule
+    WithdrawalRequestRoutingModule,
+    ToastrModule.forRoot(),
+
   ]
 })
 export class WithdrawalRequestModule { }

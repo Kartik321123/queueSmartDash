@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       const password = this.loginForm.value.password
       this.authService.signIn(email, password).subscribe((result) => {
         StorageHelper.userInfo = result;
-        this.router.navigate(['/admin/client']);
+        this.router.navigate(['/admin/dashboard']);
       })
     }
   }

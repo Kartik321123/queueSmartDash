@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -7,6 +8,41 @@ import { map } from 'rxjs/operators';
 })
 export class DashboardService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+
+  ) { }
+
+  companyTotalProfit(data: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${data.token}`
+    });
+    const params = new HttpParams()
+      .set('page', data.pageCount.page).set('limit', data.pageCount.limit).set('transactionType', data.transactionType);
+    const url = 'https://api.cryptozack.com/wallet/company-transaction';
+
+    return this.http.get(url, { headers, params })
+      .pipe(map((res: any) => {
+        return res.data
+      }),
+      );
+  }
+
+  companyProfit(data: any) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${data.token}`
+    });
+    const params = new HttpParams()
+      .set('page', data.pageCount.page).set('limit', data.pageCount.limit).set('transactionType', data.transactionType).set('fromDate', data.dateRange.from)
+      .set('toDate', data.dateRange.to)
+    const url = 'https://api.cryptozack.com/wallet/company-transaction';
+
+    return this.http.get(url, { headers, params })
+      .pipe(map((res: any) => {
+        return res.data
+      }),
+      );
+  }
+
 
 }

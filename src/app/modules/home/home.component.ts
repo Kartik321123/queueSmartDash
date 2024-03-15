@@ -5,7 +5,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatMenu } from '@angular/material/menu';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MatSelectChange } from '@angular/material/select';
-// import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 import { Utils } from 'src/app/helpers/utilities';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavItem } from './modules/side-nav/components/menu-list/menu-list.component';
@@ -37,7 +37,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private loader: NgxUiLoaderService
+    private loader: NgxUiLoaderService,
+    private toastr:ToastrService
   ) {
     const data: any = localStorage.getItem('userinfo')
     if (data) {
@@ -46,78 +47,40 @@ export class HomeComponent implements OnInit {
   }
 
 
-
-  mouseenter() {
-    if (!this.isExpanded) {
-      this.isShowing = true;
-    }
-  }
-
-  mouseleave() {
-    if (!this.isExpanded) {
-      this.isShowing = false;
-    }
-  }
-
-
-
   ngOnInit(): void {
     this.handleRouteChange();
 
   }
 
-
   handleRouteChange() {
     const url = window.location.href;
     if (url.includes('admin')) {
-      this.goToVisitor(false)
+      this.goToDashboard(false)
     }
   }
 
-
-
-  closeSidebar() {
-    this.close = true
-  }
-  openSidebar() {
-    this.close = false
-  }
-
-
-  goToVisitor(shouldRedirect = true) {
+  goToDashboard(shouldRedirect = true) {
 
     const item: NavItem[] = [
 
       {
         displayName: 'Home',
         route: 'admin/dashboard',
-        // iconName: 'dashboard',
         isSubSubmenu: false
       },
-
       {
         displayName: 'Users',
         route: 'admin/client',
-        // iconName: 'person',
         isSubSubmenu: false
       },
-
-      // {
-      //   displayName: 'Wallet',
-      //   route: 'admin/userWallet',
-      //   // iconName: 'person',
-      //   isSubSubmenu: false
-      // },
       {
         displayName: 'Withdrawal Req.',
         route: 'admin/withDrawal',
-        // iconName: 'person',
         isSubSubmenu: false
       },
       {
         displayName: 'Wallet Tier',
         route: 'admin/wallettier',
-        // iconName: 'person',
         isSubSubmenu: false
       },
     ]
@@ -134,23 +97,6 @@ export class HomeComponent implements OnInit {
     if (shouldRedirect) {
       this.router.navigate(['/admin/dashboard']);
     }
-  }
-
-
-  shouldHighlightButton(menu: string) {
-    if (menu === 'visitor') {
-      if ((!window.location.href.includes('setting') && window.location.href.includes('visitor'))) {
-        return true
-      }
-      return false
-    } else if (menu === 'setting') {
-      if ((!window.location.href.includes('notification') && window.location.href.includes('setting'))) {
-        return true
-      }
-      return false;
-    }
-
-    return window.location.href.includes(menu);
   }
 
 
