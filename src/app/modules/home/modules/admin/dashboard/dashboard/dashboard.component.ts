@@ -10,7 +10,17 @@ import { DashboardService } from '../Providers/dashboard.service';
 import { DateRangeEnum } from '../../Clints/clint/clint.component';
 import { DatePipe } from '@angular/common';
 import { ClintService } from '../../Clints/Providers/clint.service';
-
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexTitleSubtitle,
+  ApexDataLabels,
+  ApexFill,
+  ApexMarkers,
+  ApexYAxis,
+  ApexXAxis,
+  ApexTooltip
+} from "ng-apexcharts";
 
 
 @Component({
@@ -38,21 +48,16 @@ export class DashboardComponent implements OnInit {
     to: new FormControl()
   })
 
-  chartOptions: Partial<any> = {
-    series: [
-      {
-        name: 'Sales',
-        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-      }
-    ],
-    chart: {
-      height: 350,
-      type: 'line'
-    },
-    xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
-    }
-  };
+  series!: ApexAxisChartSeries;
+  chart!: ApexChart;
+  dataLabels!: ApexDataLabels;
+  markers!: ApexMarkers;
+  title!: ApexTitleSubtitle;
+  fill!: ApexFill;
+  yaxis!: ApexYAxis;
+  xaxis!: ApexXAxis;
+  tooltip!: ApexTooltip;
+  dataSeries: any
 
   constructor(
     private dashService: DashboardService,
@@ -65,10 +70,20 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.initializeFilter();
-    this.getDefaultData();
-    this.getCompanyTotalProfit();
+    this.getData();
+
+  }
+
+  async getData(): Promise<void> {
+    this.showLoader = true;
+    this.ngxService.start();
+    await this.getDefaultData();
+    await this.getCompanyTotalProfit();
+    await this.initChartData();
+    this.showLoader = false;
+    this.ngxService.stop();
   }
 
 
@@ -97,39 +112,45 @@ export class DashboardComponent implements OnInit {
   }
 
   // GET ALL USER LIST
-  getUserData() {
+  async getUserData() {
     this.showLoader = true;
     this.ngxService.start();
-    this.clientService.getUsers(this.filter).subscribe((res: any) => {
-      this.clientsLength = res.data.results.length
+    try {
+      const res: any = await this.clientService.getUsers(this.filter).toPromise();
+      this.clientsLength = res.data.results.length;
       this.showLoader = false;
-      this.ngxService.stop();
-    }, error => {
+    } catch (error) {
       this.showLoader = false;
-      this.ngxService.stop();
-    })
+    }
   }
 
+
   // COMPANY TOTAL PROFIT
-  getCompanyTotalProfit() {
-    const data = {
-      token: this.userData.token,
-      transactionType: 'COMPANY_PROFIT',
-      pageCount: {
-        page: 1,
-        limit: Number.MAX_SAFE_INTEGER
-      },
+  async getCompanyTotalProfit() {
+    this.showLoader = true;
+    this.ngxService.start();
+    try {
+      const data = {
+        token: this.userData.token,
+        transactionType: 'COMPANY_PROFIT',
+        pageCount: {
+          page: 1,
+          limit: Number.MAX_SAFE_INTEGER
+        },
+      };
+      const res = await this.dashService.companyTotalProfit(data).toPromise();
+      this.totalProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0';
+      this.showLoader = false;
+    } catch (error) {
+      this.showLoader = false;
     }
-    this.dashService.companyTotalProfit(data).subscribe((res) => {
-      this.totalProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0'
-    })
   }
 
   // FILTER COMPANY PROFIT BASES OF DATE
-  getCompanyFilteredProfit() {
-    this.dashService.companyProfit(this.filter).subscribe((res) => {
-      this.filteredProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0'
-
+  async getCompanyFilteredProfit() {
+    try {
+      const res = await this.dashService.companyProfit(this.filter).toPromise();
+      this.filteredProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0';
       const groupedByDate = res.results.reduce((acc: any, curr: any) => {
         const date = curr.createdAt.split('T')[0];
         acc[date] = (acc[date] || 0) + curr.usdtAmount;
@@ -138,24 +159,88 @@ export class DashboardComponent implements OnInit {
 
       const newarray = Object.entries(groupedByDate).map(([createdAt, usdtAmount]) => ({
         createdAt,
-        usdtAmount: typeof usdtAmount === 'number' ? usdtAmount.toFixed(2) : '0.00' 
+        usdtAmount: typeof usdtAmount === 'number' ? usdtAmount.toFixed(2) : '0.00'
       }));
 
-      console.log("getCompanyFilteredProfit 22222222222", newarray);
-    })
+      this.dataSeries = newarray;
+    } catch (error) {
+    }
+  }
+
+  async initChartData(): Promise<void> {
+    const dates = this.dataSeries.map((item: any) => {
+      return [new Date(item.createdAt).getTime(), parseFloat(item.usdtAmount)];
+    });
+
+    this.series = [
+      {
+        name: "USDT Amount",
+        data: dates
+      }
+    ];
+
+    this.chart = {
+      type: "line",
+      height: 350,
+      zoom: {
+        type: "x",
+        enabled: true,
+        autoScaleYaxis: true
+      },
+      toolbar: {
+        autoSelected: "zoom"
+      }
+    };
+
+    this.dataLabels = {
+      enabled: false
+    };
+
+    this.markers = {
+      size: 0
+    };
+
+    this.title = {
+      text: "Company Profit",
+      align: "left"
+    };
+
+    this.yaxis = {
+      labels: {
+        formatter: function (val) {
+          return val.toFixed(2);
+        }
+      },
+      title: {
+        text: "USDT Amount"
+      }
+    };
+
+    this.xaxis = {
+      type: "datetime"
+    };
+
+    this.tooltip = {
+      shared: false,
+      y: {
+        formatter: function (val) {
+          return val.toFixed(2);
+        }
+      }
+    };
   }
 
   // GET DEFAULT DATA OF LAST 30 DAYS
-  getDefaultData() {
+  async getDefaultData() {
     var obj = {
       value: this.selectedDefaultValue,
     }
-    this.selectionChange(obj);
+    await this.selectionChange(obj);
   }
 
 
   // DATE FILTER FROM TO END DATE
-  selectionChange(event: any) {
+  async selectionChange(event: any) {
     const selectedValue = event.value;
     switch (selectedValue) {
       case '30Days':
@@ -181,8 +266,10 @@ export class DashboardComponent implements OnInit {
         from: last30Days.toISOString(),
         to: start.toISOString()
       }
-      this.getUserData()
-      this.getCompanyFilteredProfit();
+      await this.getCompanyFilteredProfit();
+      await this.getUserData();
+      await this.initChartData();
+
     } else if (selectedValue === DateRangeEnum.Last7Days) {
       var start = new Date();
 
@@ -193,8 +280,11 @@ export class DashboardComponent implements OnInit {
         from: last7Days.toISOString(),
         to: start.toISOString()
       }
-      this.getUserData();
-      this.getCompanyFilteredProfit();
+      await this.getCompanyFilteredProfit();
+      await this.getUserData();
+      await this.initChartData();
+
+
     } else if (selectedValue === DateRangeEnum.Today) {
       var start = new Date();
       start.setUTCHours(0, 0, 0, 0);
@@ -204,12 +294,14 @@ export class DashboardComponent implements OnInit {
         from: start.toISOString(),
         to: end.toISOString()
       }
-      this.getUserData();
-      this.getCompanyFilteredProfit();
+      await this.getCompanyFilteredProfit();
+      await this.getUserData();
+      await this.initChartData();
     }
   }
 
-  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
+
+  async dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
     if (this.range && this.range.value && this.range.value.to) {
       const to = this.range.value.to || new Date(dateRangeStart.value);
       const from = this.range.value.from || new Date(dateRangeEnd.value);
@@ -218,7 +310,12 @@ export class DashboardComponent implements OnInit {
         from: new Date(from).toISOString(),
         to: new Date(to).toISOString()
       }
-      this.getUserData();
+      this.showLoader = true;
+      this.ngxService.start();
+      await this.getUserData();
+      await this.getCompanyFilteredProfit();
+      await this.initChartData();
+      this.showLoader = false;
     }
   }
 

@@ -27,7 +27,7 @@ export enum DateRangeEnum {
 
 
 export class StrategyListComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'profit', 'status', 'signupDate', 'action'];
+  displayedColumns: string[] = [ 'profit', 'status', 'signupDate', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false

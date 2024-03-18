@@ -12,14 +12,14 @@
         <div class="spacer"></div>
 
     </div>
-    
+
     <div class="rewenu_filter flex">
 
         <!-- TOTAL REWENUE -->
         <div class="rewenue">
             <h1>{{totalProfit}}<span class="usdtTotal">(USDT)</span></h1>
             <p>Total rewenue</p>
-        </div>  
+        </div>
 
         <div class="spacer"></div>
 
@@ -66,12 +66,13 @@
             <div class="value_graph">
 
                 <div class="value">
-                    <p class="para_value " style="color: green;">{{filteredProfit}} <span class="usdtTotal">(USDT)</span></p>
+                    <p class="para_value " style="color: green;">{{filteredProfit}} <span
+                            class="usdtTotal">(USDT)</span></p>
                     <p class="para">{{filterDays}}</p>
                 </div>
 
                 <div class="graph">
-                    <img src="../../../../../../../assets/images/images.jpeg" width="100%" alt="">
+                    <img src="../../../../../../../assets/images/company_rewenue.png" width="60%" alt="">
                 </div>
 
             </div>
@@ -88,7 +89,7 @@
                 </div>
 
                 <div class="graph">
-                    <img src="../../../../../../../assets/images/images.jpeg" width="100%" alt="">
+                    <img src="../../../../../../../assets/images/new_user.png" width="50%" alt="">
                 </div>
 
             </div>
@@ -105,7 +106,7 @@
                 </div>
 
                 <div class="graph">
-                    <img src="../../../../../../../assets/images/images.jpeg" width="100%" alt="">
+                    <img src="../../../../../../../assets/images/wallet_money_business_coin.png" width="60%" alt="">
                 </div>
 
             </div>
@@ -131,8 +132,10 @@
     </div>
 
     <div class="company_rewenue_graph">
-        <apx-chart [series]="chartOptions['series']" [chart]="chartOptions['chart']"
-            [xaxis]="chartOptions['xaxis']"></apx-chart>
+        <!-- <apx-chart [series]="chartOptions['series']" [chart]="chartOptions['chart']"
+            [xaxis]="chartOptions['xaxis']"></apx-chart> -->
+        <apx-chart [series]="series" [chart]="chart" [dataLabels]="dataLabels" [markers]="markers" [title]="title"
+            [fill]="fill" [yaxis]="yaxis" [xaxis]="xaxis" [tooltip]="tooltip" [autoUpdateSeries]="true"></apx-chart>
     </div>
 
 

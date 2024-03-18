@@ -10,7 +10,7 @@
         <!-- HEADING -->
         <div class="flex" style="align-items: center;">
             <mat-icon class="back_arrow" (click)="backToUser()" matTooltip="Back To User">arrow_back</mat-icon>
-            <p class="heading capital">{{status}} Strategys</p>
+            <p class="heading capital"> {{userName}} {{status}} Strategys</p>
         </div>
 
         <div class="spacer"></div>
@@ -121,7 +121,7 @@
 
             <!-- ROW SHOWS WHEN THERE IS NO MATCHING DATA -->
             <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="5" class="pad-16" style="text-align: center;">No data matching the filter
+                <td class="mat-cell" colspan="4" class="pad-16" style="text-align: center;">No data matching the filter
                 </td>
             </tr>
 
