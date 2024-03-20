@@ -1,15 +1,7 @@
 <div *ngIf="menu">
   <mat-list-item class="list-item" (click)="navigateToRoute()"
     [class.highlight-menu]="shouldHighlightButton(menu.route)">
-    
-    <button mat-icon-button class="btn" (click)="navigateToRoute()" [disabled]="menu.disabled"
-      (click)="stopPropagation($event)">
-      <!-- <mat-icon *ngIf="menu.iconName">{{menu.iconName}}</mat-icon> -->
-      <span style="font-size: 17px;">{{menu.displayName}}</span>
-    </button>
-
-    <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}" *ngIf="menu.children && menu.children.length">
-      expand_more</mat-icon>
+    <span class="side_Btns">{{menu.displayName}}</span>
   </mat-list-item>
   <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" *ngIf="menu.children && menu.children.length ">
 

@@ -93,36 +93,17 @@
     cursor: pointer;
 }
 
-// .header-menu {
-//     button {
-//         font-size: 15px;
-//         font-weight: bold;
-//         color: #777879;
-//         line-height: 1.2;
-//     }
-
-//     .highlight-menu {
-//         opacity: 1;
-//         color: #F37A4F;
-//         border-left: none;
-//     }
-// }
 
 .list-item {
     margin-bottom: 5px;
     width: 190px;
 
-    button {
-        font-size: 11px;
+    .side_Btns {
+        font-size: 14px;
         color: #bdb7b7;
         line-height: 1.2;
         display: flex;
         align-items: center;
-
-        .mat-icon {
-            font-size: 24px;
-            color: #fff;
-        }
     }
 }
 
@@ -130,9 +111,9 @@
     border-left: 3px solid #fff;
     background-color: #FEF3F1;
 
-    button {
-        font-size: 13px;
-        font-weight: bold;
+    .side_Btns {
+        font-size: 15px;
+        font-weight:bolder;
         color: #fff;
         opacity: 1;
         line-height: 1.2;

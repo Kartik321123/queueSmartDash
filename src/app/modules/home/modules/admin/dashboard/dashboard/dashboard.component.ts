@@ -58,6 +58,7 @@ export class DashboardComponent implements OnInit {
   xaxis!: ApexXAxis;
   tooltip!: ApexTooltip;
   dataSeries: any
+  companyWalletDetails:any
 
   constructor(
     private dashService: DashboardService,
@@ -81,6 +82,7 @@ export class DashboardComponent implements OnInit {
     this.ngxService.start();
     await this.getDefaultData();
     await this.getCompanyTotalProfit();
+    await this.getCompanyWallet();
     await this.initChartData();
     this.showLoader = false;
     this.ngxService.stop();
@@ -228,6 +230,16 @@ export class DashboardComponent implements OnInit {
         }
       }
     };
+  }
+
+  async getCompanyWallet() {
+    try {
+      const res= await this.dashService.companyWallet().toPromise();
+      this.companyWalletDetails = res
+      this.showLoader = false;
+    } catch {
+      this.showLoader = false;
+    }
   }
 
   // GET DEFAULT DATA OF LAST 30 DAYS

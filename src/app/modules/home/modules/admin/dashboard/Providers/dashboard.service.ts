@@ -45,4 +45,20 @@ export class DashboardService {
   }
 
 
+  companyWallet() {
+    const data = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU3MzU1LCJlbnYiOiJsaXZlIiwiaWF0IjoxNjA0MzEyODM0fQ.AzwDh768OtDJqcXb58YcZUoOJOUlQmk1LEFSr5wYQ2u"
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${data}`
+    });
+
+    const url = 'https://api.cryptozack.com/wallet/company-wallet';
+
+    return this.http.get(url, { headers })
+      .pipe(map((res: any) => {
+        return res.data
+      }),
+      );
+  }
+
+
 }
