@@ -17,8 +17,8 @@ export class ReplyComponent {
   showLoader = false
 
   clientData = {
-    issue: ["fix that issue", "not solved"],
-    replies: ["will solve", "will look", "work on it"]
+    issue: ["fix that XYZ issue"],
+    replies: [ "ok", "work on it"]
   };
 
   constructor(

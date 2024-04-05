@@ -49,7 +49,7 @@
             </ng-container>
 
             <ng-container matColumnDef="time">
-                <th mat-header-cell *matHeaderCellDef>Data & Time </th>
+                <th mat-header-cell *matHeaderCellDef>Date & Time </th>
                 <td mat-cell *matCellDef="let element">
                     {{element.createdAt | date: 'MMMM dd, y , hh:mm:ss a'}}
                 </td>
@@ -64,7 +64,7 @@
    
             <!-- REPLY -->
             <ng-container matColumnDef="reply">
-                <th mat-header-cell *matHeaderCellDef> Reply</th>
+                <th mat-header-cell *matHeaderCellDef> Action</th>
                 <td mat-cell *matCellDef="let element">
                     <mat-icon class="pointer reply" (click)="reply(element)" matTooltip="Reply To User">reply</mat-icon>
                     <mat-icon class="remove" matTooltip="Remove Ticket" >remove_circle</mat-icon>
