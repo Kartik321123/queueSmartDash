@@ -5,9 +5,10 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { StrategyService } from '../provider/strategy.service';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { MatDialog } from '@angular/material/dialog';
 import { StrategyTransactionComponent } from '../strategy-transaction/strategy-transaction.component';
+import { AlertComponent } from 'src/app/_shared/modules/alert/alert.component';
+import { ThisReceiver } from '@angular/compiler';
 
 export enum DateRangeEnum {
   Last30Dayds = '30Days',
@@ -17,6 +18,7 @@ export enum DateRangeEnum {
   Next7Days = "Next7Days",
   Next30Days = "Next30Days",
   LastNext30Days = "LastNext30Days"
+  
 }
 
 @Component({
@@ -27,7 +29,7 @@ export enum DateRangeEnum {
 
 
 export class StrategyListComponent implements OnInit {
-  displayedColumns: string[] = [ 'profit', 'status', 'signupDate', 'action'];
+  displayedColumns: string[] = [ 'profit', 'status', 'signupDate', 'action', ];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false
@@ -42,6 +44,10 @@ export class StrategyListComponent implements OnInit {
   status: any
   totalProfit: any
   todayProfit: any
+  //DEFAULT VALUE
+  DefaultValue = ' TRADE_PROFIT'
+  todayfilter:any;
+  totalUsdtAmount:any 
 
   range = new FormGroup({
     from: new FormControl(),
@@ -74,6 +80,8 @@ export class StrategyListComponent implements OnInit {
     await this.allBotsList();
     this.initializeFilter();
     this.getDefaultData();
+    this.initializeFilterTodayProfit();
+    this.todayTransaction();
 
   }
 
@@ -117,7 +125,16 @@ export class StrategyListComponent implements OnInit {
     this.showLoader = true;
     this.ngxService.start();
     this.strategyService.activeBots(this.filter).subscribe((res: any) => {
-      console.log("strategyLists strategyLists",res)
+      // console.log("strategyLists strategyLists",res.results)
+    // this.strategyService.activeBots(this.filter).subscribe((res: any) => {
+    //   console.log("strategyLists strategyLists", res.results);
+    //   this.botId = res.results.map((result: { botId: any }) => result.botId);
+    //   this.publishAccess= res.results.map((result: { 
+    //     botConfiguration: any }) => result.
+    //     botConfiguration.publishAccess
+    //     );
+      // console.log(this.publishAccess);
+      // console.log('real id', this.botId);
       this.dataSource = res.results
       this.totalLength = res.count;
       this.showLoader = false;
@@ -249,4 +266,92 @@ export class StrategyListComponent implements OnInit {
     // this.navigateRouter.navigate(["admin/strategy/str_transaction"], { queryParams: { userId: this.userId, botId:data,user:this.userName,status:this.status } });
   }
 
-}
+  publish(ele:any) {
+    // console.log(this.userId);
+
+    this.matDialog.open(AlertComponent, {
+      width: "300px",
+      maxHeight: '400px',
+    }).afterClosed().subscribe((res)=>{
+      if(res){
+      this._publish(ele);
+      }
+    });
+   
+  
+  }
+
+  _publish(ele:any){
+    console.log(ele);
+    ele.botConfiguration.publishAccess = !ele.botConfiguration.publishAccess;
+    const userId = this.userId;
+    const botId = ele.botId;
+    // const publish = ele.botConfiguration.isPublish;
+    const publish = ele.botConfiguration.publishAccess;
+    const obj: any = {
+      token: this.parseData.token,
+      userId: userId,
+      botId: botId,
+      copyStrategyAccess: "ACCEPTED"
+  
+    };
+    console.log(obj);
+  
+ 
+        this.strategyService.publishAccess(obj).subscribe((res:any) =>{
+          console.log(res);
+        })
+  }
+
+
+//  TODAY PROFIT
+
+  initializeFilterTodayProfit() {
+    var start = new Date();
+    start.setUTCHours(0, 0, 0, 0);
+    var end = new Date();
+    end.setUTCHours(23, 59, 59, 999);
+  
+    const dateRange: any = {
+      from: start.toISOString(),
+      to: end.toISOString()
+    };
+  
+    const obj: any = {
+      token: this.parseData.token,
+      userId: this.userId,
+      transactionType: 'TRADE_PROFIT',
+      page: 1,
+      limit: Number.MAX_SAFE_INTEGER,
+      dateRange: dateRange
+    };
+  
+    this.todayfilter = obj;
+  }
+  
+
+  
+
+
+  async todayTransaction() {
+    // console.log(this.todayfilter);
+    try {
+      const res = await this.strategyService.todayProfit(this.todayfilter).toPromise();
+      let total = 0;
+      res.results.forEach((result:any)=>{
+          total = total + result.usdtAmount;
+          
+      })
+      // console.log(total);
+      this.todayProfit = total !==0 ? total.toFixed(2) : '0'
+    }
+    catch {
+    }
+  }
+
+
+
+
+  }
+
+

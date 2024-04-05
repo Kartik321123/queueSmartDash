@@ -6,7 +6,7 @@
 <div class="main flex-column-centered">
 
     <div class='flex header'>
-        <h3>Strategy Total Transaction (<span class="success"> {{totalTransaction}} <span class="usdt">USDT</span>
+        <h3>Strategy Total Transaction (<span class="success">$ {{totalTransaction}} 
             </span>)</h3>
         <div class="spacer"></div>
         <mat-icon mat-dialog-close class="pointer" matTooltip="Close">close</mat-icon>
@@ -27,7 +27,7 @@
                 </td>
             </ng-container>
 
-            <!--  EMAIL COLUMN -->
+            <!--  TIME COLUMN -->
             <ng-container matColumnDef="time">
                 <th mat-header-cell *matHeaderCellDef>Date & Time</th>
                 <td mat-cell *matCellDef="let element">

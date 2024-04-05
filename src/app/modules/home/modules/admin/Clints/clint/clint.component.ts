@@ -70,7 +70,7 @@ export class ClintComponent implements OnInit {
       token: this.parseData.token,
       pageCount: {
         page: 1,
-        limit: 5
+        limit: 15
       },
       dateRange: {
         from: start.toISOString(),
@@ -124,7 +124,7 @@ export class ClintComponent implements OnInit {
       }
       this.filter.pageCount = {
         page: 1,
-        limit: 5
+        limit:15
       }
       this.getUserData()
     }
@@ -215,7 +215,7 @@ export class ClintComponent implements OnInit {
 
   // ALL STRATEGY
   goToInActiveStrategy(data: any) {
-    if (data.inActiveBot > 0) {
+    if (data.inActiveBot + data.activeBot > 0) {
       const status = 'All'
       const user = `${data.firstName} ${data.lastName}`.trim();
       this.router.navigate(["admin/strategy"], { queryParams: { userId: data.id, user: user, status: status } });

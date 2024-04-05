@@ -58,13 +58,13 @@
     <div class="user_details">
 
         <div class="detail">
-            <p class="para_value" [ngStyle]="{'color': totalProfit > 0 ? 'green' : '687888'}">{{totalProfit || 0}}</p>
-            <p class="para_heading" >Total Profit <span class="usdt">(USDT)</span></p>
+            <p class="para_value" [ngStyle]="{'color': totalProfit > 0 ? 'green' : '687888'}">$ {{totalProfit || 0}}</p>
+            <p class="para_heading" > Total Profit </p>
         </div>
 
         <div class="detail">
-            <p class="para_value" [ngStyle]="{'color': todayProfit > 0 ? 'green' : '687888'}">{{todayProfit || 0}}</p>
-            <p class="para_heading">Today Profit <span class="usdt">(USDT)</span></p>
+            <p class="para_value" [ngStyle]="{'color': todayProfit > 0 ? 'green' : '687888'}">$ {{todayProfit || 0}}</p>
+            <p class="para_heading">Today Profit </p>
         </div>
 
     </div>
@@ -86,9 +86,10 @@
                 <th mat-header-cell *matHeaderCellDef>Profit</th>
                 <td mat-cell *matCellDef="let element">
                     <span [ngStyle]="{'color': element.currentProfit > 0 ? 'green' : '#687888'}">
-                        {{formetValues(element.currentProfit)}}
-                    </span> <span [ngStyle]="{'display': element.currentProfit > 0 ? 'block' : 'none'}"
-                        class="usdt">(USDT)</span>
+                      $  {{formetValues(element.currentProfit)}}
+                    </span> 
+                    <!-- <span [ngStyle]="{'display': element.currentProfit > 0 ? 'block' : 'none'}"
+                        class="usdt">($)</span> -->
                 </td>
             </ng-container>
 
@@ -107,6 +108,30 @@
                     {{element.createdAt | date: 'MMMM dd, y , hh:mm:ss a'}}
                 </td>
             </ng-container>
+
+                <!-- PUBLISH COLUMN -->
+<!--                
+
+                        <ng-container matColumnDef="publish">
+                            <th mat-header-cell *matHeaderCellDef>Publish</th>
+                            <td mat-cell *matCellDef="let element"> 
+                                {{ element.botConfiguration.publishAccess ? 'publish' : 'Not publish' }}
+                                <mat-icon [ngStyle]="{'color': element.botConfiguration.publishAccess ? 'green' : 'red'}"
+                                          (click)="publish(element)"
+                                          class="pointer">
+                                    {{ element.botConfiguration.publishAccess ? 'check_circle_outline' : 'highlight_off' }}
+                                </mat-icon> -->
+                          
+                        
+
+
+                        <!-- <mat-icon [ngStyle]="{'color':'green'}"
+                        *ngIf="!element.botConfiguration.publishAccess"
+                            (click)="publish(element)" 
+                            class="pointer">check_circle_outline
+                        </mat-icon> -->
+                    <!-- </td>
+                </ng-container> -->
 
             <!-- ACTION COLUMN -->
             <ng-container matColumnDef="action">

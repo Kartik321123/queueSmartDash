@@ -22,7 +22,7 @@
             <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef>Name </th>
                 <td mat-cell *matCellDef="let element" class="capital">
-                    {{element.user.firstName || "--"}} {{element.user.lastName}}
+                    {{element.user.firstName || "--"}} {{element.lastName}}
                 </td>
             </ng-container>
 
@@ -39,7 +39,7 @@
             <ng-container matColumnDef="amount">
                 <th mat-header-cell *matHeaderCellDef>Amount </th>
                 <td mat-cell *matCellDef="let element">
-                    {{element.amount/1000000 || "--"}} <span class="usdt">(USDT)</span>
+                    $   {{element.amount/1000000 || "--"}} 
                 </td>
             </ng-container>
 
@@ -83,7 +83,7 @@
         </table>
 
         <!-- PAGINATION -->
-        <mat-paginator class="pagination" [pageSizeOptions]="[5,10, 25, 50, 75, 100]" pageSize="5" (page)="pageChange($event)">
+        <mat-paginator class="pagination" [pageSizeOptions]="[15, 25, 50, 75, 100]" pageSize="15" (page)="pageChange($event)">
         </mat-paginator>
 
     </div>

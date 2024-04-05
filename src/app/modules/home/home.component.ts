@@ -83,6 +83,16 @@ export class HomeComponent implements OnInit {
         route: 'admin/wallettier',
         isSubSubmenu: false
       },
+      {
+        displayName: 'Publish Strategy',
+        route: 'admin/publishStrategy',
+        isSubSubmenu: false
+      },
+      {
+        displayName: 'Support',
+        route: 'admin/support',
+        isSubSubmenu: false
+      }
     ]
 
     this.menus = [...item, ...this.fixedMenus];

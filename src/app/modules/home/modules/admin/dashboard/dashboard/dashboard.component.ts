@@ -21,6 +21,7 @@ import {
   ApexXAxis,
   ApexTooltip
 } from "ng-apexcharts";
+import { coerceStringArray } from '@angular/cdk/coercion';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class DashboardComponent implements OnInit {
   filterDays: any
   totalProfit: any
   filteredProfit: any
+  companyWallet: any
 
   range = new FormGroup({
     from: new FormControl(),
@@ -74,7 +76,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.initializeFilter();
     this.getData();
-
+    
   }
 
   async getData(): Promise<void> {
@@ -82,7 +84,7 @@ export class DashboardComponent implements OnInit {
     this.ngxService.start();
     await this.getDefaultData();
     await this.getCompanyTotalProfit();
-    await this.getCompanyWallet();
+    await this.getcompanyWallet();
     await this.initChartData();
     this.showLoader = false;
     this.ngxService.stop();
@@ -232,15 +234,15 @@ export class DashboardComponent implements OnInit {
     };
   }
 
-  async getCompanyWallet() {
-    try {
-      const res= await this.dashService.companyWallet().toPromise();
-      this.companyWalletDetails = res
-      this.showLoader = false;
-    } catch {
-      this.showLoader = false;
-    }
-  }
+  // async getCompanyWallet() {
+  //   try {
+  //     const res= await this.dashService.companyWallet().toPromise();
+  //     this.companyWalletDetails = res
+  //     this.showLoader = false;
+  //   } catch {
+  //     this.showLoader = false;
+  //   }
+  // }
 
   // GET DEFAULT DATA OF LAST 30 DAYS
   async getDefaultData() {
@@ -344,6 +346,18 @@ export class DashboardComponent implements OnInit {
   }
 
 
+    // COMPANY WALLET
+    
+  async getcompanyWallet(){
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU3MzU1LCJlbnYiOiJsaXZlIiwiaWF0IjoxNjA0MzEyODM0fQ.AzwDh768OtDJqcXb58YcZUoOJOUlQmk1LEFSr5wYQ2u';
+    try {
+      const res: any = await this.dashService.companyWallet(token).toPromise();
+      this.companyWallet = res.usdtAmount;
+      console.log(this.companyWallet);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 }
 

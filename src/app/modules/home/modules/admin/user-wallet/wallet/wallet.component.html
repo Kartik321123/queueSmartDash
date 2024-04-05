@@ -61,23 +61,23 @@
     <div class="user_details" *ngIf="userId">
 
         <div class="detail">
-            <p class="para_value">{{userData?.usdtAmount || "0"}}</p>
-            <p class="para_heading">Current Balance <span class="usdt">(USDT)</span></p>
+            <p class="para_value">$ {{userData?.usdtAmount || "0"}}</p>
+            <p class="para_heading">Current Balance  </p>
         </div>
 
         <div class="detail">
-            <p class="para_value">{{totalDeposit || "0"}}</p>
-            <p class="para_heading">Total Deposit <span class="usdt">(USDT)</span></p>
+            <p class="para_value">$ {{totalDeposit || "0"}}</p>
+            <p class="para_heading">Total Deposit </p>
         </div>
 
         <div class="detail">
-            <p class="para_value">{{totalWithdrawal || "0"}}</p>
-            <p class="para_heading">Total Withdrawal <span class="usdt">(USDT)</span></p>
+            <p class="para_value">$ {{totalWithdrawal || "0"}}</p>
+            <p class="para_heading">Total Withdrawal </p>
         </div>
 
         <div class="detail">
-            <p class="para_value">{{refferalAmount || "0"}}</p>
-            <p class="para_heading">Rewards <span class="usdt">(USDT)</span></p>
+            <p class="para_value">$ {{refferalAmount || "0"}}</p>
+            <p class="para_heading">Rewards </p>
         </div>
 
     </div>

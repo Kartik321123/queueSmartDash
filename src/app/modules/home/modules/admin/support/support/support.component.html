@@ -1,0 +1,83 @@
+
+  
+
+
+  <!-- NGX LOADER -->
+  <div class="ngxLoader" *ngIf="showLoader">
+    <ngx-ui-loader [hasProgressBar]="false"></ngx-ui-loader>
+</div>
+
+
+<div class="main_container">
+
+    <div class="flex pad-8 header">
+
+        <!-- HEADING -->
+        <p class="heading">Support </p>
+        <div class="spacer"></div>
+
+    </div>
+
+
+    <!-- TABLE CONTAINER -->
+    <div style="margin-top: 10px;">
+        <table class="dataTable" mat-table [dataSource]="dataSource">
+
+            <!-- NAME COLUMN -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name </th>
+                <td mat-cell *matCellDef="let element" class="capital">
+                    {{element.user.firstName}} {{element.user.lastName}}
+                </td>
+            </ng-container>
+
+            <!--  EMAIL COLUMN -->
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef>Email</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.user.email}}
+
+                </td>
+            </ng-container>
+
+
+             <!-- TITLE -->
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef>Title </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.title}}
+                </td>
+            </ng-container>
+   
+            <!-- REPLY -->
+            <ng-container matColumnDef="reply">
+                <th mat-header-cell *matHeaderCellDef> Reply</th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon class="pointer" (click)="reply(element)">reply_all</mat-icon>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="cursor-pointer"></tr>
+
+            <!-- ROW SHOWS WHEN THERE IS NO MATCHING DATA -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="5" class="pad-16" style="text-align: center;">No data matching the filter
+                </td>
+            </tr>
+
+        </table>
+
+        <!-- PAGINATION -->
+        <mat-paginator [length]="totalLength" class="pagination" [pageSizeOptions]="[15, 25, 50, 75, 100]"
+        pageSize="15" (page)="pageChange($event)">
+    </mat-paginator>
+
+    </div>
+
+      
+     
+      
+
+

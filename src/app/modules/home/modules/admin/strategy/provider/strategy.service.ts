@@ -67,6 +67,8 @@ export class StrategyService {
       let params = new HttpParams()
         .set('userId', data.userId)
         .set('id', data.botId)
+        console.log("1", data);
+
 
   
       return this.http.get(userUrl, { headers, params })
@@ -75,7 +77,45 @@ export class StrategyService {
         }),
         );
     }
+     
+    // PUBLISH ACCESS
 
+    publishAccess(data: any) {
+      const userUrl = 'https://api.cryptozack.com/algo-strategy/publish-strategy-access';
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${data.token}`
+      });
+      const obj= {
+        user: data.userId,
+        strategyId: data.botId,
+        copyStrategyAccess: data.copyStrategyAccess
+      }       
+    
+      return this.http.post(userUrl,obj ,{ headers }) 
+        .pipe(map((res: any) => {
+          console.log(res);
+            return res.data;
+          })
+        );
+    }
+
+  //TODAY PROFIT
+
+    todayProfit(data: any) {
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${data.token}`
+      });
+      const params = new HttpParams()
+        .set('userId', data.userId).set('page', data.page).set('limit', data.limit).set('transactionType', data.transactionType)
+        .set('fromDate', data.dateRange.from).set('toDate', data.dateRange.to);
+      const url = 'https://api.cryptozack.com/wallet/get-transaction';
+  
+      return this.http.get(url, { headers, params })
+        .pipe(map((res: any) => {
+          return res.data
+        }),
+        );
+    }
 
 
 }

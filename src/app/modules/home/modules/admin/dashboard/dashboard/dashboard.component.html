@@ -17,7 +17,7 @@
 
         <!-- TOTAL REWENUE -->
         <div class="rewenue">
-            <h1>{{totalProfit}}<span class="usdtTotal">(USDT)</span></h1>
+            <h1>${{totalProfit}}</h1>
             <p>Total rewenue</p>
         </div>
 
@@ -65,8 +65,8 @@
             <div class="value_graph">
 
                 <div class="value">
-                    <p class="para_value " style="color: green;">{{filteredProfit}} <span
-                            class="usdtTotal">(USDT)</span></p>
+                    <p class="para_value " style="color: green;">
+                $ {{filteredProfit}} </p>
                     <p class="para">{{filterDays}}</p>
                 </div>
 
@@ -100,7 +100,8 @@
             <div class="value_graph">
 
                 <div class="value">
-                    <p class="para_value">{{companyWalletDetails?.usdtAmount}} <span class="usdtTotal">(USDT)</span></p>
+                    <p class="para_value"> ${{companyWallet}}</p>
+                    <!-- <p class="para">{{filterDays}}</p> -->
                 </div>
 
                 <div class="graph">
@@ -111,12 +112,13 @@
         </div>
 
         <div class="detail">
-            <p class="para_heading">Total Widthdrawal</p>
+            <p class="para_heading">Total withrawal</p>
 
             <div class="value_graph">
 
                 <div class="value">
-                    <p class="para_value">0 <span class="usdtTotal">(USDT)</span></p>
+                    <p class="para_value"> $20</p>
+                    <!-- <p class="para">{{filterDays}}</p> -->
                 </div>
 
                 <div class="graph">

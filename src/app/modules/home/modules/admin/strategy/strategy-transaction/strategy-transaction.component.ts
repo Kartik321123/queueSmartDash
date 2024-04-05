@@ -42,7 +42,7 @@ export class StrategyTransactionComponent {
     this.getTransactionDetails();
   }
 
-
+   
   getTransactionDetails() {
     this.showLoader = true;
     this.ngxService.start();

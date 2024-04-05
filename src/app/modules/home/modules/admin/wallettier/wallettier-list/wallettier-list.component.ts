@@ -41,7 +41,7 @@ export class WallettierListComponent {
     const obj: any = {
       token: this.parseData.token,
       page: 1,
-      limit: 5
+      limit: 15
     }
     this.filter = obj;
   }
