@@ -25,8 +25,6 @@ export class ClintService {
     const params = new HttpParams()
       .set('page', data.pageCount.page)
       .set('limit', data.pageCount.limit)
-      .set('fromDate', data.dateRange.from)
-      .set('toDate', data.dateRange.to)
       .set('text', data.filter.text)
 
     return this.http.get(userUrl, { headers, params })

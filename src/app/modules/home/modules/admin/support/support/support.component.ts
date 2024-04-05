@@ -4,7 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { TitleStrategy } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { SupportService } from '../Providers/support.service';
-import { ReplyComponent} from '../reply/reply.component'
+import { ReplyComponent } from '../reply/reply.component'
 
 @Component({
   selector: 'app-support',
@@ -13,64 +13,63 @@ import { ReplyComponent} from '../reply/reply.component'
 })
 export class SupportComponent {
 
-  displayedColumns :string[] = ['name', 'email', 'title', 'reply'];
+  displayedColumns: string[] = ['name', 'email', 'time', 'title', 'status', 'reply'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
-  parseData:any;
+  parseData: any;
   newTicketIssue: string = '';
   Replies: any;
-  filter:any;
+  filter: any;
   totalLength: any;
 
   constructor(
     private supportService: SupportService,
-    private ngxService : NgxUiLoaderService,
+    private ngxService: NgxUiLoaderService,
     private matdialog: MatDialog
-  )
-  {
+  ) {
     let userData = localStorage.getItem('userinfo')
-    if(userData){
+    if (userData) {
       this.parseData = JSON.parse(userData);
     }
   }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.initializeFilter();
     this.getData();
   }
 
-  async getData(): Promise<void>{
-    await  this.getSupport();
+  async getData(): Promise<void> {
+    await this.getSupport();
   }
 
 
-    // ininitaliser 
-    initializeFilter() {
-      const obj: any = {
-        token: this.parseData.token,
-        page: 1,
-        limit: 15,
-      }
-      this.filter = obj;
+  // ininitaliser 
+  initializeFilter() {
+    const obj: any = {
+      token: this.parseData.token,
+      page: 1,
+      limit: 15,
     }
+    this.filter = obj;
+  }
 
-    //SUPPORT LIST
-  async getSupport(){
-      this.showLoader = true;
-      this.ngxService.start();
-      try{
-        const res = await this.supportService.getsupportData(this.filter).toPromise();
-        console.log(res);
-        this.dataSource = res.data.results;
-        this.Replies = res.data.results[0].issue[0];
-        this.totalLength = res.data.count;
-        console.log(this.Replies);
-        console.log(res.data.results);
-        this.showLoader = false;
-      } catch(error){
-        this.showLoader = false;
-      }
+  //SUPPORT LIST
+  async getSupport() {
+    this.showLoader = true;
+    this.ngxService.start();
+    try {
+      const res = await this.supportService.getsupportData(this.filter).toPromise();
+      console.log(res);
+      this.dataSource = res.data.results;
+      this.Replies = res.data.results[0].issue[0];
+      this.totalLength = res.data.count;
+      console.log(this.Replies);
+      console.log(res.data.results);
+      this.showLoader = false;
+    } catch (error) {
+      this.showLoader = false;
+    }
   }
 
   // PAGINATION
@@ -82,14 +81,10 @@ export class SupportComponent {
   }
 
   // REPLY
-  reply(element:any){
-    this.matdialog.open(ReplyComponent,{
-      width: '500px',
-    maxHeight: '80vh'
-      ,
-      data: {
-        supportId: element.id
-      }
+  reply(element: any) {
+    this.matdialog.open(ReplyComponent, {
+      width: '450px',
+      data:element
     })
   }
 

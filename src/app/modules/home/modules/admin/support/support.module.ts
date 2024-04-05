@@ -10,7 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { ReplyComponent } from './reply/reply.component';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,11 @@ import { MatInputModule } from '@angular/material/input';
     NgxUiLoaderModule,
     FormsModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatTooltipModule,
+    MatToolbarModule,
+    MatDialogModule,
+    MatButtonModule
   ]
 })
 export class SupportModule { }

@@ -56,25 +56,16 @@ export class ClintComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeFilter();
-    this.getDefaultData();
+    this.getUserData();
   }
 
 
   initializeFilter() {
-    var start = new Date();
-    start.setUTCHours(0, 0, 0, 0);
-    var end = new Date();
-    end.setUTCHours(23, 59, 59, 999);
-
     const obj: any = {
       token: this.parseData.token,
       pageCount: {
         page: 1,
         limit: 15
-      },
-      dateRange: {
-        from: start.toISOString(),
-        to: end.toISOString()
       },
       filter: {
         text: ''
@@ -128,77 +119,6 @@ export class ClintComponent implements OnInit {
       }
       this.getUserData()
     }
-  }
-
-  // GET DEFAULT DATA OF LAST 7 DAYS
-  getDefaultData() {
-    var obj = {
-      value: this.selectedDefaultValue,
-    }
-    this.selectionChange(obj);
-  }
-
-  // DATE FILTER FROM TO END DATE
-  selectionChange(event: any) {
-    const selectedValue = event.value;
-    if (selectedValue === DateRangeEnum.Last30Dayds) {
-      var start = new Date(); 
-
-      var today = new Date();
-      var last30Days = new Date(today.getTime() - (30 * 24 * 3600000));
-      last30Days.setUTCHours(23, 59, 59, 999);
-      this.filter.dateRange = {
-        from: last30Days.toISOString(),
-        to: start.toISOString()
-      }
-      this.getUserData()
-    } else if (selectedValue === DateRangeEnum.Last7Days) {
-      var start = new Date();
-
-      var today = new Date();
-      var last7Days = new Date(today.getTime() - (7 * 24 * 3600000));
-      last7Days.setUTCHours(23, 59, 59, 999);
-      this.filter.dateRange = {
-        from: last7Days.toISOString(),
-        to: start.toISOString()
-      }
-      this.getUserData();
-    } else if (selectedValue === DateRangeEnum.Today) {
-      var start = new Date();
-      start.setUTCHours(0, 0, 0, 0);
-      var end = new Date();
-      end.setUTCHours(23, 59, 59, 999);
-      this.filter.dateRange = {
-        from: start.toISOString(),
-        to: end.toISOString()
-      }
-      this.getUserData();
-    }
-  }
-
-  dateRangeChange(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
-    if (this.range && this.range.value && this.range.value.to) {
-      const to = this.range.value.to || new Date(dateRangeStart.value);
-      const from = this.range.value.from || new Date(dateRangeEnd.value);
-      from.setUTCHours(23, 59, 59, 999);
-      this.filter.dateRange = {
-        from: new Date(from).toISOString(),
-        to: new Date(to).toISOString()
-      }
-      this.getUserData();
-    }
-  }
-
-
-  getCustomOptiontext() {
-    if (this.range && this.range.value && (this.range.value.to || this.range.value.from)) {
-      let to = this.range.value.to || new Date();
-      let from = this.range.value.from || new Date();
-      to = new DatePipe('en-US').transform(to, 'longDate');
-      from = new DatePipe('en-US').transform(from, 'longDate');
-      return `${from} - ${to}`;
-    }
-    return 'Custom';
   }
 
 

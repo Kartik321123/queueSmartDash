@@ -1,25 +1,52 @@
-      
+<div class="ngxLoader" *ngIf="showLoader">
+  <ngx-ui-loader [hasProgressBar]="false"></ngx-ui-loader>
+</div>
 
-   
-
-
-      <div class="chat-container">
-        <div *ngFor="let message of chatData" class="message" [ngClass]="{'left': isIssue(message), 'right': !isIssue(message)}">
-          <div class="message-content">{{ message.message }}</div>
-        </div>
-      </div>
-      
-
-  <div class="form">
-    <form (ngSubmit)="submitTicket()" class="form-container">
-        <mat-form-field appearance="fill">
-          <input matInput type="text" name="issue" [(ngModel)]="newTicketIssue" placeholder="Reply">
-        </mat-form-field>
-        <button class="primary-button submit-button " mat-raised-button type="submit" style="background-color:#67757c;">Submit</button>
-      </form>
-    </div>
+<div class="toolbar">
+  <mat-toolbar class="toolbar">
+    <span style="text-transform: capitalize;">{{data.user.firstName}} {{data.user.lastName}}</span>
+    <div class="spacer"></div>
+    <mat-icon mat-dialog-close class="pointer" matTooltip="Close">close</mat-icon>
+  </mat-toolbar>
+</div>
+<div style="height: 400px;">
 
 
+  <div class="chat_container" id="chat_container">
+    <div *ngFor="let issue of clientData.issue" class="message left">{{ issue }}</div>
+    <div *ngFor="let reply of clientData.replies" class="message right">{{ reply }}</div>
+  </div>
 
-    
-      
+  <div class="reply_container flex">
+
+    <mat-form-field>
+      <input matInput type="text" name="issue" [(ngModel)]="newTicketIssue" placeholder="reply...">
+    </mat-form-field>
+
+    <button class="submit-button " mat-button style="background-color:#67757c; color: white;">Submit</button>
+
+  </div>
+
+</div>
+
+
+
+
+
+<!-- <div class="chat-container">
+  <div *ngFor="let message of chatData" class="message"
+    [ngClass]="{'left': isIssue(message), 'right': !isIssue(message)}">
+    <div class="message-content">{{ message.message }}</div>
+  </div>
+</div>
+
+
+<div class="form">
+  <form (ngSubmit)="submitTicket()" class="form-container">
+    <mat-form-field appearance="fill">
+      <input matInput type="text" name="issue" [(ngModel)]="newTicketIssue" placeholder="Reply">
+    </mat-form-field>
+    <button class="primary-button submit-button " mat-raised-button type="submit"
+      style="background-color:#67757c;">Submit</button>
+  </form>
+</div> -->

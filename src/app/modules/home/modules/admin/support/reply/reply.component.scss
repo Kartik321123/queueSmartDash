@@ -1,86 +1,44 @@
-
-  
-.chat-container {
-    display: flex;
-    flex-direction: column;
-    max-width: 400px; /* Adjust as needed */
-    margin: 20px auto; /* Center the chat container */
-  }
-  
-  .message {
-    margin: 8px;
-    padding: 10px;
-    border-radius: 8px;
-    max-width: 70%;
-    word-wrap: break-word;
-  }
-  
-  .left {
-    align-self: flex-start;
-    background-color: #F3F3F3;
-  }
-  
-  .right {
-    align-self: flex-end;
-    background-color: #1e88e5; 
-    color:white;
-  }
-  
-  .message-content {
-    font-size: 14px;
-    padding: 8px;
-  }
-  
-  .form-container {
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .form-container input{
-    position: sticky;
-    top: 1000px;
-  }
-  
-  .input-field {
-    flex: 1;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-right: 10px;
-  }
-  
-  .submit-button {
-    padding: 8px 16px;
-    border: none;
-    // border-radius: 4px;
-    // background-color: #007bff;
-    color: #fff;
-    height: 50px;
-    cursor: pointer;
-    margin-bottom: 25px;
-  }
-
-  .form {
-  position: fixed;
-  bottom: 0;
-  // left: 0;
-  width: 500px;
-  background-color: #f9f9f9;
-  padding: 10px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+.toolbar {
+  background-color: #1e88e5;
+  color: white;
 }
 
+mat-form-field {
+  width: 70%;
+  margin-right: 10px;
+  margin-left: 30px;
+}
 
+.reply_container {
+  align-items: baseline;
+  text-align: center;
+}
 
+.chat_container{
+  padding: 5px;
+}
 
+.chat_container {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  overflow-y: scroll;
+}
 
+.message {
+  padding: 5px;
+  margin: 5px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
 
+.message.left {
+  align-self: flex-start;
+  background-color: #f0f0f0;
+}
 
-  
-  
-//   .form{
-//     position: absolute;
-//     bottom: 0;
-//   }
+.message.right {
+  align-self: flex-end;
+  background-color: #d5e8d4;
+}
+

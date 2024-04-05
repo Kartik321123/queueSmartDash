@@ -18,37 +18,6 @@
             <mat-icon class="searchIcon">search</mat-icon>
         </div>
 
-        <!-- SELECT DURATION DAYS -->
-        <div class="select-box visitor-select-box">
-            <mat-select #select [(value)]="selectedDefaultValue" placeholder="Select Date" ngmo
-                (selectionChange)="selectionChange($event)">
-                <mat-option [value]="DateRangeEnum.Today">
-                    Today
-                </mat-option>
-                <mat-option [value]="DateRangeEnum.Last7Days">
-                    Last 7 Days
-                </mat-option>
-                <mat-option [value]="DateRangeEnum.Last30Dayds">
-                    Last 30 Days
-                </mat-option>
-                <mat-option [value]="DateRangeEnum.Custom" (click)="picker.open()">
-                    {{getCustomOptiontext()}}
-                </mat-option>
-            </mat-select>
-        </div>
-
-        <div class="simple-hidden">
-            <mat-form-field color="accent" appearance="fill">
-                <mat-label>From</mat-label>
-                <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
-                    <input matStartDate formControlName="from" #dateRangeStart placeholder="Start date">
-                    <input matEndDate formControlName="to" #dateRangeEnd placeholder="End date"
-                        (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matSuffix [for]="picker" #datepicker></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
-        </div>
     </div>
 
 

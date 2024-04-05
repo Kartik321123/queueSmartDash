@@ -15,36 +15,31 @@ import { StrategyDetailsComponent } from '../strategy-details/strategy-details.c
   styleUrls: ['./publish-strategy.component.scss']
 })
 export class PublishStrategyComponent implements OnInit {
-   
+
   displayedColumns: string[] = ['name', 'email', 'time', 'status', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
   parseData: any;
-  filter:any;
+  filter: any;
   totalLength: any;
 
   constructor(
-   private PublishService : PublishService,
-   private ngxService : NgxUiLoaderService,
-   private matDialog: MatDialog
+    private PublishService: PublishService,
+    private ngxService: NgxUiLoaderService,
+    private matDialog: MatDialog
   ) {
 
     let userData = localStorage.getItem('userinfo')
-    if(userData){
+    if (userData) {
       this.parseData = JSON.parse(userData);
     }
   }
 
   ngOnInit(): void {
     this.initializeFilter();
-    this.getData();
+    this.publishStrategyList();
   }
-
-  async getData() : Promise<void> {
-    await this.publishStrategyList();
-  }
-
 
   // ininitaliser 
   initializeFilter() {
@@ -58,82 +53,81 @@ export class PublishStrategyComponent implements OnInit {
   }
   //GET LIST
 
-  async publishStrategyList(){
+  async publishStrategyList() {
     this.showLoader = true;
     this.ngxService.start();
-      try {
-                const res = await this.PublishService.publish(this.filter).toPromise();
-                console.log(res);
-                this.totalLength = res.data.count;
-                this.dataSource = res.data.results
-                this.showLoader = false;
-      } catch(error){
-        this.showLoader = false;
-      }
-}
-
-//  PAGINATION
-
-pageChange(event: PageEvent) {
-  this.filter.page = event.pageIndex + 1;
-  this.filter.limit = event.pageSize;
-  this.publishStrategyList();
-}
-
-
-
-// PUBLISH ACCESS
-
-publish(ele:any) {
-  this.matDialog.open(AlertComponent, {
-    width: "300px",
-    maxHeight: '400px',
-  }).afterClosed().subscribe((res)=>{
-    if(res){
-      this._publish(ele);
+    try {
+      const res = await this.PublishService.publish(this.filter).toPromise();
+      console.log(res);
+      this.totalLength = res.data.count;
+      this.dataSource = res.data.results
+      this.showLoader = false;
+    } catch (error) {
+      this.showLoader = false;
     }
-  });
-}
+  }
 
-_publish(ele:any) {
-  console.log(ele);
-  console.log(ele.id);
+  //  PAGINATION
+  pageChange(event: PageEvent) {
+    this.filter.page = event.pageIndex + 1;
+    this.filter.limit = event.pageSize;
+    this.publishStrategyList();
+  }
 
-  const obj: any = {
-    token: this.parseData.token,
-    userId: ele.id,
-    access: "ACCEPTED"
-    
-  };
+  // PUBLISH ACCESS
+  publish(ele: any) {
+    this.matDialog.open(AlertComponent, {
+      width: "300px",
+      maxHeight: '400px',
+    }).afterClosed().subscribe((res) => {
+      if (res == true) {
+        this._publish(ele);
+      }
+    });
+  }
 
+  _publish(ele: any) {
+    this.showLoader = true;
+    this.ngxService.start();
+    const obj: any = {
+      token: this.parseData.token,
+      userId: ele.id,
+      access: "ACCEPTED"
+    };
 
-      this.PublishService.publishAccess(obj)
-      .subscribe((res:any) =>{
+    this.PublishService.publishAccess(obj)
+      .subscribe((res: any) => {
+        if (res) {
+          this.initializeFilter();
+          this.publishStrategyList();
+        }
+      },error=>{
+        this.showLoader = false;
+
       })
-  
-  }; 
+  };
 
   // Publish List
 
-   showList(){
-    this.matDialog.open(PublishStrategyListComponent),{
+  showList() {
+    this.matDialog.open(PublishStrategyListComponent), {
       width: '700px'
     }
 
-}
+  }
 
-strategyDetails(element:any){
-  console.log(element);
-  this.matDialog.open(StrategyDetailsComponent,{
-    width: '700px',
-    data: {
-      buyThreshold: element.strategy.parameters.buyThreshold,
-      initialInvestment: element.strategy.parameters.initialInvestment,
-      lotMultiplier: element.strategy.parameters.lotMultiplier,
-      maxPositions: element.strategy.parameters.maxPositions,
-      profitThreshold: element.strategy.parameters.profitThreshold,
-    }
-  })
-  
-}
+  strategyDetails(element: any) {
+    console.log(element);
+    this.matDialog.open(StrategyDetailsComponent, {
+      width: '700px',
+      data: {
+        buyThreshold: element.strategy.parameters.buyThreshold,
+        initialInvestment: element.strategy.parameters.initialInvestment,
+        lotMultiplier: element.strategy.parameters.lotMultiplier,
+        maxPositions: element.strategy.parameters.maxPositions,
+        profitThreshold: element.strategy.parameters.profitThreshold,
+      }
+    })
+
+  }
 }
