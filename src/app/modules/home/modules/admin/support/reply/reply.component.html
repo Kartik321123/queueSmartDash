@@ -9,44 +9,25 @@
     <mat-icon mat-dialog-close class="pointer" matTooltip="Close">close</mat-icon>
   </mat-toolbar>
 </div>
+
 <div style="height: 400px;">
 
-
-  <div class="chat_container" id="chat_container">
-    <div *ngFor="let issue of clientData.issue" class="message left">{{ issue }}</div>
-    <div *ngFor="let reply of clientData.replies" class="message right">{{ reply }}</div>
+  <div class="chat_container" id="chat_container" #chatContainer>
+    <div *ngFor="let message of sortedMessages" class="message"
+      [ngClass]="{'left': message.type === 'issue', 'right': message.type === 'replies'}">
+      <p class="messages">{{ message.text }}</p>
+      <p class="timestamp">{{ getTimeDifference(message.timestamp) }}</p>
+    </div>
   </div>
 
-  <div class="reply_container flex">
+  <div class="reply_container ">
 
-    <mat-form-field>
-      <input matInput type="text" name="issue" [(ngModel)]="newTicketIssue" placeholder="reply...">
-    </mat-form-field>
-
-    <button class="submit-button " mat-button style="background-color:#67757c; color: white;">Submit</button>
+    <div class="replyField">
+      <input class="searchInput" [(ngModel)]="replyMessage" matInput placeholder="Send a message..." #input
+        (keyup.enter)="replyToUser()">
+      <mat-icon class="sendIcon" matTooltip="Send" (click)="replyToUser()">send</mat-icon>
+    </div>
 
   </div>
 
 </div>
-
-
-
-
-
-<!-- <div class="chat-container">
-  <div *ngFor="let message of chatData" class="message"
-    [ngClass]="{'left': isIssue(message), 'right': !isIssue(message)}">
-    <div class="message-content">{{ message.message }}</div>
-  </div>
-</div>
-
-
-<div class="form">
-  <form (ngSubmit)="submitTicket()" class="form-container">
-    <mat-form-field appearance="fill">
-      <input matInput type="text" name="issue" [(ngModel)]="newTicketIssue" placeholder="Reply">
-    </mat-form-field>
-    <button class="primary-button submit-button " mat-raised-button type="submit"
-      style="background-color:#67757c;">Submit</button>
-  </form>
-</div> -->

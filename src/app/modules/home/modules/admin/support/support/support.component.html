@@ -1,9 +1,5 @@
-
-  
-
-
-  <!-- NGX LOADER -->
-  <div class="ngxLoader" *ngIf="showLoader">
+<!-- NGX LOADER -->
+<div class="ngxLoader" *ngIf="showLoader">
     <ngx-ui-loader [hasProgressBar]="false"></ngx-ui-loader>
 </div>
 
@@ -40,7 +36,7 @@
             </ng-container>
 
 
-             <!-- TITLE -->
+            <!-- TITLE -->
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef>Title </th>
                 <td mat-cell *matCellDef="let element" style="color: red; text-transform: capitalize;">
@@ -57,17 +53,20 @@
 
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef>Status</th>
-                <td mat-cell *matCellDef="let element" style="color: #f5bb8c;" >
-                    {{element.status}}
+                <td mat-cell *matCellDef="let element" >
+                    <span style="color: #f5bb8c;" *ngIf="element.status=='PENDING'">PENDING</span>
+                    <span style="color: green;" *ngIf="element.status=='RESOLVED'">RESOLVED</span>
+
+                    <!-- {{element.status}} -->
                 </td>
             </ng-container>
-   
+
             <!-- REPLY -->
             <ng-container matColumnDef="reply">
                 <th mat-header-cell *matHeaderCellDef> Action</th>
                 <td mat-cell *matCellDef="let element">
                     <mat-icon class="pointer reply" (click)="reply(element)" matTooltip="Reply To User">reply</mat-icon>
-                    <mat-icon class="remove" matTooltip="Remove Ticket" >remove_circle</mat-icon>
+                    <mat-icon class="remove" matTooltip="Remove Ticket">remove_circle</mat-icon>
                 </td>
             </ng-container>
 
@@ -84,14 +83,8 @@
         </table>
 
         <!-- PAGINATION -->
-        <mat-paginator [length]="totalLength" class="pagination" [pageSizeOptions]="[15, 25, 50, 75, 100]"
-        pageSize="15" (page)="pageChange($event)">
-    </mat-paginator>
+        <mat-paginator [length]="totalLength" class="pagination" [pageSizeOptions]="[15, 25, 50, 75, 100]" pageSize="15"
+            (page)="pageChange($event)">
+        </mat-paginator>
 
     </div>
-
-      
-     
-      
-
-

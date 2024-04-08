@@ -60,12 +60,9 @@ export class SupportComponent {
     this.ngxService.start();
     try {
       const res = await this.supportService.getsupportData(this.filter).toPromise();
-      console.log(res);
       this.dataSource = res.data.results;
       this.Replies = res.data.results[0].issue[0];
       this.totalLength = res.data.count;
-      console.log(this.Replies);
-      console.log(res.data.results);
       this.showLoader = false;
     } catch (error) {
       this.showLoader = false;
