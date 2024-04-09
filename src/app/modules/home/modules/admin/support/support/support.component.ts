@@ -13,7 +13,7 @@ import { ReplyComponent } from '../reply/reply.component'
 })
 export class SupportComponent {
 
-  displayedColumns: string[] = ['name', 'email', 'time', 'title', 'status', 'reply'];
+  displayedColumns: string[] = ['name', 'email', 'ticket', 'title', 'status', 'time', 'message', 'reply'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
@@ -81,7 +81,7 @@ export class SupportComponent {
   reply(element: any) {
     this.matdialog.open(ReplyComponent, {
       width: '450px',
-      data:element
+      data: element
     })
   }
 
