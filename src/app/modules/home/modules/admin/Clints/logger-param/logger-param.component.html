@@ -1,0 +1,28 @@
+<div class="flex pad-8 header">
+
+    <p class="heading" style="text-align: center;">Param Details</p>
+
+</div>
+<!-- <div *ngFor="let pair of keyValuePairs" class="key-value-pair">
+    {{ pair.key }} : {{ pair.value !== null ? pair.value : 'Null' }}
+</div> -->
+
+
+
+
+<div *ngFor="let pair of keyValuePairs" class="key-value-pair">
+    <ng-container *ngIf="!isObject(pair.value) && !isArray(pair.value)">
+       {{ pair.key }} : {{ pair.value }}
+    </ng-container>
+    <ng-container *ngIf="isArray(pair.value)">
+      <div *ngFor="let item of pair.value; let i = index">
+        {{ pair.key }}[{{ i }}] : {{ item | json }}
+      </div>
+    </ng-container>
+    <ng-container *ngIf="isObject(pair.value)">
+      <div *ngFor="let subPair of pair.value | keyvalue">
+        {{ pair.key }}.{{ subPair.key }} : {{ subPair.value }}
+      </div>
+    </ng-container>
+  </div>
+  

@@ -6,6 +6,8 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { LoggerComponent } from '../logger/logger.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export enum DateRangeEnum {
   Last30Dayds = '30Days',
@@ -25,7 +27,7 @@ export enum DateRangeEnum {
 
 
 export class ClintComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'email', 'strategy', 'signupDate', 'action'];
+  displayedColumns: string[] = ['name', 'email', 'strategy', 'signupDate','logger', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
@@ -45,7 +47,7 @@ export class ClintComponent implements OnInit {
     private clientService: ClintService,
     private ngxService: NgxUiLoaderService,
     private router: Router,
-
+    private matDialog: MatDialog
   ) {
     let data = localStorage.getItem('userinfo')
     if (data) {
@@ -144,6 +146,9 @@ export class ClintComponent implements OnInit {
     }
   }
 
-
+  getLogger(element: any) {
+    const userId = element.id;
+    this.router.navigate(['admin/client/log'], { queryParams: { userId: userId } });
+}
 }
 

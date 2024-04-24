@@ -63,6 +63,15 @@
             </td>
         </ng-container>
 
+           <!-- LOGGER -->
+           <ng-container matColumnDef="logger">
+            <th mat-header-cell *matHeaderCellDef>Logger </th>
+            <td mat-cell *matCellDef="let element">
+                <!-- <mat-icon matTooltip="Revenue" class="pointer"> monetization_on</mat-icon> -->
+                <mat-icon matTooltip="Logger Info" class="pointer" (click)="getLogger(element)">info</mat-icon>
+            </td>
+        </ng-container>
+
         <!-- ACTION COLUMN -->
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action </th>

@@ -21,6 +21,8 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { MatSortModule } from '@angular/material/sort';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { LoggerComponent } from './logger/logger.component';
+import { LoggerParamComponent } from './logger-param/logger-param.component';
 
 
 
@@ -30,6 +32,8 @@ import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
     ClintComponent,
+    LoggerComponent,
+    LoggerParamComponent,
     
   ],providers:[MatDialogModule],
   imports: [

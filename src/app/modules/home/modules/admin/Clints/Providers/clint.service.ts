@@ -17,6 +17,7 @@ export class ClintService {
 
   getUsers(data: any) {
     const userUrl = 'https://api.cryptozack.com/user-account/get-all-user'
+    // const userUrl = '//34.131.153.247:5567/user-account/get-all-user'
     // console.log(":service values", data)
 
     const headers = new HttpHeaders({
@@ -97,6 +98,19 @@ export class ClintService {
 
 
 
+  getLogger(data:any){
+   const url = `https://api.cryptozack.com/logger/list-logger`;
+   const headers = new HttpHeaders({
+    'Authorization': `Bearer ${data.token}`
+   });
+   const params = new HttpParams()
+   .set('userId', data.userId).set('page', data.page).set('limit', data.limit)
+  return this.http.get(url, { headers, params })
+  .pipe(map((res: any) => {
+    return res.data
+  }),
+  );
+  }
 
 
 
