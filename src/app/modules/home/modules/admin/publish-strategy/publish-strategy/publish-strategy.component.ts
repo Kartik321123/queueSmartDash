@@ -58,7 +58,7 @@ export class PublishStrategyComponent implements OnInit {
     this.ngxService.start();
     try {
       const res = await this.PublishService.publish(this.filter).toPromise();
-      console.log(res);
+      // console.log(res);
       this.totalLength = res.data.count;
       this.dataSource = res.data.results
       this.showLoader = false;
@@ -107,14 +107,52 @@ export class PublishStrategyComponent implements OnInit {
       })
   };
 
+
+  // PUBLISH REJECTED
+
+  unpublish(ele: any) {
+    this.matDialog.open(AlertComponent, {
+      width: "300px",
+      maxHeight: '400px',
+    }).afterClosed().subscribe((res) => {
+      if (res == true) {
+        this._unpublish(ele);
+      }
+    });
+  }
+
+  _unpublish(element:any) {
+    this.showLoader = true;
+    this.ngxService.start();
+    const obj:any= {
+     token: this.parseData.token,
+     userId: element.id,
+     access: "REJECTED"
+    };
+
+    this.PublishService.unpublish(obj)
+    .subscribe((res: any) =>{
+      if (res) {
+        this.initializeFilter();
+        this.publishStrategyList();
+      }
+      this.showLoader = false;
+      this.ngxService.stop();
+    },
+    (error:any)=>{
+      this.showLoader = false;
+    })
+  };
+
   // Publish List
 
   showList() {
-    this.matDialog.open(PublishStrategyListComponent), {
-      width: '700px'
-    }
-
+    this.matDialog.open(PublishStrategyListComponent, {
+      width: '800px',
+      maxHeight: '600px'
+    });
   }
+  
 
   strategyDetails(element: any) {
     console.log(element);

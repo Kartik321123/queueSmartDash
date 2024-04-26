@@ -74,7 +74,7 @@ export class WallettierListComponent {
 
   // UPDATE WALLET TIER
   updateWalletTier(data: any) {
-    console.log("updateWalletTier", data)
+    // console.log("updateWalletTier", data)
     this.matDialog.open(AddWallettireComponent, {
       width: '450px',
       data

@@ -1,13 +1,15 @@
 .key-value-pair {
-    background-color: #f0f0f0;
     padding: 10px;
-    margin-bottom: 7px;
+    margin-bottom: 2px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: whitesmoke;
+    white-space: normal;
+    word-wrap: break-word
 }
 
-.heading{
-    text-align: center;
-    position: relative;
-    left: 193px;
-}
+
+.toolbar {
+    background-color: #1e88e5;
+    color: white;
+  }

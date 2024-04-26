@@ -23,6 +23,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { LoggerComponent } from './logger/logger.component';
 import { LoggerParamComponent } from './logger-param/logger-param.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 
@@ -58,7 +59,8 @@ import { LoggerParamComponent } from './logger-param/logger-param.component';
     MatIconModule,
     ReactiveFormsModule,
     MatSortModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatToolbarModule
   ]
 })
 export class ClintsModule { }

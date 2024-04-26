@@ -6,7 +6,7 @@ import { LoggerComponent } from './logger/logger.component';
 
 const routes: Routes = [
   {path:'',component:ClintComponent},
-  {path:'log', component: LoggerComponent}
+  {path:'logger', component: LoggerComponent}
 ];
 
 @NgModule({

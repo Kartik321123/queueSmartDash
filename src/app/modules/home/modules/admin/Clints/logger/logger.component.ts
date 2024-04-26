@@ -72,7 +72,6 @@ getLogger() {
 }
 
 getParams(element:any){
-  console.log(element);
   this.matDialog.open(LoggerParamComponent,{
    width:'500px',
    maxHeight: '500px',

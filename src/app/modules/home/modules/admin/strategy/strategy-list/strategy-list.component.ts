@@ -282,7 +282,7 @@ export class StrategyListComponent implements OnInit {
   }
 
   _publish(ele:any){
-    console.log(ele);
+    // console.log(ele);
     ele.botConfiguration.publishAccess = !ele.botConfiguration.publishAccess;
     const userId = this.userId;
     const botId = ele.botId;
@@ -295,11 +295,11 @@ export class StrategyListComponent implements OnInit {
       copyStrategyAccess: "ACCEPTED"
   
     };
-    console.log(obj);
+    // console.log(obj);
   
  
         this.strategyService.publishAccess(obj).subscribe((res:any) =>{
-          console.log(res);
+          // console.log(res);
         })
   }
 

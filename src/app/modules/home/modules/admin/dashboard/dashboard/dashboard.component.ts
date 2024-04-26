@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   totalProfit: any
   filteredProfit: any
   companyWallet: any
-
+  totalWithrawal: any
   range = new FormGroup({
     from: new FormControl(),
     to: new FormControl()
@@ -86,6 +86,7 @@ export class DashboardComponent implements OnInit {
     await this.getCompanyTotalProfit();
     await this.getcompanyWallet();
     await this.initChartData();
+    await this.getWithrawal();
     this.showLoader = false;
     this.ngxService.stop();
   }
@@ -120,7 +121,7 @@ export class DashboardComponent implements OnInit {
     this.showLoader = true;
     this.ngxService.start();
     try {
-      const res: any = await this.clientService.getUsers(this.filter).toPromise();
+      const res: any = await this.clientService.getSubscription(this.filter).toPromise();
       this.clientsLength = res.data.results.length;
       this.showLoader = false;
     } catch (error) {
@@ -349,15 +350,40 @@ export class DashboardComponent implements OnInit {
     // COMPANY WALLET
     
   async getcompanyWallet(){
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU3MzU1LCJlbnYiOiJsaXZlIiwiaWF0IjoxNjA0MzEyODM0fQ.AzwDh768OtDJqcXb58YcZUoOJOUlQmk1LEFSr5wYQ2u';
+    const token = this.userData.token;
+    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU3MzU1LCJlbnYiOiJsaXZlIiwiaWF0IjoxNjA0MzEyODM0fQ.AzwDh768OtDJqcXb58YcZUoOJOUlQmk1LEFSr5wYQ2u';
     try {
       const res: any = await this.dashService.companyWallet(token).toPromise();
       this.companyWallet = res.usdtAmount;
-      console.log(this.companyWallet);
+      // console.log(this.companyWallet);
     } catch (error) {
       console.log(error);
     }
   }
+
+ // COMPANY WITHRAWAL
+ async getWithrawal(){
+  this.showLoader = true;
+  this.ngxService.start();
+  try{
+    const data = {
+      token: this.userData.token,
+      transactionType: 'WITHDRAWAL',
+      pageCount:{
+        page: 1,
+        limit: 10
+      },
+    };
+    const res = await this.dashService.withrawal(data).toPromise();
+    this.totalWithrawal = res.totalAmount
+    // console.log(res);
+    // console.log(res.totalAmount);
+  }
+  catch(error){
+    this.showLoader = false;
+  }
+}
+
 
 }
 

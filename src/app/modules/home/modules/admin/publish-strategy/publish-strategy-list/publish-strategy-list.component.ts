@@ -57,7 +57,7 @@ export class PublishStrategyListComponent  {
       this.ngxService.start();
       this.dataSource = res.data.results;
       this.totalLength = res.data.count;
-      console.log(res);
+      // console.log(res);
       this.showLoader = false;
 
     }, error => {

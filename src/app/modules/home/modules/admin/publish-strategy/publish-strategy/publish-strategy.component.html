@@ -89,7 +89,7 @@
                     <mat-icon [ngStyle]="{color: 'green'}" (click)="publish(element)" class="pointer icon" matTooltip="Give Access">
                         check_circle_outline
                     </mat-icon>
-                    <mat-icon [ngStyle]="{color: 'red'}"class="pointer icon" matTooltip="Cancel">
+                    <mat-icon [ngStyle]="{color: 'red'}" (click)="unpublish(element)"    class="pointer icon" matTooltip="Cancel">
                         cancel
                     </mat-icon>
                 </td>

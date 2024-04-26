@@ -55,7 +55,7 @@ export class RequestsComponent implements OnInit {
     this.showLoader = true;
     this.ngxService.start();
     this.withdrawalService.getWithdrawalRequests(this.filter).subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.dataSource = res.results
       this.paginator.length = res.count
       this.showLoader = false;

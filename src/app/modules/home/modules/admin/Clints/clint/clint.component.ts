@@ -148,7 +148,7 @@ export class ClintComponent implements OnInit {
 
   getLogger(element: any) {
     const userId = element.id;
-    this.router.navigate(['admin/client/log'], { queryParams: { userId: userId } });
+    this.router.navigate(['admin/client/logger'], { queryParams: { userId: userId } });
 }
 }
 

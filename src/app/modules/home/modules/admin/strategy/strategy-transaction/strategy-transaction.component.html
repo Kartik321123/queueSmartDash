@@ -22,8 +22,8 @@
                 <th mat-header-cell *matHeaderCellDef>Profit </th>
                 <td mat-cell *matCellDef="let element">
                     <span [ngStyle]="{'color': element.usdtAmount > 0 ? 'green' : '#687888'}"
-                        >{{element.usdtAmount}}</span>
-                    <span [ngStyle]="{'display': element.usdtAmount > 0 ? 'block' : 'none'}" class="usdt">(USDT)</span>
+                        >$ {{element.usdtAmount}}</span>
+                    <!-- <span [ngStyle]="{'display': element.usdtAmount > 0 ? 'block' : 'none'}" class="usdt">(USDT)</span> -->
                 </td>
             </ng-container>
 

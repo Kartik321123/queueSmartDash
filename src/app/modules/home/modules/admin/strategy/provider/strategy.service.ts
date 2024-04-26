@@ -67,7 +67,7 @@ export class StrategyService {
       let params = new HttpParams()
         .set('userId', data.userId)
         .set('id', data.botId)
-        console.log("1", data);
+        // console.log("1", data);
 
 
   
@@ -93,7 +93,7 @@ export class StrategyService {
     
       return this.http.post(userUrl,obj ,{ headers }) 
         .pipe(map((res: any) => {
-          console.log(res);
+          // console.log(res);
             return res.data;
           })
         );

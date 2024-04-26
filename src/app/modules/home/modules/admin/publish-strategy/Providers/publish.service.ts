@@ -41,7 +41,7 @@ publishAccess(data: any) {
     id: data.userId,
     access: data.access
   }       
-  console.log(obj);
+  // console.log(obj);
 
 
   return this.http.post(userUrl,obj ,{ headers }) 
@@ -70,5 +70,26 @@ return res
 );
 }
 
+// UNPUBLISH
 
+unpublish(data:any){
+  const userUrl = 'https://api.cryptozack.com/algo-strategy/publish-strategy-access';
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${data.token}`
+  });
+
+  const obj= {
+    id: data.userId,
+    access: data.access
+  }       
+  // console.log(obj);
+
+
+  return this.http.post(userUrl,obj ,{ headers }) 
+    .pipe(map((res: any) => {
+        return res.data;
+      })
+    );
+
+    }
 }

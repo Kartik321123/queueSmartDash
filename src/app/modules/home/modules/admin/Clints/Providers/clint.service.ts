@@ -27,6 +27,30 @@ export class ClintService {
       .set('page', data.pageCount.page)
       .set('limit', data.pageCount.limit)
       .set('text', data.filter.text)
+      // .set('fromDate', data.dateRange.from)
+      // .set('toDate', data.dateRange.to)
+
+
+    return this.http.get(userUrl, { headers, params })
+      .pipe(map(res => {
+        return res
+      }),
+      );
+  }
+
+   // GET SUBSCRIPTION DATA
+  getSubscription(data:any){
+    const userUrl = 'https://api.cryptozack.com/user-account/get-all-user'
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${data.token}`
+    });
+    const params = new HttpParams()
+      .set('page', data.pageCount.page)
+      .set('limit', data.pageCount.limit)
+      .set('text', data.filter.text)
+      .set('fromDate', data.dateRange.from)
+      .set('toDate', data.dateRange.to)
+
 
     return this.http.get(userUrl, { headers, params })
       .pipe(map(res => {

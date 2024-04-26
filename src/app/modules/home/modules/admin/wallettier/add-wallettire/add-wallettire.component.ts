@@ -25,14 +25,14 @@ export class AddWallettireComponent {
     private dialogRef: MatDialogRef<AddWallettireComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log("comming data", data)
+    // console.log("comming data", data)
     this.controls = this.walletTierForm.controls;
   }
 
   // CREATE NEW WALLET TIER
   addWalletTier() {
     this.walletTierService.createWalletTier(this.walletTierForm.value).subscribe((res) => {
-      console.log("addWalletTier addWalletTier", res)
+      // console.log("addWalletTier addWalletTier", res)
       if (res) {
         this.dialogRef.close(true);
       }
@@ -42,9 +42,9 @@ export class AddWallettireComponent {
   // UPDATE WALLET TIER 
   updateWalletTier() {
     const walletTierId = this.data.id
-    console.log("walletTierForm walletTierForm", walletTierId)
+    // console.log("walletTierForm walletTierForm", walletTierId)
     this.walletTierService.updateWalletTier(this.walletTierForm.value).subscribe((res) => {
-      console.log("addWalletTier addWalletTier", res)
+      // console.log("addWalletTier addWalletTier", res)
       if (res) {
         this.dialogRef.close(true);
       }

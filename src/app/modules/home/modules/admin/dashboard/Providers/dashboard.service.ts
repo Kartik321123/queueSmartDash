@@ -73,4 +73,21 @@ export class DashboardService {
   // }
 
 
+  withrawal(data:any){
+    const url = `https://api.cryptozack.com/wallet/company-transaction`;
+    const headers = new HttpHeaders({
+      'Authorization' : `Bearer ${data.token}`
+    })
+    const params = new HttpParams()
+    .set('page',data.pageCount.page)
+    .set('limit', data.pageCount.limit)
+    .set('transactionType',data.transactionType)
+  return this.http.get(url, {headers,params})
+  .pipe(map((res:any) =>{
+    return res.data
+  }));
+
+}
+
+
 }
