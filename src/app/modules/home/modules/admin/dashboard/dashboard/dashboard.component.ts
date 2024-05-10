@@ -355,9 +355,7 @@ export class DashboardComponent implements OnInit {
     try {
       const res: any = await this.dashService.companyWallet(token).toPromise();
       this.companyWallet = res.usdtAmount;
-      // console.log(this.companyWallet);
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -376,8 +374,7 @@ export class DashboardComponent implements OnInit {
     };
     const res = await this.dashService.withrawal(data).toPromise();
     this.totalWithrawal = res.totalAmount
-    // console.log(res);
-    // console.log(res.totalAmount);
+
   }
   catch(error){
     this.showLoader = false;

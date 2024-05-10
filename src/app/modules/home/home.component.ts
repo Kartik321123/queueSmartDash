@@ -78,11 +78,11 @@ export class HomeComponent implements OnInit {
         route: 'admin/withDrawal',
         isSubSubmenu: false
       },
-      {
-        displayName: 'Wallet Tier',
-        route: 'admin/wallettier',
-        isSubSubmenu: false
-      },
+      // {
+      //   displayName: 'Wallet Tier',
+      //   route: 'admin/wallettier',
+      //   isSubSubmenu: false
+      // },
       {
         displayName: 'Publish Strategy',
         route: 'admin/publishStrategy',
@@ -97,6 +97,7 @@ export class HomeComponent implements OnInit {
 
     this.menus = [...item, ...this.fixedMenus];
     this.menus = this.menus.map(res => {
+      // console.log(res);
       res.locationId = this.selectedLocation;
       res.children = res.children && res.children.map(route => {
         route.locationId = this.selectedLocation;

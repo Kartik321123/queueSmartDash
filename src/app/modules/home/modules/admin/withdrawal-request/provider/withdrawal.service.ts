@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Data } from '@angular/router';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -30,6 +31,16 @@ export class WithdrawalService {
         return res.data
       }),
       );
+  }
+
+  approveRequest(data:any){
+    const requestId = data;
+    const url = 'https://api.cryptozack.com/wallet/withdrawal-amount';
+    return this.http.post(url, requestId)
+    .pipe(map(res =>{
+      return res;
+    }))
+    ;
   }
 
   

@@ -54,7 +54,7 @@ initializeFilter() {
     token: this.parseData.token,
     userId: this.userId,
     page: 1,
-    limit: 20
+    limit: 15
   }
   this.filter = obj;
 }
@@ -62,8 +62,8 @@ initializeFilter() {
 getLogger() {
   this.showLoader = true;
   this.ngxService.start();
-  this.clintService.getLogger(this.filter).subscribe((res) => {
-    this.dataSource = res.results;
+  this.clintService.getLogger( this.filter).subscribe((res) => {
+    this.dataSource = res.results.reverse();
     this.totalLength = res.count;
     this.showLoader = false;
     this.ngxService.stop();
@@ -76,7 +76,8 @@ getParams(element:any){
    width:'500px',
    maxHeight: '500px',
    data: {
-     Data: element
+     Data: element,
+     Params: true
    }
   })
 }
@@ -90,5 +91,24 @@ pageChange(event: PageEvent) {
 
 backToUser() {
   this.navigateRouter.navigate(['/admin/client'])
+}
+
+isObject(value: any): boolean {
+  return typeof value === 'object' && value !== null;
+}
+
+// Stringify the object
+stringifyActivity(activity: any): string {
+  return JSON.stringify(activity);
+}
+
+activity(data:any){
+  this.matDialog.open(LoggerParamComponent,{
+    width:'500px',
+    maxHeight: '500px',
+    data: {
+      Data: data
+    }
+  })
 }
 }

@@ -17,12 +17,29 @@
         <table class="dataTable" mat-table [dataSource]="dataSource">
 
             <!--  ACTIVITY -->
-            <ng-container matColumnDef="activity">
+            <!-- <ng-container matColumnDef="activity">
                 <th mat-header-cell *matHeaderCellDef>Activity </th>
                 <td mat-cell *matCellDef="let element">
                     {{element.activity}}
                 </td>
+            </ng-container> -->
+
+            <ng-container matColumnDef="activity">
+                <th mat-header-cell *matHeaderCellDef>Activity </th>
+                <td mat-cell *matCellDef="let element">
+                    <!-- Check if activity is an object -->
+                    <ng-container *ngIf="isObject(element.activity)">
+                        <!-- Stringify the object and display it -->
+                        <!-- {{ stringifyActivity(element.activity) }} -->
+                        <mat-icon matTooltip="Activity Details" class="pointer" (click)="activity(element)">view_array</mat-icon>
+                    </ng-container>
+                    <!-- If activity is not an object, display it directly -->
+                    <ng-container *ngIf="!isObject(element.activity)">
+                        {{ element.activity }}
+                    </ng-container>
+                </td>
             </ng-container>
+            
 
             <!--  TIME COLUMN -->
             <ng-container matColumnDef="time">
@@ -42,9 +59,9 @@
 
             <!-- PARAMS -->
             <ng-container matColumnDef="param">
-                <th mat-header-cell *matHeaderCellDef>Param</th>
+                <th style="white-space: nowrap;" mat-header-cell *matHeaderCellDef>Param</th>
                 <td mat-cell *matCellDef="let element">
-                    <mat-icon class="pointer" (click)="getParams(element)">view_list</mat-icon>
+                    <mat-icon matTooltip="ParamsDetails" class="pointer" (click)="getParams(element)">view_list</mat-icon>
                 </td>
             </ng-container>
 

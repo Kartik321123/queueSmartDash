@@ -8,15 +8,20 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class LoggerParamComponent implements OnInit {
   keyValuePairs: { key: string; value: any }[] = [];
-
+  Params: boolean | undefined;
   constructor(@Inject(MAT_DIALOG_DATA) public values: any,
   private dialogRef: MatDialogRef<any>
   ) {
-    console.log(values);
   }
 
   ngOnInit() {
+    if(this.values.Params == true){
+      this.Params = this.values.Params;
     this.iterateObject(this.values.Data.param);
+    }
+    else{
+    this.iterateObject(this.values.Data.activity);
+    }
   }
 
   iterateObject(obj: any) {
@@ -24,7 +29,6 @@ export class LoggerParamComponent implements OnInit {
       if (typeof obj[key] === 'object' && obj[key] !== null) {
         this.iterateObject(obj[key]);
       } else {
-        console.log(key + ' ', obj[key]);
         this.keyValuePairs.push({ key: key, value: obj[key] });
       }
     }
@@ -32,6 +36,5 @@ export class LoggerParamComponent implements OnInit {
 
   close(): void {
     this.dialogRef.close();
-    console.log('hello')
   }
 }

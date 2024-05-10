@@ -155,7 +155,6 @@ export class PublishStrategyComponent implements OnInit {
   
 
   strategyDetails(element: any) {
-    console.log(element);
     this.matDialog.open(StrategyDetailsComponent, {
       width: '700px',
       data: {

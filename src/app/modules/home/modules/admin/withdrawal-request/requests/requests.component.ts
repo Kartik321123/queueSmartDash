@@ -65,9 +65,9 @@ export class RequestsComponent implements OnInit {
   }
 
   // APPROVE USER REQUESTS
-  approveRequest(data: any) {
+  approveRequest(data: any){
     this.matDialog.open(AlertComponent, {
-      width: "300px"
+      width: "300px" 
     }).afterClosed().subscribe((res) => {
       if (res == true) {
         this._approveRequest(data);
@@ -76,8 +76,13 @@ export class RequestsComponent implements OnInit {
   }
 
   _approveRequest(data: any) {
-    this.toastr.success("Request approved for transaction")
-    console.log("coooooooo")
+    this.withdrawalService.approveRequest(data)
+    .subscribe((res)=>{
+if(res){
+  this.initializeFilter();
+  this.getWithdrawalRequests();
+}      
+    })
   }
 
 
