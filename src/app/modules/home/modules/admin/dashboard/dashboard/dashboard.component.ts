@@ -33,7 +33,7 @@ import { coerceStringArray } from '@angular/cdk/coercion';
 
 export class DashboardComponent implements OnInit {
   showLoader = false
-  admin: any = 'amardeep kumar'
+  admin: any
   filter: any
   DateRangeEnum = DateRangeEnum;
   @Input() SelectedDateRange: DateRangeEnum = DateRangeEnum.Last7Days;

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
+import { CRYPTO_URL } from 'src/app/helpers/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class WallettierService {
 
   // GET WALLET TIER LIST
   getWalletTier(accessToken: string) {
-    const userUrl = 'https://api.cryptozack.com/wallet/get-wallet-tier'
+    const userUrl = `${CRYPTO_URL.LIVE_URL}/wallet/get-wallet-tier`
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${accessToken}`
     });
@@ -26,7 +27,7 @@ export class WallettierService {
 
   // CREATE WALLET TIER 
   createWalletTier(data: any) {
-    const userUrl = 'https://api.cryptozack.com/wallet/create-wallet-tier'
+    const userUrl = `${CRYPTO_URL.LIVE_URL}/wallet/create-wallet-tier`
     return this.http.post(userUrl, data)
       .pipe(map((res: any) => {
         return res.data
@@ -36,7 +37,7 @@ export class WallettierService {
 
   // UPDATE WALLET TIER
   updateWalletTier(data: any) {
-    const userUrl = 'https://api.cryptozack.com/wallet/update-tier'
+    const userUrl = `${CRYPTO_URL.LIVE_URL}/wallet/update-tier`
     return this.http.post(userUrl, data)
       .pipe(map((res: any) => {
         return res.data

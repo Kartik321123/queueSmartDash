@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { CRYPTO_URL } from 'src/app/helpers/constants';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class SupportService {
 
   // GET LIST 
   getsupportData(data: any) {
-    const url = 'https://api.cryptozack.com/user-account/list-support';
+    const url = `${CRYPTO_URL.LIVE_URL}/user-account/list-support`;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${data.token}`
     });
@@ -29,7 +30,7 @@ export class SupportService {
 
   // GET USER SUPPORT DATA
   getsupportUserData(data: any) {
-    const url = 'https://api.cryptozack.com/user-account/support-byId';
+    const url = `${CRYPTO_URL.LIVE_URL}/user-account/support-byId`;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${data.token}`
     });
@@ -46,7 +47,7 @@ export class SupportService {
 
   // POST REPLY
   replyToUser(data: any) {
-    const url = 'https://api.cryptozack.com/user-account/support-reply';
+    const url = `${CRYPTO_URL.LIVE_URL}/user-account/support-reply`;
     return this.http.post(url, data);
   }
 }

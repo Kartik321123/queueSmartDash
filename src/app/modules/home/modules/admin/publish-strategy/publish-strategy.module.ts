@@ -11,6 +11,7 @@ import { PublishStrategyListComponent } from './publish-strategy-list/publish-st
 import { StrategyDetailsComponent } from './strategy-details/strategy-details.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     NgApexchartsModule,
     MatIconModule,
     NgxUiLoaderModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatToolbarModule
   ]
 })
 export class PublishStrategyModule { }

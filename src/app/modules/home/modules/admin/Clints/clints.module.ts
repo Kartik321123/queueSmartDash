@@ -24,6 +24,9 @@ import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { LoggerComponent } from './logger/logger.component';
 import { LoggerParamComponent } from './logger-param/logger-param.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { ReferralComponent } from './referral/referral.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -35,6 +38,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     ClintComponent,
     LoggerComponent,
     LoggerParamComponent,
+    ReferralComponent,
     
   ],providers:[MatDialogModule],
   imports: [
@@ -60,7 +64,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     ReactiveFormsModule,
     MatSortModule,
     MatTooltipModule,
-    MatToolbarModule
+    MatToolbarModule,
   ]
 })
 export class ClintsModule { }

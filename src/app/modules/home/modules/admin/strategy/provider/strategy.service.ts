@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { CRYPTO_URL } from 'src/app/helpers/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class StrategyService {
 
 // ALL BOTS LIST
   allBots(data: any) {
-    const userUrl = 'https://api.cryptozack.com/algo-strategy/runtime-bots'
+    const userUrl = `${CRYPTO_URL.LIVE_URL}/algo-strategy/runtime-bots`
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${data.token}`
     });
@@ -37,7 +38,7 @@ export class StrategyService {
 
   // ACTIVE BOTS LIST
   activeBots(data: any) {
-    const userUrl = 'https://api.cryptozack.com/algo-strategy/runtime-bots'
+    const userUrl = `${CRYPTO_URL.LIVE_URL}/algo-strategy/runtime-bots`
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${data.token}`
     });
@@ -60,7 +61,7 @@ export class StrategyService {
 
     // STRATEGY TRANSACTION LIST
     strategyTransaction(data: any) {
-      const userUrl = 'https://api.cryptozack.com/wallet/get-strategy-trade'
+      const userUrl = `${CRYPTO_URL.LIVE_URL}/wallet/get-strategy-trade`
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${data.token}`
       });
@@ -81,7 +82,7 @@ export class StrategyService {
     // PUBLISH ACCESS
 
     publishAccess(data: any) {
-      const userUrl = 'https://api.cryptozack.com/algo-strategy/publish-strategy-access';
+      const userUrl = `${CRYPTO_URL.LIVE_URL}/algo-strategy/publish-strategy-access`;
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${data.token}`
       });
@@ -108,7 +109,7 @@ export class StrategyService {
       const params = new HttpParams()
         .set('userId', data.userId).set('page', data.page).set('limit', data.limit).set('transactionType', data.transactionType)
         .set('fromDate', data.dateRange.from).set('toDate', data.dateRange.to);
-      const url = 'https://api.cryptozack.com/wallet/get-transaction';
+      const url = `${CRYPTO_URL.LIVE_URL}/wallet/get-transaction`;
   
       return this.http.get(url, { headers, params })
         .pipe(map((res: any) => {

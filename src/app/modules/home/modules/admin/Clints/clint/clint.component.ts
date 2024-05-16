@@ -27,7 +27,7 @@ export enum DateRangeEnum {
 
 
 export class ClintComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'email', 'strategy', 'signupDate','logger', 'action'];
+  displayedColumns: string[] = ['name', 'email', 'strategy', 'signupDate', 'referral','logger', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
@@ -47,7 +47,7 @@ export class ClintComponent implements OnInit {
     private clientService: ClintService,
     private ngxService: NgxUiLoaderService,
     private router: Router,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) {
     let data = localStorage.getItem('userinfo')
     if (data) {
@@ -59,6 +59,7 @@ export class ClintComponent implements OnInit {
   ngOnInit(): void {
     this.initializeFilter();
     this.getUserData();
+    
   }
 
 
@@ -150,5 +151,13 @@ export class ClintComponent implements OnInit {
     const userId = element.id;
     this.router.navigate(['admin/client/logger'], { queryParams: { userId: userId } });
 }
+
+referral(data:any){
+  const userId = data.id;  
+  this.router.navigate(['admin/client/referral'], {queryParams: {userId: userId}});
+  
+}
+
+
 }
 

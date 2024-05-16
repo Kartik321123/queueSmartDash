@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CRYPTO_URL } from 'src/app/helpers/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class DashboardService {
     });
     const params = new HttpParams()
       .set('page', data.pageCount.page).set('limit', data.pageCount.limit).set('transactionType', data.transactionType);
-    const url = 'https://api.cryptozack.com/wallet/company-transaction';
+    const url = `${CRYPTO_URL.LIVE_URL}/wallet/company-transaction`;
 
     return this.http.get(url, { headers, params })
       .pipe(map((res: any) => {
@@ -35,7 +36,7 @@ export class DashboardService {
     const params = new HttpParams()
       .set('page', data.pageCount.page).set('limit', data.pageCount.limit).set('transactionType', data.transactionType).set('fromDate', data.dateRange.from)
       .set('toDate', data.dateRange.to)
-    const url = 'https://api.cryptozack.com/wallet/company-transaction';
+    const url = `${CRYPTO_URL.LIVE_URL}/wallet/company-transaction`;
 
     return this.http.get(url, { headers, params })
       .pipe(map((res: any) => {
@@ -48,7 +49,7 @@ export class DashboardService {
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-      const url = 'https://api.cryptozack.com/wallet/company-wallet';
+      const url = `${CRYPTO_URL.LIVE_URL}/wallet/company-wallet`;
       return this.http.get(url, {headers})
       .pipe(map((res:any) => {
         return res.data
@@ -74,7 +75,7 @@ export class DashboardService {
 
 
   withrawal(data:any){
-    const url = `https://api.cryptozack.com/wallet/company-transaction`;
+    const url = `${CRYPTO_URL.LIVE_URL}/wallet/company-transaction`;
     const headers = new HttpHeaders({
       'Authorization' : `Bearer ${data.token}`
     })

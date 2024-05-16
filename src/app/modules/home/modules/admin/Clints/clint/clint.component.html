@@ -72,6 +72,15 @@
             </td>
         </ng-container>
 
+             <!-- REFEERALS -->
+             <ng-container matColumnDef="referral">
+                <th mat-header-cell *matHeaderCellDef>Referrals </th>
+                <td mat-cell *matCellDef="let element">
+                    <!-- <mat-icon matTooltip="Revenue" class="pointer"> monetization_on</mat-icon> -->
+                    <mat-icon matTooltip="Referrals" class="pointer" (click)="referral(element)">assignment</mat-icon>
+              </td>
+            </ng-container>
+
         <!-- ACTION COLUMN -->
         <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef>Action </th>

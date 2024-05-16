@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Data } from '@angular/router';
 import { map } from 'rxjs';
+import { CRYPTO_URL } from 'src/app/helpers/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class WithdrawalService {
   // GET ALL WITHDRAWAL REQUESTS
   getWithdrawalRequests(data: any) {
 
-    const url = 'https://api.cryptozack.com/wallet/get-withdrawal-request';
+    const url = `${CRYPTO_URL.LIVE_URL}/wallet/get-withdrawal-request`;
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${data.token}`
@@ -35,7 +36,7 @@ export class WithdrawalService {
 
   approveRequest(data:any){
     const requestId = data;
-    const url = 'https://api.cryptozack.com/wallet/withdrawal-amount';
+    const url = `${CRYPTO_URL.LIVE_URL}/wallet/withdrawal-amount`;
     return this.http.post(url, requestId)
     .pipe(map(res =>{
       return res;

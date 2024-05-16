@@ -2,6 +2,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { CRYPTO_URL } from 'src/app/helpers/constants';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +21,7 @@ export class PublishService {
      .set('page', data.page)
      .set('limit', data.limit)
      .set('access', data.access)
-  const url = 'https://api.cryptozack.com/algo-strategy/list-publish-strategy-request';
+  const url = `${CRYPTO_URL.LIVE_URL}/algo-strategy/list-publish-strategy-request`;
 
   return this.http.get(url, {headers, params} )
   .pipe(map((res: any) =>{
@@ -32,7 +33,7 @@ export class PublishService {
 
 // GET PUBLISH
 publishAccess(data: any) {
-  const userUrl = 'https://api.cryptozack.com/algo-strategy/publish-strategy-access';
+  const userUrl = `${CRYPTO_URL.LIVE_URL}/algo-strategy/publish-strategy-access`;
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${data.token}`
   });
@@ -54,7 +55,7 @@ publishAccess(data: any) {
 //PUBLISHD REQUEST LIST
 
 publishaccessList(data:any){
-  const url = 'https://api.cryptozack.com/algo-strategy/list-publish-strategy-request';
+  const url = `${CRYPTO_URL.LIVE_URL}/algo-strategy/list-publish-strategy-request`;
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${data.token}`
   });
@@ -73,7 +74,7 @@ return res
 // UNPUBLISH
 
 unpublish(data:any){
-  const userUrl = 'https://api.cryptozack.com/algo-strategy/publish-strategy-access';
+  const userUrl = `${CRYPTO_URL.LIVE_URL}/algo-strategy/publish-strategy-access`;
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${data.token}`
   });

@@ -16,7 +16,7 @@ import { StrategyDetailsComponent } from '../strategy-details/strategy-details.c
 })
 export class PublishStrategyComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'email', 'time', 'status', 'action'];
+  displayedColumns: string[] = ['name', 'email', 'time', 'roi', 'profit', 'status', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
@@ -155,15 +155,19 @@ export class PublishStrategyComponent implements OnInit {
   
 
   strategyDetails(element: any) {
+    // console.log(element);
+    
     this.matDialog.open(StrategyDetailsComponent, {
-      width: '700px',
-      data: {
-        buyThreshold: element.strategy.parameters.buyThreshold,
-        initialInvestment: element.strategy.parameters.initialInvestment,
-        lotMultiplier: element.strategy.parameters.lotMultiplier,
-        maxPositions: element.strategy.parameters.maxPositions,
-        profitThreshold: element.strategy.parameters.profitThreshold,
-      }
+      width:'500px',
+      maxHeight: '500px',
+      data: element
+      //  {
+      //   buyThreshold: element.strategy.parameters.buyThreshold,
+      //   initialInvestment: element.strategy.parameters.initialInvestment,
+      //   lotMultiplier: element.strategy.parameters.lotMultiplier,
+      //   maxPositions: element.strategy.parameters.maxPositions,
+      //   profitThreshold: element.strategy.parameters.profitThreshold,
+      // }
     })
 
   }
