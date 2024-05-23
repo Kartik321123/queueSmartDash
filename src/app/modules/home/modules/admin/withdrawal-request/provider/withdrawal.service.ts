@@ -35,9 +35,11 @@ export class WithdrawalService {
   }
 
   approveRequest(data:any){
-    const requestId = data;
+    const obj = {
+      requestId: data
+    };
     const url = `${CRYPTO_URL.LIVE_URL}/wallet/withdrawal-amount`;
-    return this.http.post(url, requestId)
+    return this.http.post(url, obj)
     .pipe(map(res =>{
       return res;
     }))

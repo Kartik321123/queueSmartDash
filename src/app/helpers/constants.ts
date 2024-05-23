@@ -15,5 +15,7 @@ export const LOCAL_STORAGE_KEYS = {
   export const SERVER_URL = environment.serverUrl;
 
   export const CRYPTO_URL  = {
-      LIVE_URL:'https://api.cryptozack.com'
+      LIVE_URL:
+      'https://api.cryptozack.com'
+      // '//34.131.153.247:5567'
   }

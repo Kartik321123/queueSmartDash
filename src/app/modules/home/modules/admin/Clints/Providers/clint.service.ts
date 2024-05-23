@@ -147,7 +147,6 @@ export class ClintService {
    return this.http.get(url, {headers, params})
    .pipe(map((res:any) =>{
     return res;
-    console.log(res);
     
    }))
   }
