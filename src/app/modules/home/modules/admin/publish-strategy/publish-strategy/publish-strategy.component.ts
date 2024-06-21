@@ -103,7 +103,7 @@ export class PublishStrategyComponent implements OnInit {
         }
       },error=>{
         this.showLoader = false;
-
+        this.ngxService.stop()
       })
   };
 

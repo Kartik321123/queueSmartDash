@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 export class RequestsComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'email', 'amount', 'status', 'time', 'action'];
+  displayedColumns: string[] = ['name', 'email', 'address', 'amount', 'status', 'time', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;

@@ -63,7 +63,10 @@ getLogger() {
   this.showLoader = true;
   this.ngxService.start();
   this.clintService.getLogger( this.filter).subscribe((res) => {
-    this.dataSource = res.results.reverse();
+    const sortedResults = res.results.sort((a:any,b:any)=>{
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
+    this.dataSource = sortedResults
     this.totalLength = res.count;
     this.showLoader = false;
     this.ngxService.stop();
