@@ -11,6 +11,7 @@ const routes: Routes = [
   { path: 'strategy', loadChildren: () => import('./strategy/strategy.module').then(m => m.StrategyModule) },
   { path: 'publishStrategy', loadChildren: () => import('../admin/publish-strategy/publish-strategy.module').then(m => m.PublishStrategyModule)},
   { path: 'support', loadChildren: () => import('../admin/support/support.module').then(m => m.SupportModule)},
+  { path: 'banner', loadChildren: () => import('../admin/banner/banner.module').then(m => m.BannerModule)},
 
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

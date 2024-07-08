@@ -92,6 +92,11 @@ export class HomeComponent implements OnInit {
         displayName: 'Support',
         route: 'admin/support',
         isSubSubmenu: false
+      },
+      {
+        displayName: "Banner",
+        route: 'admin/banner',
+        isSubSubmenu: false
       }
     ]
 
