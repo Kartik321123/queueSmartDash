@@ -124,12 +124,13 @@ export class ClintService {
 
 
   getLogger(data:any){
+    
    const url = `${CRYPTO_URL.LIVE_URL}/logger/list-logger`;
    const headers = new HttpHeaders({
     'Authorization': `Bearer ${data.token}`
    });
    const params = new HttpParams()
-   .set('userId', data.userId).set('page', data.page).set('limit', data.limit)
+   .set('userId', data.userId).set('page', data.page).set('limit', data.limit).set('type', data.filter.type)
   return this.http.get(url, { headers, params })
   .pipe(map((res: any) => {
     return res.data

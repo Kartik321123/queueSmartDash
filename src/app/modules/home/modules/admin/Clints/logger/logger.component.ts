@@ -20,7 +20,8 @@ export class LoggerComponent implements OnInit {
   filter:any;
   totalLength:any;
   userId: string | undefined;
-
+  options: any;
+  counter:number=0
   constructor(
     private ngxService: NgxUiLoaderService,
     private activatedRoute: ActivatedRoute,
@@ -54,7 +55,10 @@ initializeFilter() {
     token: this.parseData.token,
     userId: this.userId,
     page: 1,
-    limit: 15
+    limit: 15,
+    filter:{
+      type: ''
+    }
   }
   this.filter = obj;
 }
@@ -67,7 +71,11 @@ getLogger() {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
     this.dataSource = sortedResults
-    this.totalLength = res.count;
+    const uniqueTypes = new Set(sortedResults.map((element: any) => element.type));
+    if(this.counter===0){
+      this.options = uniqueTypes;
+      this.counter++;
+    }
     this.showLoader = false;
     this.ngxService.stop();
     })
@@ -90,6 +98,28 @@ pageChange(event: PageEvent) {
   this.filter.page = event.pageIndex + 1;
   this.filter.limit = event.pageSize;
   this.getLogger();
+}
+
+
+onSelectionChange(event: any) {
+  
+  const filterValue = (event as HTMLInputElement);
+  
+  this.filter.filter = {
+    type: filterValue,
+  }
+  if (this.filter.filter.type.length >= 2) {
+    this.getLogger();
+  } else if (this.filter.filter.type.length <= 0) {
+    this.filter.filter = {
+      type: ''
+    }
+    this.filter = {
+      page: 1,
+      limit:15
+    }
+    this.getLogger();
+  }
 }
 
 backToUser() {

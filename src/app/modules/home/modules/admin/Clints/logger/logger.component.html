@@ -11,6 +11,14 @@
   <mat-icon class="back_arrow" (click)="backToUser()" matTooltip="Back To User">arrow_back</mat-icon>
   <p class="heading">Logger</p>
   <div class="spacer"></div>
+
+     <!-- SEARCH BOX -->
+        <div class="select-box visitor-select-box">
+            <mat-select placeholder="Select an option" (selectionChange)="onSelectionChange($event.value)">
+                <mat-option *ngFor="let option of options" [value]="option">{{ option }}</mat-option>
+              </mat-select>
+          
+        </div>
 </div>
     <!-- TABLE CONTAINER -->
     <div style="margin-top: 10px;">
