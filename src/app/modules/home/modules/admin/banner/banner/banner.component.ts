@@ -2,8 +2,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { AlertComponent } from 'src/app/_shared/modules/alert/alert.component';
 import { BannerService } from '../Providers/banner.service';
+import { UpdateBannerComponent } from '../update-banner/update-banner.component';
 
 @Component({
   selector: 'app-banner',
@@ -20,7 +23,8 @@ export class BannerComponent implements OnInit {
   showLoader: boolean = false
   base64Image: string | null = null;
 
-  constructor(private bannerService: BannerService, private fb: FormBuilder, private ngxService: NgxUiLoaderService) { }
+  constructor(private bannerService: BannerService, private fb: FormBuilder, private ngxService: NgxUiLoaderService,
+    private matdailog: MatDialog) { }
 
   ngOnInit(): void {
     this.getBanner();
@@ -42,7 +46,6 @@ export class BannerComponent implements OnInit {
   }
 
   onFileSelected(event: any): void {
-    console.log(event);
     const file = event.target.files[0];
     if (file) {
       this.file = file;
@@ -70,7 +73,6 @@ export class BannerComponent implements OnInit {
 
       this.bannerService.upload(formData).subscribe(
         (res: any) => {
-          console.log(res);
           this.form.reset();
           this.file = null;
           this.base64Image = null;
@@ -87,14 +89,37 @@ export class BannerComponent implements OnInit {
     }
   }
 
-  deleteBanner(bannerId:string){
-     this.showLoader = true;
-     this.ngxService.start();
-     this.bannerService.delete(bannerId).subscribe((res)=>{
-      console.log(res);
+  deleteBanner(bannerId: string): void {
+    const dialogRef = this.matdailog.open(AlertComponent,
+      {
+        width: '400px'
+      });
+
+    dialogRef.afterClosed().subscribe((res: any) => {
+      if (res) {
+        this._deleteBanner(bannerId);
+      } else {
+        console.log('Deletion was canceled.');
+      }
+    });
+  }
+
+  _deleteBanner(bannerId: string): void {
+    this.showLoader = true;
+    this.ngxService.start();
+    this.bannerService.delete(bannerId).subscribe((res) => {
       this.getBanner();
       this.showLoader = false;
       this.ngxService.stop();
-     })
+    });
   }
+
+  updateBanner(bannerId: string): void {
+    this.matdailog.open(UpdateBannerComponent, {
+      data: {
+        bannerId: bannerId
+      }
+    });
+  }
+
 }

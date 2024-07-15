@@ -21,7 +21,6 @@ export class BannerService {
   }
 
   upload(formdata:any){
-    console.log(formdata);
     const obj ={
       imageLink: formdata.image,
       text: formdata.text,
@@ -37,6 +36,18 @@ export class BannerService {
     }
     const url = `${CRYPTO_URL.LIVE_URL}/user-account/banner-delete`;
     return this.http.post(url,obj)
+  }
+
+  update(formdata:any,bannerId:string){    
+    const url = `${CRYPTO_URL.LIVE_URL}/user-account/banner`
+    const obj= {
+      id: bannerId,
+      imageLink: formdata.image,
+      text: formdata.text,
+      link: formdata.link
+    }
+    console.log(obj);
+    return this.http.put(url, obj)
   }
 
 }

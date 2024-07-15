@@ -27,7 +27,7 @@ export enum DateRangeEnum {
 
 
 export class ClintComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'email', 'strategy', 'signupDate', 'referral','logger', 'action'];
+  displayedColumns: string[] = ['name', 'email', 'baserurl', 'strategy', 'signupDate', 'referral','logger', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
@@ -158,6 +158,33 @@ referral(data:any){
   
 }
 
+updatetobinance(data:any){
+  
+    this.clientService.updatetobinance(data, this.parseData.token).subscribe((res)=>{
+      this.getUserData()
+      
+    })
+}
+
+// updatetoBinanceus(data:any){
+
+//   this.clientService.updatetoBinanceus(data, this.parseData.token).subscribe((res)=>{
+//     console.log(res);
+//     this.getUserData()
+    
+//   })
+
+// }
+
+updatetoBinancetestnet(data:any){
+
+  this.clientService.updatetoBinancetestnet(data, this.parseData.token).subscribe((res)=>{
+    console.log(res);
+    this.getUserData()
+    
+  })
+
+}
 
 }
 

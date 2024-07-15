@@ -152,4 +152,62 @@ export class ClintService {
    }))
   }
 
+  // update base url
+
+updatetobinance(data:any, token: any){
+
+  const url = `${CRYPTO_URL.LIVE_URL}/user-account/update-admin`
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+   });
+  const obj = {
+     id: data.id,
+     baseURL: "https://api.binance.com"
+  }
+
+ return this.http.post(url, obj, {headers})
+ .pipe(map((res:any) =>{
+  return res
+ }))
+  
 }
+
+// updatetoBinanceus(data:any, token: any){
+
+//   const url = `${CRYPTO_URL.LIVE_URL}/user-account/update-admin`
+//   const headers = new HttpHeaders({
+//     'Authorization': `Bearer ${token}`
+//    });
+//   const obj = {
+//      id: data.id,
+//      baseURL: "https://api.binance.us"
+//   }
+
+//  return this.http.post(url, obj, {headers})
+//  .pipe(map((res:any) =>{
+//   return res
+//  }))
+  
+// }
+
+updatetoBinancetestnet(data:any, token: any){
+
+  const url = `${CRYPTO_URL.LIVE_URL}/user-account/update-admin`
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+   });
+  const obj = {
+     id: data.id,
+     baseURL: "https://testnet.binance.vision"
+  }
+
+ return this.http.post(url, obj, {headers})
+ .pipe(map((res:any) =>{
+  return res
+ }))
+  
+}
+
+}
+
+

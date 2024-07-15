@@ -65,6 +65,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSortModule,
     MatTooltipModule,
     MatToolbarModule,
+    MatMenuModule
   ]
 })
 export class ClintsModule { }

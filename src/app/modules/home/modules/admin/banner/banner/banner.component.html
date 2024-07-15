@@ -38,20 +38,26 @@
 
 
   <div class="container">
-    <mat-grid-list cols="4"  gutterSize="16px">
+    <mat-grid-list cols="4" gutterSize="16px">
       <mat-grid-tile *ngFor="let banner of data">
+        <div class="deleteButton">
+          <mat-icon matTooltip="Delete banner" (click)="deleteBanner(banner.id)">close</mat-icon>
+        </div>
         <mat-card class="upload-card">
-          <img mat-card-image [src]="banner.imageLink"alt="..." style="width: 100%; height: 200px; object-fit: cover;">
-          <mat-card-content >
-            <h5>{{banner.text || 'Card title'}}</h5>
+          <img mat-card-image [src]="banner.imageLink" alt="..." style="width: 100%; height: 200px; object-fit: cover;">
+          <mat-card-content>
+            <h5>{{ banner.text || 'Card title' }}</h5>
+            <h5>{{ banner.link || 'Link' }}</h5>
           </mat-card-content>
-          <mat-card-actions >
-            <button mat-flat-button color="primary" (click)="deleteBanner(banner.id)">Delete</button>
+          <mat-card-actions class="matcardactions">
+       
+            <button mat-flat-button color="primary" (click)="updateBanner(banner.id)">Update</button>
           </mat-card-actions>
         </mat-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
+  
 
   </div>
 

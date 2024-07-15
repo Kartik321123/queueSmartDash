@@ -11,12 +11,16 @@ import { MatCardModule } from '@angular/material/card';
 import { NgxUiLoaderModule} from 'ngx-ui-loader';
 import { MatIconModule } from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { UpdateBannerComponent } from './update-banner/update-banner.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
 @NgModule({
   declarations: [
-    BannerComponent
+    BannerComponent,
+    UpdateBannerComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +33,9 @@ import {MatGridListModule} from '@angular/material/grid-list';
     NgxUiLoaderModule,
     MatIconModule,
     MatGridListModule,
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    MatDialogModule,
+    MatTooltipModule
   ]
 })
 export class BannerModule { }
