@@ -62,6 +62,7 @@ export class PublishStrategyComponent implements OnInit {
       this.totalLength = res.data.count;
       this.dataSource = res.data.results
       this.showLoader = false;
+      this.ngxService.stop();
     } catch (error) {
       this.showLoader = false;
     }
@@ -97,14 +98,16 @@ export class PublishStrategyComponent implements OnInit {
 
     this.PublishService.publishAccess(obj)
       .subscribe((res: any) => {
-        if (res) {
           this.initializeFilter();
           this.publishStrategyList();
-        }
-      },error=>{
+          this.showLoader = false;
+          this.ngxService.stop();
+      },
+      error=>{
         this.showLoader = false;
         this.ngxService.stop()
-      })
+      }
+      )
   };
 
 

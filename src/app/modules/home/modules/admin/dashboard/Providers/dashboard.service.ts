@@ -90,5 +90,35 @@ export class DashboardService {
 
 }
 
+// get trc balance
+
+getTrcBalance(data:any){
+  const url = `${CRYPTO_URL.LIVE_URL}/wallet/get-trc20`;
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${data.token}`
+  })
+  const params = new HttpParams()
+  .set('address', data.address)
+  return this.http.get(url, {headers, params})
+  .pipe(map((res:any) =>{
+    return res.data;
+  }))
+}
+
+// get trx balance
+
+getTrxBalance(data:any){
+  const url = `${CRYPTO_URL.LIVE_URL}/wallet/get-trx`
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${data.token}`
+  })
+  const params = new HttpParams()
+  .set('address', data.address)
+  return this.http.get(url, {headers, params})
+  .pipe(map((res:any) =>{
+    return res.data;
+  }))
+}
+
 
 }

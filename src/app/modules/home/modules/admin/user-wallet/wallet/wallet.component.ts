@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ClintService } from '../../Clints/Providers/clint.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-wallet',
@@ -14,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class WalletComponent implements OnInit {
   displayedColumns: string[] = ['amount', 'type', 'createdAt'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild('input', { static: false }) inputElement!: ElementRef;
   dataSource: any = [];
   showLoader = false
   controls: any
@@ -29,6 +31,7 @@ export class WalletComponent implements OnInit {
   totalDeposit: any
   totalWithdrawal: any
   refferalAmount: any
+  showInput: boolean = false;
 
   walletForm: FormGroup = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -39,6 +42,7 @@ export class WalletComponent implements OnInit {
     private clientService: ClintService,
     private ngxService: NgxUiLoaderService,
     private navigateRouter: Router,
+    private snackBar: MatSnackBar
 
   ) {
     this.router.queryParams.subscribe(res => {
@@ -194,6 +198,42 @@ export class WalletComponent implements OnInit {
   backToUser() {
     this.navigateRouter.navigate(['/admin/client'])
   }
+
+  // show update input for current balance 
+  getupdateUsdtAmount() {
+    if (this.showInput) {
+      const newBalance = parseFloat(this.inputElement.nativeElement.value);
+      if (!isNaN(newBalance)) {
+        this.updateWalletAmount(newBalance);
+      }
+      this.showInput = false; 
+    } else {
+      this.showInput = true; 
+    }
+  }
+
+  // calling api for giving amount
+  updateWalletAmount(newBalance:number){
+    this.showLoader = true;
+    this.ngxService.start();
+    const obj = {
+      token: this.parseData.token,
+      userId: this.userId,
+      balance: newBalance
+    }
+   this.clientService.updateWallet(obj)
+   .subscribe((res)=>{    
+    this.snackBar.open(res.message, 'Close', {
+      duration: 3000
+    });    
+    this.walletDetails();    
+    this.showLoader = false;
+    this.ngxService.stop(); 
+
+   })
+   
+  }
+
 
 
 

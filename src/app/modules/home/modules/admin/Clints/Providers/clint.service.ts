@@ -208,6 +208,27 @@ updatetoBinancetestnet(data:any, token: any){
   
 }
 
+// update wallet amount
+
+updateWallet(data:any){
+  const url = `${CRYPTO_URL.LIVE_URL}/wallet/update-wallet-amount`;
+  const headers = new HttpHeaders({
+   'Authorization': `Bearer ${data.token}`
+  });
+   const obj = {
+    user: data.userId,
+    usdtAmount: data.balance
+   }
+
+   return this.http.put(url, obj, {headers})
+   .pipe(map((res:any) =>{
+    return res
+   }))
+  
 }
+
+
+}
+
 
 

@@ -62,8 +62,14 @@
 
         <div class="detail">
             <p class="para_value">$ {{userData?.usdtAmount || "0"}}</p>
-            <p class="para_heading">Current Balance  </p>
-        </div>
+            <p class="para_heading">Current Balance</p>
+            <div class="updateField">
+              <input *ngIf="showInput" placeholder="Enter amount" type="number" #input>
+              <button mat-raised-button color="primary" (click)="getupdateUsdtAmount()">
+                {{ showInput ? 'Submit' : 'Update' }}
+              </button>
+            </div>
+          </div>
 
         <div class="detail">
             <p class="para_value">$ {{totalDeposit || "0"}}</p>

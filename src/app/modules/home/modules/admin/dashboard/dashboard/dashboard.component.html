@@ -14,12 +14,28 @@
     </div>
 
     <div class="rewenu_filter flex">
+        <div class="balance">
 
-        <!-- TOTAL REWENUE -->
-        <div class="rewenue">
-            <h1>${{totalProfit}}</h1>
-            <p>Total revenue</p>
-        </div>
+    <!-- TOTAL REWENUE -->
+      <div class="rewenue">
+        <h1>${{totalProfit || '-'}}</h1>
+        <p>Total revenue</p>
+    </div>
+
+    <!-- TRC BALANCE -->
+    <div class="rewenue">
+        <h1>${{trcBalance || '-'}}</h1>
+        <p>TRC20 BALANCE</p>
+    </div>
+
+    <!-- TRX BALANCE  -->
+    <div class="rewenue">
+        <h1>${{trxBalance || '-'}}</h1>
+        <p>TRX BALANCE</p>
+    </div>
+</div>
+
+      
 
         <div class="spacer"></div>
 

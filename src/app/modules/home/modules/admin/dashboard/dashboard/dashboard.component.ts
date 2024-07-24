@@ -61,6 +61,8 @@ export class DashboardComponent implements OnInit {
   tooltip!: ApexTooltip;
   dataSeries: any
   companyWalletDetails:any
+  trcBalance!: number
+  trxBalance!: any
 
   constructor(
     private dashService: DashboardService,
@@ -87,6 +89,8 @@ export class DashboardComponent implements OnInit {
     await this.getcompanyWallet();
     await this.initChartData();
     await this.getWithrawal();
+    await this.getTrc20();
+    await this.getTrx();
     this.showLoader = false;
     this.ngxService.stop();
   }
@@ -380,6 +384,31 @@ export class DashboardComponent implements OnInit {
     this.showLoader = false;
   }
 }
+
+ // get trc20 
+
+ async getTrc20(){
+  const data = {
+    token: this.userData.token,
+    address: 'TQ5TGsgYCptrS57FrmEhx1pBXWZRTNrioW'
+  }
+  const trcBalance = await this.dashService.getTrcBalance(data).toPromise();
+  this.trcBalance = Number(trcBalance);
+ }
+
+ // get trxBalance
+
+ async getTrx(){
+  const data = {
+    token: this.userData.token,
+    address: 'TQ5TGsgYCptrS57FrmEhx1pBXWZRTNrioW'
+  }
+  const trxBalance = await this.dashService.getTrxBalance(data).toPromise();
+  const result = Number(trxBalance.balance)
+
+  this.trxBalance = result.toFixed(2);
+  
+ }
 
 
 }
