@@ -1,0 +1,84 @@
+<div class="header">
+    <mat-toolbar>
+        <!-- <H1 class="addColoum"><B></B></H1> -->
+        <span> {{data.mode == 'create'? 'Create League' : 'Update League'}}</span>
+        <!-- <div class="spacer"></div> -->
+        <button mat-icon-button  class="close" (click)="close()">
+            <mat-icon >close</mat-icon>
+        </button>
+    </mat-toolbar>
+</div>
+<div class="main_container">
+    <!-- <div class="flex pad-8 header">
+      <p class="heading">Create League</p>
+      <div class="spacer"></div>
+    </div> -->
+
+
+
+  
+    <div class="input-card">
+      <form [formGroup]="form" style="width: 100%; max-width: 400px;">
+        <div>
+          <mat-label>Name</mat-label>
+          <mat-form-field appearance="outline" class="input">
+            <input type="text" matInput formControlName="name">
+          </mat-form-field>
+        </div>
+        <div>
+          <div class="pricing">
+            <mat-label>Pricing</mat-label>
+            <button (click)="addField()" mat-button class="add-field">
+              <span>Add Field</span>
+            </button>
+          </div>
+          <div *ngFor="let field of fieldsArray.controls; let i = index" class="pricing">
+            <h5>Rank {{ i + 1 }}:</h5>
+            <div>
+              <mat-form-field appearance="outline" class="input">
+                <input type="number" matInput [formControl]="getPriceControl(i)">
+              </mat-form-field>
+            </div>
+            <button (click)="removeField(i)" mat-icon-button color="warn">
+                <mat-icon>delete</mat-icon>
+              </button>  
+
+          </div>
+        </div>
+  
+        <div>
+            <mat-label>Start Date and Time</mat-label>
+            <div style="display: flex; gap: 8px;">
+              <mat-form-field appearance="outline" class="input" style="flex: 1;">
+                <input  matInput type="date"  formControlName="startDate" >
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="input" style="flex: 1;">
+                <input type="time" matInput formControlName="startTime">
+              </mat-form-field>
+            </div>
+          </div>
+          <div>
+            <mat-label>End Date and Time</mat-label>
+            <div style="display: flex; gap: 8px;">
+              <mat-form-field appearance="outline" class="input" style="flex: 1;">
+                <input matInput type="date" formControlName="endDate">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="input" style="flex: 1;">
+                <input type="time" matInput formControlName="endTime">
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- <div> -->
+        <div>
+          <mat-label>Investment Amount</mat-label>
+          <mat-form-field appearance="outline" class="input">
+            <input type="number" matInput formControlName="investmentAmount">
+          </mat-form-field>
+        </div>
+        <button *ngIf="data.mode == 'create'" (click)="createLeague()" class="button"   [disabled]="!form.valid" mat-flat-button>Create</button>
+        <button *ngIf="data.mode == 'update'" (click)="updateLeague()" class="button" mat-flat-button>Update</button>
+
+      </form>
+    </div>
+  </div>
+  

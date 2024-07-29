@@ -16,11 +16,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { StrategyTransactionComponent } from './strategy-transaction/strategy-transaction.component';
+import { UpdateBotComponent } from './update-bot/update-bot.component';
 
 @NgModule({
   declarations: [
     StrategyListComponent,
-    StrategyTransactionComponent
+    StrategyTransactionComponent,
+    UpdateBotComponent
   ],
   
   imports: [

@@ -29,7 +29,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     NgxUiLoaderModule,
     MatTooltipModule,
-    MatToolbarModule
+    MatToolbarModule,
   ]
 })
 export class PublishStrategyModule { }

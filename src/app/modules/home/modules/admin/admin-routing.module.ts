@@ -12,6 +12,8 @@ const routes: Routes = [
   { path: 'publishStrategy', loadChildren: () => import('../admin/publish-strategy/publish-strategy.module').then(m => m.PublishStrategyModule)},
   { path: 'support', loadChildren: () => import('../admin/support/support.module').then(m => m.SupportModule)},
   { path: 'banner', loadChildren: () => import('../admin/banner/banner.module').then(m => m.BannerModule)},
+  { path: 'league', loadChildren: () => import ('../admin/league/league.module').then(m => m.LeagueModule)},
+  {path: 'symbol-logo', loadChildren: () => import('../admin/symbol-logo/symbol-logo.module').then(m => m.SymbolLogoModule)},
 
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

@@ -88,6 +88,14 @@
             </td>
         </ng-container>
 
+        <!-- FOLLOWERS -->
+        <ng-container matColumnDef="followers">
+            <th mat-header-cell *matHeaderCellDef>Followers </th>
+            <td mat-cell *matCellDef="let element">
+                {{element.followers}}
+          </td>
+        </ng-container>
+
              <!-- REFEERALS -->
              <ng-container matColumnDef="referral">
                 <th mat-header-cell *matHeaderCellDef>Referrals </th>

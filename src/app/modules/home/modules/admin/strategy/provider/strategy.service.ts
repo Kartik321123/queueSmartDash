@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { CRYPTO_URL } from 'src/app/helpers/constants';
 
@@ -117,6 +117,28 @@ export class StrategyService {
         }),
         );
     }
+
+    // update bot 
+    updateBot(data: any) {
+      console.log(data);
+      
+      const url = `${CRYPTO_URL.LIVE_URL}/algo-strategy/update-bot`;
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${data.token}`
+      });
+      return this.http.put(url, data, {headers}).pipe(
+        map((res: any) => {
+          console.log('Response:', res);
+          return res;
+        }),
+        catchError((error: any) => {
+          console.error('Error:', error);
+          // Optionally, handle the error or rethrow it
+          return throwError(error);
+        })
+      );
+    }
+    
 
 
 }

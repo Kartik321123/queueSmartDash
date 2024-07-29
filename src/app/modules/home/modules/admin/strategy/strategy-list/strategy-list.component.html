@@ -86,7 +86,7 @@
                 <th mat-header-cell *matHeaderCellDef>Profit</th>
                 <td mat-cell *matCellDef="let element">
                     <span [ngStyle]="{'color': element.currentProfit > 0 ? 'green' : '#687888'}">
-                      $  {{formetValues(element.currentProfit)}}
+                      $  {{formetValues(element.botConfiguration.totalProfit)}}
                     </span> 
                     <!-- <span [ngStyle]="{'display': element.currentProfit > 0 ? 'block' : 'none'}"
                         class="usdt">($)</span> -->
@@ -98,6 +98,15 @@
                 <th mat-header-cell *matHeaderCellDef>Status</th>
                 <td mat-cell *matCellDef="let element" [ngStyle]="{'color': element.botStatus =='active' ? 'green' : '#FD354D'}">
                     {{ element.botStatus=='active' ? 'Active ' : 'Not Active'}}
+                </td>
+            </ng-container>
+
+
+              <!-- Roi -->
+              <ng-container matColumnDef="roi">
+                <th mat-header-cell *matHeaderCellDef>Roi</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.botConfiguration.roi}}
                 </td>
             </ng-container>
 
@@ -138,6 +147,15 @@
                 <th mat-header-cell *matHeaderCellDef>Action </th>
                 <td mat-cell *matCellDef="let element">
                     <mat-icon matTooltip="View Transaction Details" class="pointer" (click)="strategyTransaction(element.botId)"> view_day</mat-icon>
+                </td>
+            </ng-container>
+
+
+            <!-- UPDATE BOT -->
+            <ng-container matColumnDef="updateBot">
+                <th mat-header-cell *matHeaderCellDef>Update bot </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon matTooltip="Update bot" class="pointer" (click)="updateBot(element)"> edit</mat-icon>
                 </td>
             </ng-container>
 

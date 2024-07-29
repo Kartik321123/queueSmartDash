@@ -8,7 +8,7 @@ import { StrategyService } from '../provider/strategy.service';
 import { MatDialog } from '@angular/material/dialog';
 import { StrategyTransactionComponent } from '../strategy-transaction/strategy-transaction.component';
 import { AlertComponent } from 'src/app/_shared/modules/alert/alert.component';
-import { ThisReceiver } from '@angular/compiler';
+import { UpdateBotComponent } from '../update-bot/update-bot.component';
 
 export enum DateRangeEnum {
   Last30Dayds = '30Days',
@@ -29,7 +29,7 @@ export enum DateRangeEnum {
 
 
 export class StrategyListComponent implements OnInit {
-  displayedColumns: string[] = [ 'profit', 'status', 'signupDate', 'action', ];
+  displayedColumns: string[] = [ 'profit', 'status', 'roi', 'signupDate', 'updateBot' ];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false
@@ -135,6 +135,7 @@ export class StrategyListComponent implements OnInit {
     //     );
       // console.log(this.publishAccess);
       // console.log('real id', this.botId);
+      
       this.dataSource = res.results
       this.totalLength = res.count;
       this.showLoader = false;
@@ -347,6 +348,17 @@ export class StrategyListComponent implements OnInit {
     }
     catch {
     }
+  }
+
+
+  // update bot 
+  updateBot(data: any){
+    this.matDialog.open(UpdateBotComponent,
+      {
+      data: data.botId,
+      width: '500px'
+    })
+    
   }
 
 

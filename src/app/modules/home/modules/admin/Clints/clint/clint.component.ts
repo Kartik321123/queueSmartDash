@@ -27,7 +27,7 @@ export enum DateRangeEnum {
 
 
 export class ClintComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'email', 'baserurl', 'strategy', 'signupDate', 'referral','logger', 'action'];
+  displayedColumns: string[] = ['name', 'email', 'baserurl', 'strategy', 'signupDate', 'followers', 'referral','logger', 'action'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
