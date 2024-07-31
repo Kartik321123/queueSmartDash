@@ -19,6 +19,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -44,7 +45,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatToolbarModule,
     MatPaginatorModule,
     NgxUiLoaderModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ]
 })
 export class LeagueModule { }

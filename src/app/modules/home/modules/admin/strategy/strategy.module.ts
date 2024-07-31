@@ -17,6 +17,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { StrategyTransactionComponent } from './strategy-transaction/strategy-transaction.component';
 import { UpdateBotComponent } from './update-bot/update-bot.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { UpdateBotComponent } from './update-bot/update-bot.component';
     MatToolbarModule,
     MatTooltipModule,
     MatSelectModule,
-    MatDatepickerModule
-  ]
+    MatDatepickerModule,
+    MatSnackBarModule  ]
 })
 export class StrategyModule { }

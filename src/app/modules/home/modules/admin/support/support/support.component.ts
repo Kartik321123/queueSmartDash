@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { TitleStrategy } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { AlertComponent } from 'src/app/_shared/modules/alert/alert.component';
 import { SupportService } from '../Providers/support.service';
 import { ReplyComponent } from '../reply/reply.component'
 
@@ -26,7 +27,8 @@ export class SupportComponent {
   constructor(
     private supportService: SupportService,
     private ngxService: NgxUiLoaderService,
-    private matdialog: MatDialog
+    private matdialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) {
     let userData = localStorage.getItem('userinfo')
     if (userData) {
@@ -84,6 +86,44 @@ export class SupportComponent {
       data: element
     })
   }
+
+  // support resolve
+
+  supportResolved(ele:any){
+    this.matdialog.open(AlertComponent,{
+      width:'300px',
+      maxHeight: '400px',
+    }).afterClosed().subscribe((res) =>{
+      if(res){
+        this.__supportResolved(ele);
+      }
+    })
+  }
+  
+  __supportResolved(ele:any){
+    try {
+      const data = {
+        token: this.parseData.token,
+        supportId : ele.id,
+        status: 'RESOLVED'
+      }
+      const res = this.supportService.resolved(data)
+      .toPromise()
+      .then(() => {
+        this._snackBar.open('Ticket Resolved', 'Close', {
+          duration: 5000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center'
+        });
+        this.getData();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
 
 
 }

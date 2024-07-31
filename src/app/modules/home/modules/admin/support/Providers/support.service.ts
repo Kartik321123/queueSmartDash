@@ -50,4 +50,13 @@ export class SupportService {
     const url = `${CRYPTO_URL.LIVE_URL}/user-account/support-reply`;
     return this.http.post(url, data);
   }
+   
+  // Support Resolved
+  resolved(data:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${data.token}`
+     });
+   const url = `${CRYPTO_URL.LIVE_URL}/user-account/support-resolved`;
+   return this.http.post(url, data, { headers });
+  }
 }

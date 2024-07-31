@@ -127,10 +127,11 @@ export class ClintComponent implements OnInit {
 
   // ACTIVE STRATEGY
   goToActiveStrategy(data: any) {
+    
     if (data.activeBot > 0) {
       const user = `${data.firstName} ${data.lastName}`.trim();
       const status = 'Active'
-      this.router.navigate(["admin/strategy"], { queryParams: { userId: data.id, user: user, status: status } });
+      this.router.navigate(["admin/strategy"], { queryParams: { userId: data.id, user: user, status: status, followers: data.followers } });
     } else {
       alert('Strategy Not Active')
     }
@@ -141,7 +142,7 @@ export class ClintComponent implements OnInit {
     if (data.inActiveBot + data.activeBot > 0) {
       const status = 'All'
       const user = `${data.firstName} ${data.lastName}`.trim();
-      this.router.navigate(["admin/strategy"], { queryParams: { userId: data.id, user: user, status: status } });
+      this.router.navigate(["admin/strategy"], { queryParams: { userId: data.id, user: user, status: status, followers: data.followers } });
     } else {
       alert('Strategy Not Found')
     }

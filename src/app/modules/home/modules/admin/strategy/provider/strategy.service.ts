@@ -119,12 +119,11 @@ export class StrategyService {
     }
 
     // update bot 
-    updateBot(data: any) {
-      console.log(data);
+    updateBot(data: any, token:any) {
       
       const url = `${CRYPTO_URL.LIVE_URL}/algo-strategy/update-bot`;
       const headers = new HttpHeaders({
-        'Authorization': `Bearer ${data.token}`
+        'Authorization': `Bearer ${token}`
       });
       return this.http.put(url, data, {headers}).pipe(
         map((res: any) => {

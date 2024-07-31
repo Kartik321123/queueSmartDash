@@ -14,6 +14,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { UpdateBannerComponent } from './update-banner/update-banner.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -35,7 +37,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatGridListModule,
     NgxUiLoaderModule,
     MatDialogModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatToolbarModule,
+    MatSnackBarModule
   ]
 })
 export class BannerModule { }

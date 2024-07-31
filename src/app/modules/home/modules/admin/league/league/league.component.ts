@@ -88,7 +88,6 @@ export class LeagueComponent {
 
   // update league
   openUpdateLeague(data:any){
-    console.log(data.id);
     
       const dialogRef = this.matdialog.open(CreateLeagueComponent,{
         width: '700px',

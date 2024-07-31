@@ -93,16 +93,16 @@ export class HomeComponent implements OnInit {
         route: 'admin/support',
         isSubSubmenu: false
       },
-      {
-        displayName: "Banner",
-        route: 'admin/banner',
-        isSubSubmenu: false
-      },
       // {
       //   displayName: "League",
       //   route: 'admin/league',
       //   isSubSubmenu: false
       // },
+      {
+        displayName: "Banner",
+        route: 'admin/banner',
+        isSubSubmenu: false
+      },
       {
         displayName: "Symbol Logo",
         route: 'admin/symbol-logo',

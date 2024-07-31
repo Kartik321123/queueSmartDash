@@ -5,7 +5,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { StrategyService } from '../provider/strategy.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { StrategyTransactionComponent } from '../strategy-transaction/strategy-transaction.component';
 import { AlertComponent } from 'src/app/_shared/modules/alert/alert.component';
 import { UpdateBotComponent } from '../update-bot/update-bot.component';
@@ -48,6 +48,7 @@ export class StrategyListComponent implements OnInit {
   DefaultValue = ' TRADE_PROFIT'
   todayfilter:any;
   totalUsdtAmount:any 
+  followers!: number;
 
   range = new FormGroup({
     from: new FormControl(),
@@ -67,6 +68,8 @@ export class StrategyListComponent implements OnInit {
         this.userId = res['userId']
         this.userName = res['user']
         this.status = res['status']
+        this.followers = res['followers']
+        
       }
     });
 
@@ -353,16 +356,22 @@ export class StrategyListComponent implements OnInit {
 
   // update bot 
   updateBot(data: any){
-    this.matDialog.open(UpdateBotComponent,
-      {
-      data: data.botId,
+ 
+
+    const dialogRef: MatDialogRef<UpdateBotComponent> = this.matDialog.open(UpdateBotComponent, {
+      data: {botData: data, followers: this.followers},
       width: '500px'
-    })
-    
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      
+      this.showLoader = true;
+      this.ngxService.start();
+      this.strategyLists();
+      this.ngxService.stop();
+      this.showLoader = false;
+    });
   }
-
-
-
 
   }
 

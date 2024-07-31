@@ -1,16 +1,21 @@
+        <!-- HEADING -->
+        <mat-toolbar class="heading">
+          <span>{{data.mode == 'create'? 'Upload Banner': 'Update Banner'}}</span>
+            <mat-icon class="mat-icon" mat-dialog-close matTooltip="close">close</mat-icon>
+        </mat-toolbar>
 <div class="main_container">
+
 
     <div class="flex pad-8 header">
   
-      <!-- HEADING -->
-      <p class="heading">Update Banner </p>
+
   
   </div>
   
   
   <div class="input-card">
-      <mat-card appearance="outlined" style="width: 500px; height: 380px; display: flex; flex-direction: column; align-items: center; overflow-x: hidden;">
-        <h1 class="heading">Upload Image</h1>
+      <mat-card appearance="outlined" class="mat-card">
+        <h3 ><b>Upload Image </b></h3>
         <form [formGroup]="form" style="width: 100%; max-width: 400px;">
           <div class="file-input">
             <input type="file" id="fileUpload" (change)="onFileSelected($event)" required>
@@ -24,8 +29,10 @@
             <mat-label>Link</mat-label>
             <input matInput formControlName="link">
           </mat-form-field>
-          <button style="background-color: #1e88e5; color: white; width: 100%; max-width: 400px; margin-top: 20px;"
+          <button *ngIf="data.mode == 'update'" style="background-color: #1e88e5; color: white; width: 100%; max-width: 400px; margin-top: 20px;"
                   (click)="updateBanner()" mat-flat-button [disabled]="!form.valid || !file" >Update</button>
+          <button *ngIf="data.mode == 'create'" style="background-color: #1e88e5; color: white; width: 100%; max-width: 400px; margin-top: 20px;"
+          (click)="upload()" mat-flat-button [disabled]="!form.valid || !file" >Upload</button>
         </form>
       </mat-card>
     </div>

@@ -2,7 +2,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { AlertComponent } from 'src/app/_shared/modules/alert/alert.component';
 import { BannerService } from '../Providers/banner.service';
@@ -23,7 +24,7 @@ export class BannerComponent implements OnInit {
   showLoader: boolean = false
   base64Image: string | null = null;
 
-  constructor(private bannerService: BannerService, private fb: FormBuilder, private ngxService: NgxUiLoaderService,
+  constructor(private bannerService: BannerService, private fb: FormBuilder, private ngxService: NgxUiLoaderService,private _snackBar: MatSnackBar,
     private matdailog: MatDialog) { }
 
   ngOnInit(): void {
@@ -61,33 +62,33 @@ export class BannerComponent implements OnInit {
   }
 
 
-  upload(): void {
-    this.showLoader = true;
-    this.ngxService.start();
-    if (this.form.valid && this.base64Image) {
-      const formData = {
-        image: this.base64Image,
-        text: this.form.get('text')?.value,
-        link: this.form.get('link')?.value
-      };
+  // upload(): void {
+  //   this.showLoader = true;
+  //   this.ngxService.start();
+  //   if (this.form.valid && this.base64Image) {
+  //     const formData = {
+  //       image: this.base64Image,
+  //       text: this.form.get('text')?.value,
+  //       link: this.form.get('link')?.value
+  //     };
 
-      this.bannerService.upload(formData).subscribe(
-        (res: any) => {
-          this.form.reset();
-          this.file = null;
-          this.base64Image = null;
-          this.getBanner();
-          this.showLoader = false;
-          this.ngxService.stop();
-        },
-        (error: any) => {
-          console.error('Error uploading banner:', error);
-        }
-      );
-    } else {
-      console.error('Form is invalid or no file selected');
-    }
-  }
+  //     this.bannerService.upload(formData).subscribe(
+  //       (res: any) => {
+  //         this.form.reset();
+  //         this.file = null;
+  //         this.base64Image = null;
+  //         this.getBanner();
+  //         this.showLoader = false;
+  //         this.ngxService.stop();
+  //       },
+  //       (error: any) => {
+  //         console.error('Error uploading banner:', error);
+  //       }
+  //     );
+  //   } else {
+  //     console.error('Form is invalid or no file selected');
+  //   }
+  // }
 
   deleteBanner(bannerId: string): void {
     const dialogRef = this.matdailog.open(AlertComponent,
@@ -98,8 +99,6 @@ export class BannerComponent implements OnInit {
     dialogRef.afterClosed().subscribe((res: any) => {
       if (res) {
         this._deleteBanner(bannerId);
-      } else {
-        console.log('Deletion was canceled.');
       }
     });
   }
@@ -107,19 +106,53 @@ export class BannerComponent implements OnInit {
   _deleteBanner(bannerId: string): void {
     this.showLoader = true;
     this.ngxService.start();
-    this.bannerService.delete(bannerId).subscribe((res) => {
+    this.bannerService.delete(bannerId).subscribe((res:any) => {
+      console.log(res);
+      
+      if(res){
+        this._snackBar.open(res.data.message, 'Close', {
+          duration: 5000,
+          verticalPosition: 'bottom',
+          horizontalPosition: 'center'
+        });
       this.getBanner();
       this.showLoader = false;
       this.ngxService.stop();
+      }
     });
   }
 
   updateBanner(bannerId: string): void {
-    this.matdailog.open(UpdateBannerComponent, {
+    const dialogRef: MatDialogRef<UpdateBannerComponent> =  this.matdailog.open(UpdateBannerComponent, {
       data: {
-        bannerId: bannerId
+        bannerId: bannerId,
+        mode: 'update'
       }
     });
+
+    dialogRef.afterClosed().subscribe(()=>{
+      this.showLoader = true;
+      this.ngxService.start();
+      this.getBanner();
+      this.ngxService.stop();
+      this.showLoader = false;
+    })
   }
+
+  openUpload(){
+    const dialogRef: MatDialogRef<UpdateBannerComponent> = this.matdailog.open(UpdateBannerComponent,{
+      data: {mode: 'create'}
+    });
+    dialogRef.afterClosed().subscribe(()=>{
+      this.showLoader = true;
+      this.ngxService.start();
+      this.getBanner();
+      this.ngxService.stop();
+      this.showLoader = false;
+    })
+    
+  }
+   
+
 
 }

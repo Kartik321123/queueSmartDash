@@ -46,7 +46,7 @@
               <span *ngIf="element.baseUrl == 'https://api.binance.com'">BINANCE</span>
               <span *ngIf="element.baseUrl == 'https://api.binance.us'">BINANCE US</span>
               <span *ngIf="element.baseUrl == 'https://testnet.binance.vision'">BINANCE TESTNET</span>
-              <button mat-button [matMenuTriggerFor]="menu" class="update-button">Update</button>
+              <mat-icon [matMenuTriggerFor]="menu" class="update-button" matTooltip="click to update">sync</mat-icon>
               <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="updatetobinance(element)">BINANCE</button>
                 <!-- <button mat-menu-item (click)="updatetoBinanceus(element)">BINANCE US</button> -->

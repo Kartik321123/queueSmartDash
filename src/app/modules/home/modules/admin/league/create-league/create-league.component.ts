@@ -68,6 +68,9 @@ export class CreateLeagueComponent {
     const startDateTime = new Date(`${startDate}T${startTime}:00Z`).toISOString();
     const endDateTime = new Date(`${endDate}T${endTime}:00Z`).toISOString();
 
+
+    
+
       // Validate that startDate is before endDate
       if (startDateTime >= endDateTime) {
         this.snackBar.open('Start date must be before end date.', 'Close', {
@@ -92,11 +95,10 @@ export class CreateLeagueComponent {
       investmentAmount: this.form.value.investmentAmount
     };
 
-    console.log(leagueData);
-    this.leagueService.createLeague(leagueData).subscribe((res:any) =>{
-      this.matdialogRef.close();
+    // this.leagueService.createLeague(leagueData).subscribe((res:any) =>{
+    //   this.matdialogRef.close();
       
-    });
+    // });
   }
 
   // update league
@@ -166,6 +168,8 @@ export class CreateLeagueComponent {
   // }
 
   updateLeague() {
+   
+    
     const { startDate, startTime, endDate, endTime, name, prizing, investmentAmount } = this.form.value;
   
     let startDateTime: string | undefined;
@@ -179,6 +183,12 @@ export class CreateLeagueComponent {
     if (endDate && endTime) {
       endDateTime = new Date(`${endDate.split(' ')[0]}T${endTime}:00Z`).toISOString();
     }
+
+    console.log("start date",this.form.value.startDate)
+    
+
+    console.log('startDate', startDateTime);
+    console.log('endDate', endDateTime);
   
     // Format prizing
     const formattedPrizing = prizing.map((item: any, index: number) => ({
@@ -212,18 +222,17 @@ export class CreateLeagueComponent {
     if (endDateTime) {
       leagueData.endDate = endDateTime;
     }
-    console.log(leagueData);
     
   
     // Update league
-    this.leagueService.updateLeague(leagueData).subscribe(
-      (res: any) => {
-        console.log(res);
-      },
-      (error: any) => {
-        console.error(error);
-      }
-    );
+    // this.leagueService.updateLeague(leagueData).subscribe(
+    //   (res: any) => {
+    //     console.log(res);
+    //   },
+    //   (error: any) => {
+    //     console.error(error);
+    //   }
+    // );
   }
   
 

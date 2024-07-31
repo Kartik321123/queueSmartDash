@@ -33,35 +33,66 @@
 }
 
 
-.file-label {
-    margin-bottom: 8px;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.input {
-    width: 100%;
-}
-
-.upload-card {
-    width: 600px;
-
-    
-    mat-card-actions {
-        display: flex;
-        justify-content: center;
-
-    }
-
-}
-.deleteButton {
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .card {
     position: relative;
-    z-index: 100;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .mat-card-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .card-content {
+    flex-grow: 1; 
+    p{
+      padding-left: 5px;
+    }
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: center; 
+    padding: 10px 0; 
+  }
+  
+  .deleteButton {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 24px;
     cursor: pointer;
-    left: 334px;
-    bottom: 170px;
-    left: 339px;
     background-color: red;
-    color: white;
-    height: 22px;
+    color: white; 
+  }
+  
+
+  .mt-30{
+    margin-top: 30px;
+  }
+
+  .upload-button{
+    border: 1px solid #CCCBCB;
+    width: auto;
+    border-radius: 3px;
+    background-color: #ffffff;
+    color: #635D5D;
+    font-weight: 600;
+    margin-left: 0;
+    height: 36px;
+    cursor: pointer;
+    padding: 10px;
   }

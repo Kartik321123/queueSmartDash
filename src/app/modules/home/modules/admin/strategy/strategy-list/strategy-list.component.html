@@ -106,7 +106,7 @@
               <ng-container matColumnDef="roi">
                 <th mat-header-cell *matHeaderCellDef>Roi</th>
                 <td mat-cell *matCellDef="let element">
-                    {{element.botConfiguration.roi}}
+                    {{element.botConfiguration.roi.toFixed(2)}}
                 </td>
             </ng-container>
 

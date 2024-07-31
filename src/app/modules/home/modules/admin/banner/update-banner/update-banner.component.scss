@@ -1,7 +1,9 @@
 .heading {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    background-color: #1e88e5;
+    color: white;
 }
 
 .main_container {
@@ -11,3 +13,17 @@
 .file-input{
     position: relative;
     left: 112px;}
+
+.mat-card{
+    width: 500px; 
+    height: 380px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    overflow-x: hidden;
+    margin-top:10px;
+}
+
+.mat-icon{
+    cursor: pointer;
+}

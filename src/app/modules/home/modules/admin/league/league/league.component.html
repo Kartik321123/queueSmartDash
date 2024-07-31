@@ -26,7 +26,7 @@
 
 
   <!-- TABLE CONTAINER -->
-  <div style="margin-top: 10px;">
+  <div style="margin-top: 10px;" class="table">
       <table class="dataTable" mat-table [dataSource]="dataSource">
 
           <!-- NAME COLUMN -->
@@ -75,7 +75,7 @@
           <ng-container matColumnDef="update">
             <th mat-header-cell *matHeaderCellDef>Update</th>
             <td mat-cell *matCellDef="let element">
-              <mat-icon matTooltip="updateLeague" (click)="openUpdateLeague(element)">edit</mat-icon>
+              <mat-icon matTooltip="update League" (click)="openUpdateLeague(element)">edit</mat-icon>
             </td>
         </ng-container>
 
