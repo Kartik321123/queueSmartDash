@@ -11,6 +11,14 @@
     <p class="heading">Banner </p>
     <div class="spacer"></div>
 
+    <!-- FILTER FOR BANNER -->
+    <div class="select-box visitor-select-box dropdown">
+      <mat-select placeholder="Select an option" (selectionChange)="onSelectionChange($event.value)">
+          <mat-option *ngFor="let option of options" [value]="option">{{ option }}</mat-option>
+        </mat-select>
+    
+  </div>
+
     <div class="mt-30">
       <!-- SHOW LIST BUTTON -->
       <button mat-button class="upload-button" (click)="openUpload()">
@@ -28,7 +36,7 @@
         <p><b>Link: </b>{{ banner.link  }} </p>
       </div>
       <div class="button-container">
-        <button mat-flat-button color="primary" (click)="updateBanner(banner.id)">Update</button>
+        <button mat-flat-button color="primary" (click)="updateBanner(banner)">Update</button>
       </div>
     </div>
   </div>

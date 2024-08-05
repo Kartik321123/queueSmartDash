@@ -16,11 +16,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppComponent } from 'src/app/app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UpdateLogoComponent } from './update-logo/update-logo.component';
 
 
 @NgModule({
   declarations: [
-    SymbolLogoComponent
+    SymbolLogoComponent,
+    UpdateLogoComponent
   ],
   imports: [
     CommonModule,

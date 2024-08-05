@@ -19,6 +19,7 @@ export class UpdateBannerComponent {
 file:any;
 showLoader: boolean = false
 base64Image: string | null = null;
+previousImageUrl:any
 
 constructor( @Inject(MAT_DIALOG_DATA) public data: any
 ,private bannerService: BannerService, private fb: FormBuilder, private ngxService: NgxUiLoaderService, private dialogRef: MatDialogRef<UpdateBannerComponent>
@@ -27,8 +28,17 @@ constructor( @Inject(MAT_DIALOG_DATA) public data: any
  }
 
 ngOnInit(): void {
+ this.setFormValue();  
 }
 
+
+setFormValue(){
+  if(this.data.mode== 'update'){
+  this.form.patchValue({text: this.data.bannerData.text});
+  this.form.patchValue({link: this.data.bannerData.link})
+  this.previousImageUrl = this.data.bannerData.imageLink;
+  }
+}
 
 onFileSelected(event: any): void {
 console.log(event);

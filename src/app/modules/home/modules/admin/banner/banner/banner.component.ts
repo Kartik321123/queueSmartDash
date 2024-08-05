@@ -23,6 +23,7 @@ export class BannerComponent implements OnInit {
   file:any;
   showLoader: boolean = false
   base64Image: string | null = null;
+  options:any[] = ['external','internal']
 
   constructor(private bannerService: BannerService, private fb: FormBuilder, private ngxService: NgxUiLoaderService,private _snackBar: MatSnackBar,
     private matdailog: MatDialog) { }
@@ -122,12 +123,16 @@ export class BannerComponent implements OnInit {
     });
   }
 
-  updateBanner(bannerId: string): void {
+  updateBanner(banner: any): void {
+    console.log('banner',banner);
+    
     const dialogRef: MatDialogRef<UpdateBannerComponent> =  this.matdailog.open(UpdateBannerComponent, {
       data: {
-        bannerId: bannerId,
+        bannerData: banner,
         mode: 'update'
-      }
+      },
+      height: 'auto',
+      width: '500px'
     });
 
     dialogRef.afterClosed().subscribe(()=>{
@@ -151,6 +156,12 @@ export class BannerComponent implements OnInit {
       this.showLoader = false;
     })
     
+  }
+
+  // filter banner
+  onSelectionChange(event:any){
+  console.log(event);
+  
   }
    
 

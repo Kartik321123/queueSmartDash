@@ -1,0 +1,36 @@
+<!-- NGX LOADER -->
+<div class="ngxLoader" *ngIf="showLoader">
+  <ngx-ui-loader [hasProgressBar]="false"></ngx-ui-loader>
+</div>
+
+<mat-toolbar class="mat-toolbar">
+    <span>{{matData.mode == 'create'? 'Upload Logo': 'Update Logo'}}</span>
+    <mat-icon class="mat-icon" mat-dialog-close matTooltip="close">close</mat-icon>
+  </mat-toolbar>
+
+
+  <div class="input-card-symbol">
+    <!-- <mat-card appearance="outlined" class="mat-card"> -->
+     <!-- <div class="mat-card"> -->
+      <!-- <h1 class="Logoheading">Upload Image</h1> -->
+      <form [formGroup]="form"  class="form">
+        <div *ngIf="matData.mode == 'update' && previousImageUrl" class="image-preview">
+            <img [src]="previousImageUrl" alt="Previous Image" class="preview-image">
+          </div>
+        <div class="file-input">
+          <input type="file" id="fileUpload" (change)="onFileSelected($event)" required>
+          <mat-error *ngIf="!file">Image file is required</mat-error>
+        </div>
+        <mat-form-field appearance="outline" class="input">
+          <mat-label>Symbol</mat-label>
+          <input matInput formControlName="symbol" [readonly]="matData.mode === 'update'">
+        </mat-form-field>
+        <div class="btn">
+        <button *ngIf="matData.mode == 'update'" class="btn-style"
+        (click)="updateLogo()" mat-flat-button [disabled]="!form.valid || !file" >Update</button>
+        <button *ngIf="matData.mode == 'create'" class="btn-style" (click)="upload()" mat-flat-button [disabled]="!form.valid || !file" >Upload</button>
+    </div>
+      </form>
+     <!-- </div> -->
+    <!-- </mat-card> -->
+  </div>

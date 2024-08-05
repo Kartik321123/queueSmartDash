@@ -14,9 +14,12 @@
   
   
   <div class="input-card">
-      <mat-card appearance="outlined" class="mat-card">
-        <h3 ><b>Upload Image </b></h3>
+      <!-- <mat-card appearance="outlined" class="mat-card"> -->
+        <!-- <h3 ><b>Upload Image </b></h3> -->
         <form [formGroup]="form" style="width: 100%; max-width: 400px;">
+          <div *ngIf="data.mode == 'update' && previousImageUrl" class="image-preview">
+            <img [src]="previousImageUrl" alt="Previous Image" class="preview-image">
+          </div>
           <div class="file-input">
             <input type="file" id="fileUpload" (change)="onFileSelected($event)" required>
             <mat-error *ngIf="!file">Image file is required</mat-error>
@@ -29,11 +32,13 @@
             <mat-label>Link</mat-label>
             <input matInput formControlName="link">
           </mat-form-field>
-          <button *ngIf="data.mode == 'update'" style="background-color: #1e88e5; color: white; width: 100%; max-width: 400px; margin-top: 20px;"
+          <div class="btn">
+          <button *ngIf="data.mode == 'update'" class="btn-style"
                   (click)="updateBanner()" mat-flat-button [disabled]="!form.valid || !file" >Update</button>
-          <button *ngIf="data.mode == 'create'" style="background-color: #1e88e5; color: white; width: 100%; max-width: 400px; margin-top: 20px;"
+          <button *ngIf="data.mode == 'create'" class="btn-style"
           (click)="upload()" mat-flat-button [disabled]="!form.valid || !file" >Upload</button>
+        </div>
         </form>
-      </mat-card>
+      <!-- </mat-card> -->
     </div>
 </div>

@@ -3,36 +3,6 @@
     <ngx-ui-loader [hasProgressBar]="false"></ngx-ui-loader>
 </div>
 
-
-
-
-<ng-container *ngIf="isDialog" >
-  <!-- HEADING -->
-  <mat-toolbar class="mat-toolbar">
-   <span>Upload Logo</span>
-     <mat-icon class="mat-icon" (click)="close()" matTooltip="close">close</mat-icon>
- </mat-toolbar>
- 
- <div class="input-card">
-     <mat-card appearance="outlined" class="mat-card">
-       <h1 class="heading">Upload Image</h1>
-       <form [formGroup]="form" >
-         <div class="file-input">
-           <input type="file" id="fileUpload" (change)="onFileSelected($event)" required>
-           <mat-error *ngIf="!file">Image file is required</mat-error>
-         </div>
-         <mat-form-field appearance="outline" class="input">
-           <mat-label>Symbol</mat-label>
-           <input matInput formControlName="symbol">
-         </mat-form-field>
-         <button class="uploadButton" (click)="upload()" mat-flat-button [disabled]="!form.valid || !file" >Upload</button>
-       </form>
-     </mat-card>
-   </div>
- </ng-container>
-
- <ng-container *ngIf="!isDialog">
-
   <div class="main_container">
 
   <div  class="flex pad-8 header">
@@ -50,27 +20,26 @@
 
 </div>
 
-
   <div class="container">
-    <mat-grid-list cols="5" gutterSize="16px">
-      <mat-grid-tile *ngFor="let data of logos" >
-        <div class="deleteButton">
-        </div>
-        <mat-card class="upload-card" class="mat-card">
-            <div>
-          <img mat-card-image [src]="data.url" alt="..." class="mat-card-image">
-        </div>
-          <mat-card-content>
-            <h5 class="symbol-name">Symbol Name: {{ data.symbol || 'symbol' }}</h5>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <div class="card" *ngFor="let data of logos">
+      <div class="center-image">
+      <img mat-card-image [src]="data.url" alt="..." class="mat-card-image image">
+    </div>
+      <mat-icon class="deleteButton" matTooltip="Delete logo" (click)="deleteLogo(data)">close</mat-icon>
+      <div class="card-content">
+        <p ><b>Symbol name: </b>{{  data.symbol }}</p>
+      </div>
+      <div class="button-container">
+        <button mat-flat-button color="primary" (click)="updateLogo(data)">Update</button>
+      </div>
+    </div>
   </div>
+
+</div>
+
+
   
 
-  </div>
 
-</ng-container>
 
 
