@@ -18,19 +18,19 @@
 
     <!-- TOTAL REWENUE -->
       <div class="rewenue">
-        <h1>${{totalProfit || '-'}}</h1>
+        <h1>   {{totalProfit || '-'}} <span class="usdt">USDT</span> </h1>
         <p>Total revenue</p>
     </div>
 
     <!-- TRC BALANCE -->
     <div class="rewenue">
-        <h1>${{trcBalance || '-'}}</h1>
+        <h1>{{trcBalance || '-'}} <span class="usdt">USDT</span></h1>
         <p>TRC20 BALANCE</p>
     </div>
 
     <!-- TRX BALANCE  -->
     <div class="rewenue">
-        <h1>${{trxBalance || '-'}}</h1>
+        <h1>{{trxBalance || '-'}} <span class="usdt">USDT</span> </h1>
         <p>TRX BALANCE</p>
     </div>
 </div>
@@ -82,7 +82,7 @@
 
                 <div class="value">
                     <p class="para_value " style="color: green;">
-                        ${{filteredProfit}} </p>
+                        {{filteredProfit}} <span class="div-usdt">USDT</span> </p>
                     <p class="para">{{filterDays}}</p>
                 </div>
 
@@ -116,7 +116,7 @@
             <div class="value_graph">
 
                 <div class="value">
-                    <p class="para_value"> ${{companyWallet || "0"}}</p>
+                    <p class="para_value"> {{companyWallet || "0"}}  <span class="div-usdt">USDT</span> </p>
                     <!-- <p class="para">{{filterDays}}</p> -->
                 </div>
 
@@ -133,7 +133,7 @@
             <div class="value_graph">
 
                 <div class="value">
-                    <p class="para_value"> ${{totalWithrawal || "0"}}</p>
+                    <p class="para_value"> {{totalWithrawal || "0"}}  <span class="div-usdt">USDT</span> </p>
                     <!-- <p class="para">{{filterDays}}</p> -->
                 </div>
 
