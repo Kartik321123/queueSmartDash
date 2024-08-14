@@ -22,7 +22,7 @@
           </div>
           <div class="file-input">
             <input type="file" id="fileUpload" (change)="onFileSelected($event)" required>
-            <mat-error *ngIf="!file">Image file is required</mat-error>
+            <mat-error *ngIf="!file && data.mode=='create'">Image file is required</mat-error>
           </div>
           <mat-form-field appearance="outline" class="input">
             <mat-label>Text</mat-label>
@@ -34,7 +34,7 @@
           </mat-form-field>
           <div class="btn">
           <button *ngIf="data.mode == 'update'" class="btn-style"
-                  (click)="updateBanner()" mat-flat-button [disabled]="!form.valid || !file" >Update</button>
+                  (click)="updateBanner()" mat-flat-button [disabled]="!form.valid" >Update</button>
           <button *ngIf="data.mode == 'create'" class="btn-style"
           (click)="upload()" mat-flat-button [disabled]="!form.valid || !file" >Upload</button>
         </div>

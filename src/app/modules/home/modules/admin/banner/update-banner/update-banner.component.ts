@@ -28,7 +28,7 @@ constructor( @Inject(MAT_DIALOG_DATA) public data: any
  }
 
 ngOnInit(): void {
- this.setFormValue();  
+ this.setFormValue();
 }
 
 
@@ -100,16 +100,15 @@ upload(): void {
 
 
 updateBanner(){
-
-  this.ngxService.start();
-  if (this.form.valid && this.base64Image) {
-    const formData = {
-      image: this.base64Image,
+  if (this.form.valid) {
+    const formData: any = {
       text: this.form.get('text')?.value,
       link: this.form.get('link')?.value
     };
-
-    this.bannerService.update(formData, this.data.bannerId)
+    if (this.base64Image) {
+      formData.image = this.base64Image;
+    }
+    this.bannerService.update(formData, this.data.bannerData.id)
     .subscribe(
       (res: any) => {
         console.log(res);
