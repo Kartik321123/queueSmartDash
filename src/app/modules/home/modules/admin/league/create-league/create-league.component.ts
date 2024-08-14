@@ -18,7 +18,6 @@ export class CreateLeagueComponent {
      private matdialogRef: MatDialogRef<CreateLeagueComponent>,
      private snackBar: MatSnackBar,
      @Inject(MAT_DIALOG_DATA) public data:any) {
-      console.log(this.now);
       
      this.form = new FormGroup({
       name: new FormControl('', Validators.required),

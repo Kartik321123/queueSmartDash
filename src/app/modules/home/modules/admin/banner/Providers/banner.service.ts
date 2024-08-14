@@ -38,15 +38,15 @@ export class BannerService {
     return this.http.post(url,obj)
   }
 
-  update(formdata:any,bannerId:string){    
+  update(formdata:any,bannerId:string, type:any){        
     const url = `${CRYPTO_URL.LIVE_URL}/user-account/banner`
     const obj= {
       id: bannerId,
       imageLink: formdata.image,
       text: formdata.text,
-      link: formdata.link
+      link: formdata.link,
+      type: type
     }
-    console.log(obj);
     return this.http.put(url, obj)
   }
 

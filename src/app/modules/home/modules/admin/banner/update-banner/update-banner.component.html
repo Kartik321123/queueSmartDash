@@ -31,7 +31,14 @@
           <mat-form-field appearance="outline" class="input">
             <mat-label>Link</mat-label>
             <input matInput formControlName="link">
-          </mat-form-field>
+          </mat-form-field >
+          <select [value]="data.mode == 'update' ? type : 'select option'" style="width: 100%; height:46px;"
+          (change)="selectionChange($event)"
+          >
+          <option value="select option" disabled >Type</option>
+            <option value="internal">Internal</option>
+            <option value="external">External</option>
+          </select>   
           <div class="btn">
           <button *ngIf="data.mode == 'update'" class="btn-style"
                   (click)="updateBanner()" mat-flat-button [disabled]="!form.valid" >Update</button>

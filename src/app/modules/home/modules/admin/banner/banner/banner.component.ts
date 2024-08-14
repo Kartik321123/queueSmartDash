@@ -107,9 +107,7 @@ export class BannerComponent implements OnInit {
   _deleteBanner(bannerId: string): void {
     this.showLoader = true;
     this.ngxService.start();
-    this.bannerService.delete(bannerId).subscribe((res:any) => {
-      console.log(res);
-      
+    this.bannerService.delete(bannerId).subscribe((res:any) => {      
       if(res){
         this._snackBar.open(res.data.message, 'Close', {
           duration: 5000,
@@ -123,9 +121,7 @@ export class BannerComponent implements OnInit {
     });
   }
 
-  updateBanner(banner: any): void {
-    console.log('banner',banner);
-    
+  updateBanner(banner: any): void {    
     const dialogRef: MatDialogRef<UpdateBannerComponent> =  this.matdailog.open(UpdateBannerComponent, {
       data: {
         bannerData: banner,
@@ -157,13 +153,5 @@ export class BannerComponent implements OnInit {
     })
     
   }
-
-  // filter banner
-  onSelectionChange(event:any){
-  console.log(event);
   
-  }
-   
-
-
 }

@@ -11,10 +11,10 @@ import { BannerService } from '../Providers/banner.service';
   styleUrls: ['./update-banner.component.scss']
 })
 export class UpdateBannerComponent {
-
+  type: any;
   form: FormGroup = new FormGroup({
     text: new FormControl('', Validators.required),
-    link: new FormControl('')
+    link: new FormControl(''),
   })
 file:any;
 showLoader: boolean = false
@@ -28,20 +28,20 @@ constructor( @Inject(MAT_DIALOG_DATA) public data: any
  }
 
 ngOnInit(): void {
- this.setFormValue();
+ this.setFormValue(); 
 }
 
 
 setFormValue(){
   if(this.data.mode== 'update'){
   this.form.patchValue({text: this.data.bannerData.text});
-  this.form.patchValue({link: this.data.bannerData.link})
+  this.form.patchValue({link: this.data.bannerData.link});
   this.previousImageUrl = this.data.bannerData.imageLink;
+  this.type = this.data.bannerData.type;  
   }
 }
 
 onFileSelected(event: any): void {
-console.log(event);
 const file = event.target.files[0];
 if (file) {
   this.file = file;
@@ -70,7 +70,6 @@ upload(): void {
     this.bannerService.upload(formData).subscribe(
       (res: any) => {
         if(res){
-        console.log(res);
         this.form.reset();
         this.file = null;
         this.base64Image = null;
@@ -96,7 +95,10 @@ upload(): void {
 
 
 
-
+// on selection change
+selectionChange(event: any) {
+  this.type = event.target.value;
+}
 
 
 updateBanner(){
@@ -108,11 +110,9 @@ updateBanner(){
     if (this.base64Image) {
       formData.image = this.base64Image;
     }
-    this.bannerService.update(formData, this.data.bannerData.id)
+    this.bannerService.update(formData, this.data.bannerData.id, this.type)
     .subscribe(
-      (res: any) => {
-        console.log(res);
-        
+      (res: any) => {        
         if(res){
         this.dialogRef.close();
         this.form.reset();

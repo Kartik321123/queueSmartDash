@@ -180,7 +180,6 @@ updatetobinance(data:any){
 updatetoBinancetestnet(data:any){
 
   this.clientService.updatetoBinancetestnet(data, this.parseData.token).subscribe((res)=>{
-    console.log(res);
     this.getUserData()
     
   })
