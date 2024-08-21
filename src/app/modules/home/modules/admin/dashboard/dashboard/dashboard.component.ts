@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
   clientsLength: any
   filterDays: any
   totalProfit: any
-  filteredProfit: any
+  // filteredProfit: any
   companyWallet: any
   totalWithrawal: any
   range = new FormGroup({
@@ -63,6 +63,7 @@ export class DashboardComponent implements OnInit {
   companyWalletDetails:any
   trcBalance!: number
   trxBalance!: any
+  totalRevenue: any
 
   constructor(
     private dashService: DashboardService,
@@ -85,12 +86,13 @@ export class DashboardComponent implements OnInit {
     this.showLoader = true;
     this.ngxService.start();
     await this.getDefaultData();
-    await this.getCompanyTotalProfit();
-    await this.getcompanyWallet();
-    await this.initChartData();
-    await this.getWithrawal();
+    await this.getCompanyData();
+    // await this.getCompanyTotalProfit();
+    // await this.getcompanyWallet();
+    // await this.getWithrawal();
     await this.getTrc20();
     await this.getTrx();
+    await this.initChartData();
     this.showLoader = false;
     this.ngxService.stop();
   }
@@ -124,67 +126,111 @@ export class DashboardComponent implements OnInit {
   async getUserData() {
     this.showLoader = true;
     this.ngxService.start();
+  
     try {
       const res: any = await this.clientService.getSubscription(this.filter).toPromise();
-      this.clientsLength = res.data.results.length;
-      this.showLoader = false;
+      this.dataSeries = res.data.results;      
+      this.clientsLength = res.data.results.length;  
     } catch (error) {
+      console.error('Error fetching subscription data:', error);
+    } finally {
       this.showLoader = false;
+      this.ngxService.stop();
+    }
+  }
+  
+
+  // get company data
+  async getCompanyData(){
+    this.showLoader = true;
+    this.ngxService.start();
+    try {
+      const res = await this.dashService.getCompanyData(this.userData.token).toPromise();
+      // console.log(res);
+      
+      this.totalRevenue = Math.round(res.profitAmount);
+      this.companyWallet = res.usdtAmount;
+      this.totalWithrawal = res.totalWithdrawalAmount;
+      this.totalProfit = res.usdtAmount;
+      
+    } catch (error) {
+      
     }
   }
 
 
   // COMPANY TOTAL PROFIT
-  async getCompanyTotalProfit() {
-    this.showLoader = true;
-    this.ngxService.start();
-    try {
-      const data = {
-        token: this.userData.token,
-        transactionType: 'COMPANY_PROFIT',
-        pageCount: {
-          page: 1,
-          limit: Number.MAX_SAFE_INTEGER
-        },
-      };
-      const res = await this.dashService.companyTotalProfit(data).toPromise();
-      this.totalProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0';
-      this.showLoader = false;
-    } catch (error) {
-      this.showLoader = false;
-    }
-  }
+  // async getCompanyTotalProfit() {
+  //   this.showLoader = true;
+  //   this.ngxService.start();
+  //   try {
+  //     const data = {
+  //       token: this.userData.token,
+  //       transactionType: 'COMPANY_PROFIT',
+  //       pageCount: {
+  //         page: 1,
+  //         limit: Number.MAX_SAFE_INTEGER
+  //       },
+  //     };
+  //     const res = await this.dashService.companyTotalProfit(data).toPromise();
+  //     this.totalProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0';
+  //     this.showLoader = false;
+  //   } catch (error) {
+  //     this.showLoader = false;
+  //   }
+  // }
 
   // FILTER COMPANY PROFIT BASES OF DATE
-  async getCompanyFilteredProfit() {
-    try {
-      const res = await this.dashService.companyProfit(this.filter).toPromise();
-      this.filteredProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0';
-      const groupedByDate = res.results.reduce((acc: any, curr: any) => {
-        const date = curr.createdAt.split('T')[0];
-        acc[date] = (acc[date] || 0) + curr.usdtAmount;
-        return acc;
-      }, {});
+  // async getCompanyFilteredProfit() {
+  //   try {
+  //     const res = await this.dashService.companyProfit(this.filter).toPromise();
+  //     console.log(res);
+      
+  //     // this.filteredProfit = res.totalAmount !== 0 ? res.totalAmount.toFixed(2) : '0';
+  //     const groupedByDate = res.results.reduce((acc: any, curr: any) => {
+  //       const date = curr.createdAt.split('T')[0];
+  //       acc[date] = (acc[date] || 0) + curr.usdtAmount;
+  //       return acc;
+  //     }, {});
 
-      const newarray = Object.entries(groupedByDate).map(([createdAt, usdtAmount]) => ({
-        createdAt,
-        usdtAmount: typeof usdtAmount === 'number' ? usdtAmount.toFixed(2) : '0.00'
-      }));
+  //     const newarray = Object.entries(groupedByDate).map(([createdAt, usdtAmount]) => ({
+  //       createdAt,
+  //       usdtAmount: typeof usdtAmount === 'number' ? usdtAmount.toFixed(2) : '0.00'
+  //     }));
 
-      this.dataSeries = newarray;
-    } catch (error) {
-    }
-  }
+  //     this.dataSeries = newarray;
+  //   } catch (error) {
+  //   }
+  // }
 
-  async initChartData(): Promise<void> {
-    const dates = this.dataSeries.map((item: any) => {
-      return [new Date(item.createdAt).getTime(), parseFloat(item.usdtAmount)];
-    });
+  async initChartData(): Promise<void> {    
+    // console.log(this.dataSeries);
+    const loginDateCount: { [date: string]: number } = {};
+
+    this.dataSeries.forEach((user:any) => {
+      const date = new Date(user.createdAt).toISOString().split('T')[0];
+      if (loginDateCount[date]) {
+          loginDateCount[date]++;
+      } else {
+          loginDateCount[date] = 1;
+      }
+  });
+
+  const resultArray = Object.entries(loginDateCount).map(([date, count]) => ({
+      x: date,
+      y: count
+  }));
+    
+    // const dates = this.dataSeries.map((item: any) => {
+    //   return [new Date(item.createdAt).getTime(), parseFloat(item.usdtAmount)];
+    // });
+    // // console.log(dates);
+    
 
     this.series = [
       {
-        name: "USDT Amount",
-        data: dates
+        name: "SignUp data",
+        data: resultArray
       }
     ];
 
@@ -210,7 +256,7 @@ export class DashboardComponent implements OnInit {
     };
 
     this.title = {
-      text: "Company Profit",
+      text: "Dates",
       align: "left"
     };
 
@@ -221,7 +267,7 @@ export class DashboardComponent implements OnInit {
         }
       },
       title: {
-        text: "USDT Amount"
+        text: "No. of users"
       }
     };
 
@@ -285,7 +331,7 @@ export class DashboardComponent implements OnInit {
         from: last30Days.toISOString(),
         to: start.toISOString()
       }
-      await this.getCompanyFilteredProfit();
+      // await this.getCompanyFilteredProfit();
       await this.getUserData();
       await this.initChartData();
 
@@ -299,7 +345,7 @@ export class DashboardComponent implements OnInit {
         from: last7Days.toISOString(),
         to: start.toISOString()
       }
-      await this.getCompanyFilteredProfit();
+      // await this.getCompanyFilteredProfit();
       await this.getUserData();
       await this.initChartData();
 
@@ -313,7 +359,7 @@ export class DashboardComponent implements OnInit {
         from: start.toISOString(),
         to: end.toISOString()
       }
-      await this.getCompanyFilteredProfit();
+      // await this.getCompanyFilteredProfit();
       await this.getUserData();
       await this.initChartData();
     }
@@ -332,7 +378,7 @@ export class DashboardComponent implements OnInit {
       this.showLoader = true;
       this.ngxService.start();
       await this.getUserData();
-      await this.getCompanyFilteredProfit();
+      // await this.getCompanyFilteredProfit();
       await this.initChartData();
       this.showLoader = false;
     }
@@ -353,37 +399,37 @@ export class DashboardComponent implements OnInit {
 
     // COMPANY WALLET
     
-  async getcompanyWallet(){
-    const token = this.userData.token;
-    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU3MzU1LCJlbnYiOiJsaXZlIiwiaWF0IjoxNjA0MzEyODM0fQ.AzwDh768OtDJqcXb58YcZUoOJOUlQmk1LEFSr5wYQ2u';
-    try {
-      const res: any = await this.dashService.companyWallet(token).toPromise();
-      this.companyWallet = res.usdtAmount;
-    } catch (error) {
-    }
-  }
+  // async getcompanyWallet(){
+  //   const token = this.userData.token;
+  //   // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU3MzU1LCJlbnYiOiJsaXZlIiwiaWF0IjoxNjA0MzEyODM0fQ.AzwDh768OtDJqcXb58YcZUoOJOUlQmk1LEFSr5wYQ2u';
+  //   try {
+  //     const res: any = await this.dashService.companyWallet(token).toPromise();
+  //     this.companyWallet = res.usdtAmount;
+  //   } catch (error) {
+  //   }
+  // }
 
  // COMPANY WITHRAWAL
- async getWithrawal(){
-  this.showLoader = true;
-  this.ngxService.start();
-  try{
-    const data = {
-      token: this.userData.token,
-      transactionType: 'WITHDRAWAL',
-      pageCount:{
-        page: 1,
-        limit: 10
-      },
-    };
-    const res = await this.dashService.withrawal(data).toPromise();
-    this.totalWithrawal = res.totalAmount
+//  async getWithrawal(){
+//   this.showLoader = true;
+//   this.ngxService.start();
+//   try{
+//     const data = {
+//       token: this.userData.token,
+//       transactionType: 'WITHDRAWAL',
+//       pageCount:{
+//         page: 1,
+//         limit: 10
+//       },
+//     };
+//     const res = await this.dashService.withrawal(data).toPromise();
+//     this.totalWithrawal = res.totalAmount
 
-  }
-  catch(error){
-    this.showLoader = false;
-  }
-}
+//   }
+//   catch(error){
+//     this.showLoader = false;
+//   }
+// }
 
  // get trc20 
 
@@ -396,7 +442,7 @@ export class DashboardComponent implements OnInit {
   this.trcBalance = Number(trcBalance);
  }
 
- // get trxBalance
+//  // get trxBalance
 
  async getTrx(){
   const data = {

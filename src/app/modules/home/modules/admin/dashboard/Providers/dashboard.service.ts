@@ -45,17 +45,17 @@ export class DashboardService {
       );
   }
 
-  companyWallet(token: any){
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-      });
-      const url = `${CRYPTO_URL.LIVE_URL}/wallet/company-wallet`;
-      return this.http.get(url, {headers})
-      .pipe(map((res:any) => {
-        return res.data
-      }),
-      );
-  }
+  // companyWallet(token: any){
+  //     const headers = new HttpHeaders({
+  //       'Authorization': `Bearer ${token}`
+  //     });
+  //     const url = `${CRYPTO_URL.LIVE_URL}/wallet/company-wallet`;
+  //     return this.http.get(url, {headers})
+  //     .pipe(map((res:any) => {
+  //       return res.data
+  //     }),
+  //     );
+  // }
 
 
   // companyWallet() {
@@ -74,21 +74,21 @@ export class DashboardService {
   // }
 
 
-  withrawal(data:any){
-    const url = `${CRYPTO_URL.LIVE_URL}/wallet/company-transaction`;
-    const headers = new HttpHeaders({
-      'Authorization' : `Bearer ${data.token}`
-    })
-    const params = new HttpParams()
-    .set('page',data.pageCount.page)
-    .set('limit', data.pageCount.limit)
-    .set('transactionType',data.transactionType)
-  return this.http.get(url, {headers,params})
-  .pipe(map((res:any) =>{
-    return res.data
-  }));
+//   withrawal(data:any){
+//     const url = `${CRYPTO_URL.LIVE_URL}/wallet/company-transaction`;
+//     const headers = new HttpHeaders({
+//       'Authorization' : `Bearer ${data.token}`
+//     })
+//     const params = new HttpParams()
+//     .set('page',data.pageCount.page)
+//     .set('limit', data.pageCount.limit)
+//     .set('transactionType',data.transactionType)
+//   return this.http.get(url, {headers,params})
+//   .pipe(map((res:any) =>{
+//     return res.data
+//   }));
 
-}
+// }
 
 // get trc balance
 
@@ -117,6 +117,18 @@ getTrxBalance(data:any){
   return this.http.get(url, {headers, params})
   .pipe(map((res:any) =>{
     return res.data;
+  }))
+}
+
+// get company data
+getCompanyData(token:string){
+  const url=`${CRYPTO_URL.LIVE_URL}/wallet/company-wallet`
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  })
+  return this.http.get(url,{headers})
+  .pipe(map((res:any)=>{
+    return res.data
   }))
 }
 
