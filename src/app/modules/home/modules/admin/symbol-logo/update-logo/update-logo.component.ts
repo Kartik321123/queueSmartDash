@@ -28,7 +28,6 @@ export class UpdateLogoComponent {
     private matDialogRef: MatDialogRef<UpdateLogoComponent>,
     @Inject(MAT_DIALOG_DATA) public matData: any
   ){
-    console.log(matData);
     
     const data = localStorage.getItem('userinfo');
     if (data) {
@@ -37,7 +36,6 @@ export class UpdateLogoComponent {
   }
 
   ngOnInit(){
-    console.log(this.matData.updateLogo);
     if(this.matData.mode == 'update'){
       this.form.patchValue({symbol: this.matData.updateLogo.symbol})
     this.previousImageUrl = this.matData.updateLogo.url
@@ -110,7 +108,6 @@ if (this.form.valid && this.base64Image) {
   this.symbolLogoService.update(formData)
   .subscribe(
     (res: any) => {
-      console.log(res);
       
       if(res){
         this.showLoader = true;

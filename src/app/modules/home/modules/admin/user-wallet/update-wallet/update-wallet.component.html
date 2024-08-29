@@ -1,0 +1,47 @@
+<!-- NGX LOADER -->
+<div class="ngxLoader" *ngIf="showLoader">
+    <ngx-ui-loader [hasProgressBar]="false"></ngx-ui-loader>
+</div>
+
+<div class="toolbar">
+    <mat-toolbar class="toolbar">
+        <span >Update Transaction</span>
+        <div class="spacer"></div>
+        <mat-icon mat-dialog-close class="pointer" matTooltip="Close">close</mat-icon>
+    </mat-toolbar>
+</div>
+
+<form [formGroup]="walletTierForm" class="pad-16">
+
+    <!-- AMOUNT COLUMN -->
+    <mat-form-field>
+        <mat-label>Amount</mat-label>
+        <input type="number" matInput color="primary" formControlName="amount">
+    </mat-form-field>
+
+    <!-- DATE COLUMN -->
+    <mat-form-field>
+        <mat-label>Date</mat-label>
+        <input matInput color="primary" formControlName="date" type="date">
+    </mat-form-field>
+
+</form>
+
+<!-- BUTTONS -->
+<div class="btn pad-8">
+
+
+    <!-- PDATE BUTTON -->
+
+    <button  mat-raised-button class="buttons" color="primary" (click)="updateWalletHistory()">
+        Update
+    </button>
+
+
+
+    <!-- CANCEL BUTTONS -->
+    <button mat-button class="buttons" mat-dialog-close>
+        Cancel
+    </button>
+
+</div>

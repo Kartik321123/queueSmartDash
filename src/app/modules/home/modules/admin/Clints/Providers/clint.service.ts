@@ -227,6 +227,16 @@ updateWallet(data:any){
   
 }
 
+// update wallet history
+updateWalletTier(data:any, token:any){
+  const url = `${CRYPTO_URL.LIVE_URL}/wallet/update-walletTranaction-amount`
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  })
+  return this.http.put(url,data, {headers})
+  
+
+}
 
 }
 

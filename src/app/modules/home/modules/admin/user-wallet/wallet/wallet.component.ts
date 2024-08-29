@@ -5,6 +5,8 @@ import { ClintService } from '../../Clints/Providers/clint.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { UpdateWalletComponent } from '../update-wallet/update-wallet.component';
 
 @Component({
   selector: 'app-wallet',
@@ -13,7 +15,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 
 export class WalletComponent implements OnInit {
-  displayedColumns: string[] = ['amount', 'type', 'createdAt'];
+  displayedColumns: string[] = ['amount', 'type', 'createdAt', 'update'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild('input', { static: false }) inputElement!: ElementRef;
   dataSource: any = [];
@@ -27,7 +29,7 @@ export class WalletComponent implements OnInit {
   transHistory: boolean = false
   filter: any
   totalLength: any
-  selectedDefaultValue = 'COMPANY_COMMISSION'
+  selectedDefaultValue = 'TRADE_PROFIT'
   totalDeposit: any
   totalWithdrawal: any
   refferalAmount: any
@@ -42,7 +44,8 @@ export class WalletComponent implements OnInit {
     private clientService: ClintService,
     private ngxService: NgxUiLoaderService,
     private navigateRouter: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
 
   ) {
     this.router.queryParams.subscribe(res => {
@@ -232,6 +235,24 @@ export class WalletComponent implements OnInit {
 
    })
    
+  }
+
+  // update wallet
+  updateWallet(data:any){
+   const dialogRef =  this.dialog.open(UpdateWalletComponent,{
+      data: data
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.ngxService.start();
+        this.showLoader = true;
+        this.transactionHistory();
+        this.ngxService.stop();
+        this.showLoader = false;
+      }
+      
+    })
   }
 
 

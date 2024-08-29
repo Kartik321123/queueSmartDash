@@ -15,10 +15,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UpdateWalletComponent } from './update-wallet/update-wallet.component';
 
 @NgModule({
   declarations: [
-    WalletComponent
+    WalletComponent,
+    UpdateWalletComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTooltipModule,
     MatSelectModule,
     MatSnackBarModule
-
   ]
 })
 export class UserWalletModule { }

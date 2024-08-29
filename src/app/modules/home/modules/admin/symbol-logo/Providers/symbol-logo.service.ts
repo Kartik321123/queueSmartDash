@@ -11,17 +11,14 @@ export class SymbolLogoService {
   constructor(private http: HttpClient) { }
 
   upload(data:any,token:any){
-    console.log(data);
     const url = `${CRYPTO_URL.LIVE_URL}/algo-strategy/symbol-url`
     const obj = {
       symbol: data.symbol,
       url: data.image
     }
-    console.log(obj);
 
     return this.http.post(url, obj).pipe(
       map((res: any) => {
-        console.log(res);
         return res;
       })
     );
