@@ -71,6 +71,17 @@
             </div>
           </div>
 
+          <div class="detail">
+            <p class="para_value">$ {{ totalProfit || "0"}}</p>
+            <p class="para_heading">TotalProfit </p>
+            <div class="updateField">
+                <input *ngIf="showProfitInput" placeholder="Enter amount" type="number" #profitInput>
+                <button class="btn" mat-raised-button color="primary" (click)="getUpdateTotalProfit()">
+                  {{ showProfitInput ? 'Submit' : 'Update' }}
+                </button>
+              </div>
+        </div>
+
         <div class="detail">
             <p class="para_value">$ {{totalDeposit || "0"}}</p>
             <p class="para_heading">Total Deposit </p>

@@ -18,6 +18,8 @@ export class WalletComponent implements OnInit {
   displayedColumns: string[] = ['amount', 'type', 'createdAt', 'update'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild('input', { static: false }) inputElement!: ElementRef;
+  @ViewChild('profitInput', { static: false }) profitInputElement!: ElementRef;
+
   dataSource: any = [];
   showLoader = false
   controls: any
@@ -34,6 +36,8 @@ export class WalletComponent implements OnInit {
   totalWithdrawal: any
   refferalAmount: any
   showInput: boolean = false;
+  totalProfit:any
+  showProfitInput: boolean = false;
 
   walletForm: FormGroup = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -112,6 +116,8 @@ export class WalletComponent implements OnInit {
     if (this.userId) {
       try {
         const res = await this.clientService.walletDetails(this.parseData.token, this.userId).toPromise();
+        this.totalProfit = res.profitAmount;
+        console.log(this.totalProfit);
         this.userData = res;
       } catch (error) {
       }
@@ -255,6 +261,44 @@ export class WalletComponent implements OnInit {
     })
   }
 
+
+  // updateTotalProfit
+  getUpdateTotalProfit(){
+    this.showProfitInput = true;
+    if(this.showProfitInput){
+      const newProfit = parseFloat(this.profitInputElement.nativeElement.value)
+      if(!isNaN(newProfit)){
+        this.updateTotalProfit(newProfit)
+      }
+      this.showProfitInput = false;
+    } 
+    else{
+      this.showProfitInput  = true;
+    }
+
+  }
+
+  updateTotalProfit(newProfit:number){
+    this.showLoader = true;
+    this.ngxService.start();
+    const obj = {
+      token: this.parseData.token,
+      userId: this.userId,
+      profitAmount: newProfit
+    }
+    this.clientService.updateTotalProfit(obj).subscribe((res)=>{
+      console.log(res);
+      if(res.status == '200'){
+        this.snackBar.open(res.message, 'Close', {
+          duration: 3000
+        });    
+      }
+      this.walletDetails();
+      this.showLoader = false;
+      this.ngxService.stop();
+      
+    })
+  }
 
 
 

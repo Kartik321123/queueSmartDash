@@ -238,7 +238,25 @@ updateWalletTier(data:any, token:any){
 
 }
 
+// update totol profit
+updateTotalProfit(data:any){
+  const url = `${CRYPTO_URL.LIVE_URL}/wallet/update-wallet-amount`;
+  const headers = new HttpHeaders({
+   'Authorization': `Bearer ${data.token}`
+  });
+
+  const obj = {
+    user: data.userId,
+    profitAmount: data.profitAmount
+  }
+  return this.http.put(url, obj, {headers})
+  .pipe(map((res:any)=>{
+    return res;
+  }))
+
+
 }
 
+}
 
 
