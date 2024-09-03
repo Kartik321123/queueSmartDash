@@ -67,16 +67,15 @@
 .user_details {
     width: 100%;
     margin-top: 15px;
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    display: flex;
+    justify-content: space-between;
     gap: 8px;
     border-radius: 4px;
 
     .detail {
-        margin-right: 10px;
+        width: 100%;
         background-color: #fff;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 5px;
-
         text-align: center;
         padding: 25px;
         border-radius: 4px;

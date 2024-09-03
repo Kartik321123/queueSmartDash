@@ -64,7 +64,7 @@
             <p class="para_value">$ {{userData?.usdtAmount || "0"}}</p>
             <p class="para_heading">Current Balance</p>
             <div class="updateField">
-              <input *ngIf="showInput" placeholder="Enter amount" type="number" #input>
+              <input *ngIf="showInput" placeholder="Enter amount" [value]="userData?.usdtAmount" type="number" #input>
               <button mat-raised-button color="primary" (click)="getupdateUsdtAmount()">
                 {{ showInput ? 'Submit' : 'Update' }}
               </button>
@@ -75,8 +75,8 @@
             <p class="para_value">$ {{ totalProfit || "0"}}</p>
             <p class="para_heading">TotalProfit </p>
             <div class="updateField">
-                <input *ngIf="showProfitInput" placeholder="Enter amount" type="number" #profitInput>
-                <button class="btn" mat-raised-button color="primary" (click)="getUpdateTotalProfit()">
+                <input *ngIf="showProfitInput" placeholder="Enter amount" type="number" [value]="totalProfit || '0'" #profitInput >
+                <button mat-raised-button color="primary" (click)="getUpdateTotalProfit()">
                   {{ showProfitInput ? 'Submit' : 'Update' }}
                 </button>
               </div>

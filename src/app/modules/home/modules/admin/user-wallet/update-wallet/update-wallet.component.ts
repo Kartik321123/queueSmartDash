@@ -47,8 +47,6 @@ export class UpdateWalletComponent {
 
   // setFormValue
   setFormValue(){
-    console.log(this.data);
-
     let formattedDate: string = '';
   
     if (this.data.createdAt) {

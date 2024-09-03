@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Utils } from 'src/app/helpers/utilities';
 import { MatSidenav } from '@angular/material/sidenav';
 import { NavItem } from './modules/side-nav/components/menu-list/menu-list.component';
+import { ClintService } from './modules/admin/Clints/Providers/clint.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +40,9 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private loader: NgxUiLoaderService,
-    private toastr:ToastrService
+    private toastr:ToastrService,
+    private clientService: ClintService,
+    private snackBar: MatSnackBar
   ) {
     const data: any = localStorage.getItem('userinfo')
     if (data) {
@@ -125,6 +129,16 @@ export class HomeComponent implements OnInit {
     }
   }
 
+
+  runChron(){
+    this.clientService.runChron().subscribe((res:any)=>{
+      if(res){
+       this.snackBar.open(res.message, 'Close'),{
+        duration: 3000
+       }
+      }
+    })
+  }
 
   logout() {
     Utils.logout();

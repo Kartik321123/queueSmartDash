@@ -8,6 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { LoggerComponent } from '../logger/logger.component';
 import { MatDialog } from '@angular/material/dialog';
+import { OtpComponent } from '../otp/otp.component';
 
 export enum DateRangeEnum {
   Last30Dayds = '30Days',
@@ -184,6 +185,13 @@ updatetoBinancetestnet(data:any){
     
   })
 
+}
+
+// geneate otp
+generateOTP(data:any){  
+  this.matDialog.open(OtpComponent,{
+    data: data.email
+  })
 }
 
 }

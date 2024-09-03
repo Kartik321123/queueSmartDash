@@ -18,6 +18,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ToastrModule } from 'ngx-toastr';
 import { AdminModule } from './modules/admin/admin.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { AdminModule } from './modules/admin/admin.module';
     MatMenuModule,
     MatTooltipModule,
     ToastrModule.forRoot(),
-    AdminModule
+    AdminModule,
+    MatSnackBarModule
   ]
 })
 export class HomeModule { }

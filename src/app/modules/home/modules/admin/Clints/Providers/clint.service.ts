@@ -257,6 +257,21 @@ updateTotalProfit(data:any){
 
 }
 
+// generate otp
+generateOTP(payload:any, token:any){
+ const url = `${CRYPTO_URL.LIVE_URL}/user-account/generate-otp`
+ const headers = new HttpHeaders({
+  'Authorization' : `Bearer ${token}`
+ });
+ return this.http.post(url,payload, {headers})
+}
+
+// run chrone 
+runChron(): Observable<any> {
+  const url = `${CRYPTO_URL.LIVE_URL}/user-account/update-rank`;
+  return this.http.post<any>(url, {});
+}
+
 }
 
 

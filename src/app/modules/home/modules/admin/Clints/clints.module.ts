@@ -27,6 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReferralComponent } from './referral/referral.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { OtpComponent } from './otp/otp.component';
 
 
 
@@ -39,6 +40,7 @@ import { MatButtonModule } from '@angular/material/button';
     LoggerComponent,
     LoggerParamComponent,
     ReferralComponent,
+    OtpComponent,
     
   ],providers:[MatDialogModule],
   imports: [
@@ -65,7 +67,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSortModule,
     MatTooltipModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ]
 })
 export class ClintsModule { }

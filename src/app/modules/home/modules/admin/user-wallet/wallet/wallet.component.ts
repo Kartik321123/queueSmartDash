@@ -117,7 +117,6 @@ export class WalletComponent implements OnInit {
       try {
         const res = await this.clientService.walletDetails(this.parseData.token, this.userId).toPromise();
         this.totalProfit = res.profitAmount;
-        console.log(this.totalProfit);
         this.userData = res;
       } catch (error) {
       }
@@ -264,9 +263,8 @@ export class WalletComponent implements OnInit {
 
   // updateTotalProfit
   getUpdateTotalProfit(){
-    this.showProfitInput = true;
     if(this.showProfitInput){
-      const newProfit = parseFloat(this.profitInputElement.nativeElement.value)
+      const newProfit = parseFloat(this.profitInputElement?.nativeElement.value)
       if(!isNaN(newProfit)){
         this.updateTotalProfit(newProfit)
       }
@@ -275,7 +273,6 @@ export class WalletComponent implements OnInit {
     else{
       this.showProfitInput  = true;
     }
-
   }
 
   updateTotalProfit(newProfit:number){
@@ -287,7 +284,6 @@ export class WalletComponent implements OnInit {
       profitAmount: newProfit
     }
     this.clientService.updateTotalProfit(obj).subscribe((res)=>{
-      console.log(res);
       if(res.status == '200'){
         this.snackBar.open(res.message, 'Close', {
           duration: 3000
