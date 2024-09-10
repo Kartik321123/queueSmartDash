@@ -21,13 +21,11 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { MatSortModule } from '@angular/material/sort';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
-import { LoggerComponent } from './logger/logger.component';
-import { LoggerParamComponent } from './logger-param/logger-param.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ReferralComponent } from './referral/referral.component';
+
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
-import { OtpComponent } from './otp/otp.component';
+
 
 
 
@@ -37,10 +35,7 @@ import { OtpComponent } from './otp/otp.component';
 @NgModule({
   declarations: [
     ClintComponent,
-    LoggerComponent,
-    LoggerParamComponent,
-    ReferralComponent,
-    OtpComponent,
+
     
   ],providers:[MatDialogModule],
   imports: [

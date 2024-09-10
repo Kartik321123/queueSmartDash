@@ -12,7 +12,7 @@ import { CRYPTO_URL } from 'src/app/helpers/constants';
   providedIn: 'root'
 })
 export class AuthService {
-  loginUrl = `${CRYPTO_URL.LIVE_URL}/user-account/admin-login`;
+  loginUrl = `${CRYPTO_URL.LIVE_URL}/queuesmart/login`;
 
   constructor(
     private http: HttpClient,
@@ -20,10 +20,10 @@ export class AuthService {
 
 
   signIn(email: string, password: string): Observable<UserInfo> {
-    const userDetails = { email, password }
-    return this.http.post<any>(this.loginUrl, userDetails)
-      .pipe(map(res => {
-        return res.data
+    const userDetails: any = { email, password }
+    return this.http.get<any>(this.loginUrl, { params: { phoneNo: userDetails.email.toString(), password: userDetails.password.toString() }, responseType: 'text' as 'json', })
+      .pipe(map((res: any) => {
+        return res
       }),
       );
   }

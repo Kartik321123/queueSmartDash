@@ -73,45 +73,16 @@ export class HomeComponent implements OnInit {
         isSubSubmenu: false
       },
       {
-        displayName: 'Users',
+        displayName: 'Patients',
         route: 'admin/client',
         isSubSubmenu: false
       },
       {
-        displayName: 'Withdrawal Req.',
-        route: 'admin/withDrawal',
+        displayName: 'Doctors',
+        route: 'admin/doctor',
         isSubSubmenu: false
       },
-      // {
-      //   displayName: 'Wallet Tier',
-      //   route: 'admin/wallettier',
-      //   isSubSubmenu: false
-      // },
-      {
-        displayName: 'Publish Strategy',
-        route: 'admin/publishStrategy',
-        isSubSubmenu: false
-      },
-      {
-        displayName: 'Support',
-        route: 'admin/support',
-        isSubSubmenu: false
-      },
-      // {
-      //   displayName: "League",
-      //   route: 'admin/league',
-      //   isSubSubmenu: false
-      // },
-      {
-        displayName: "Banner",
-        route: 'admin/banner',
-        isSubSubmenu: false
-      },
-      {
-        displayName: "Symbol Logo",
-        route: 'admin/symbol-logo',
-        isSubSubmenu: false
-      }
+
     ]
 
     this.menus = [...item, ...this.fixedMenus];

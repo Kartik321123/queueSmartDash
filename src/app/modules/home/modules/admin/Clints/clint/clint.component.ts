@@ -6,9 +6,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { LoggerComponent } from '../logger/logger.component';
 import { MatDialog } from '@angular/material/dialog';
-import { OtpComponent } from '../otp/otp.component';
 
 export enum DateRangeEnum {
   Last30Dayds = '30Days',
@@ -28,7 +26,7 @@ export enum DateRangeEnum {
 
 
 export class ClintComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'email', 'baserurl', 'strategy', 'signupDate', 'followers', 'referral','logger', 'action'];
+  displayedColumns: string[] = ['name', 'email'];
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   dataSource: any = [];
   showLoader = false;
@@ -58,9 +56,7 @@ export class ClintComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.initializeFilter();
-    this.getUserData();
-    
+
   }
 
 
@@ -78,32 +74,12 @@ export class ClintComponent implements OnInit {
     this.filter = obj;
   }
 
-  // GET ALL USER LIST
-  getUserData() {
-    this.showLoader = true;
-    this.ngxService.start();
-    this.clientService.getUsers(this.filter).subscribe((res: any) => {
-      // console.log("getUserData getUserData",res)
-      this.dataSource = res.data.results
-      this.totalLength = res.data.totalCount;
-      this.showLoader = false;
-      this.ngxService.stop();
-    }, error => {
-      this.showLoader = false;
-      this.ngxService.stop();
-    })
-  }
-
-  // GET USER WALLET DETAIL
-  walletDetails(data: any) {
-    this.router.navigate(["admin/userWallet"], { queryParams: { userId: data.id } });
-  }
 
 
   pageChange(event: PageEvent) {
     this.filter.pageCount.page = event.pageIndex + 1;
     this.filter.pageCount.limit = event.pageSize;
-    this.getUserData();
+    // this.getUserData();
   }
 
   applyFilter(event: Event) {
@@ -112,87 +88,22 @@ export class ClintComponent implements OnInit {
       text: filterValue,
     }
     if (this.filter.filter.text.length >= 2) {
-      this.getUserData();
     } else if (this.filter.filter.text.length <= 0) {
       this.filter.filter = {
         text: ''
       }
       this.filter.pageCount = {
         page: 1,
-        limit:15
+        limit: 15
       }
-      this.getUserData()
     }
   }
 
 
-  // ACTIVE STRATEGY
-  goToActiveStrategy(data: any) {
-    
-    if (data.activeBot > 0) {
-      const user = `${data.firstName} ${data.lastName}`.trim();
-      const status = 'Active'
-      this.router.navigate(["admin/strategy"], { queryParams: { userId: data.id, user: user, status: status, followers: data.followers } });
-    } else {
-      alert('Strategy Not Active')
-    }
-  }
 
-  // ALL STRATEGY
-  goToInActiveStrategy(data: any) {
-    if (data.inActiveBot + data.activeBot > 0) {
-      const status = 'All'
-      const user = `${data.firstName} ${data.lastName}`.trim();
-      this.router.navigate(["admin/strategy"], { queryParams: { userId: data.id, user: user, status: status, followers: data.followers } });
-    } else {
-      alert('Strategy Not Found')
-    }
-  }
 
-  getLogger(element: any) {
-    const userId = element.id;
-    this.router.navigate(['admin/client/logger'], { queryParams: { userId: userId } });
-}
 
-referral(data:any){
-  const userId = data.id;  
-  this.router.navigate(['admin/client/referral'], {queryParams: {userId: userId}});
-  
-}
 
-updatetobinance(data:any){
-  
-    this.clientService.updatetobinance(data, this.parseData.token).subscribe((res)=>{
-      this.getUserData()
-      
-    })
-}
-
-// updatetoBinanceus(data:any){
-
-//   this.clientService.updatetoBinanceus(data, this.parseData.token).subscribe((res)=>{
-//     console.log(res);
-//     this.getUserData()
-    
-//   })
-
-// }
-
-updatetoBinancetestnet(data:any){
-
-  this.clientService.updatetoBinancetestnet(data, this.parseData.token).subscribe((res)=>{
-    this.getUserData()
-    
-  })
-
-}
-
-// geneate otp
-generateOTP(data:any){  
-  this.matDialog.open(OtpComponent,{
-    data: data.email
-  })
-}
 
 }
 

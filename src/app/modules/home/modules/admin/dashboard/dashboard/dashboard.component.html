@@ -13,66 +13,6 @@
 
     </div>
 
-    <div class="rewenu_filter flex">
-        <div class="balance">
-
-    <!-- TOTAL REWENUE -->
-      <!-- <div class="rewenue">
-        <h1>   {{totalProfit || '-'}} <span class="usdt">USDT</span> </h1>
-        <p>Total revenue</p>
-    </div> -->
-
-    <!-- TRC BALANCE -->
-    <div class="rewenue">
-        <h1>{{trcBalance || '-'}} <span class="usdt">USDT</span></h1>
-        <p>TRC20 BALANCE</p>
-    </div>
-
-    <!-- TRX BALANCE  -->
-    <div class="rewenue">
-        <h1>{{trxBalance || '-'}} <span class="usdt">USDT</span> </h1>
-        <p>TRX BALANCE</p>
-    </div>
-</div>
-
-      
-
-        <div class="spacer"></div>
-
-        <!-- SELECT DURATION DAYS -->
-        <div class="select-box visitor-select-box">
-            <mat-select #select [(value)]="selectedDefaultValue" placeholder="Select Date" ngmo
-                (selectionChange)="selectionChange($event)">
-                <mat-option [value]="DateRangeEnum.Today">
-                    Today
-                </mat-option>
-                <mat-option [value]="DateRangeEnum.Last7Days">
-                    Last 7 Days
-                </mat-option>
-                <mat-option [value]="DateRangeEnum.Last30Dayds">
-                    Last 30 Days
-                </mat-option>
-                <mat-option [value]="DateRangeEnum.Custom" (click)="picker.open()">
-                    {{getCustomOptiontext()}}
-                </mat-option>
-            </mat-select>
-        </div>
-
-        <div class="simple-hidden">
-            <mat-form-field color="accent" appearance="fill">
-                <mat-label>From</mat-label>
-                <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
-                    <input matStartDate formControlName="from" #dateRangeStart placeholder="Start date">
-                    <input matEndDate formControlName="to" #dateRangeEnd placeholder="End date"
-                        (dateChange)="dateRangeChange(dateRangeStart, dateRangeEnd)">
-                </mat-date-range-input>
-                <mat-datepicker-toggle matSuffix [for]="picker" #datepicker></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-            </mat-form-field>
-        </div>
-
-    </div>
-
     <div class="company_details">
 
         <div class="detail">
@@ -82,8 +22,7 @@
 
                 <div class="value">
                     <p class="para_value " style="color: green;">
-                        {{totalRevenue}} <span class="div-usdt">USDT</span> </p>
-                    <!-- <p class="para">{{filterDays}}</p> -->
+                        3245 </p>
                 </div>
 
                 <div class="graph">
@@ -94,13 +33,12 @@
         </div>
 
         <div class="detail">
-            <p class="para_heading">New subscription</p>
+            <p class="para_heading">New Patients</p>
 
             <div class="value_graph">
 
                 <div class="value">
-                    <p class="para_value">{{clientsLength}}</p>
-                    <p class="para">{{filterDays}}</p>
+                    <p class="para_value">30</p>
                 </div>
 
                 <div class="graph">
@@ -111,13 +49,12 @@
         </div>
 
         <div class="detail">
-            <p class="para_heading">Company Wallet</p>
+            <p class="para_heading">Total Doctors</p>
 
             <div class="value_graph">
 
                 <div class="value">
-                    <p class="para_value"> {{companyWallet || "0"}}  <span class="div-usdt">USDT</span> </p>
-                    <!-- <p class="para">{{filterDays}}</p> -->
+                    <p class="para_value">12 </p>
                 </div>
 
                 <div class="graph">
@@ -128,12 +65,12 @@
         </div>
 
         <div class="detail">
-            <p class="para_heading">Total withrawal</p>
+            <p class="para_heading">Doctor on Leave</p>
 
             <div class="value_graph">
 
                 <div class="value">
-                    <p class="para_value"> {{totalWithrawal || "0"}}  <span class="div-usdt">USDT</span> </p>
+                    <p class="para_value"> 2</p>
                     <!-- <p class="para">{{filterDays}}</p> -->
                 </div>
 
@@ -146,12 +83,11 @@
 
     </div>
 
-    <div class="company_rewenue_graph">
-        <!-- <apx-chart [series]="chartOptions['series']" [chart]="chartOptions['chart']"
-            [xaxis]="chartOptions['xaxis']"></apx-chart> -->
+    <!-- <div class="company_rewenue_graph">
+
         <apx-chart [series]="series" [chart]="chart" [dataLabels]="dataLabels" [markers]="markers" [title]="title"
             [fill]="fill" [yaxis]="yaxis" [xaxis]="xaxis" [tooltip]="tooltip" [autoUpdateSeries]="true"></apx-chart>
-    </div>
+    </div> -->
 
 
 </div>

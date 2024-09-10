@@ -14,7 +14,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ClintsModule } from './Clints/clints.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { WallettierModule } from './wallettier/wallettier.module';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 
@@ -38,7 +37,6 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatDialogModule,
     ClintsModule,
     DashboardModule,
-    WallettierModule,
     MatToolbarModule
   ],
   providers:[]

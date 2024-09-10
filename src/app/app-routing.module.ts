@@ -4,12 +4,20 @@ import { AuthGuard } from './_shared/guards/auth/auth.guard';
 import { HomeGuard } from './_shared/guards/home/home.guard';
 
 const routes: Routes = [
+  // {
+  //   path: 'login', canActivate: [AuthGuard], canLoad:[AuthGuard] ,loadChildren: () => (import('./modules/auth/auth.module').then(m => m.AuthModule))
+  // },
+  
+  // {
+  //   path: '',  canActivate: [HomeGuard], canLoad:[HomeGuard], loadChildren: () => (import('./modules/home/home.module').then(m => m.HomeModule)),
+  // },
+
   {
-    path: 'login', canActivate: [AuthGuard], canLoad:[AuthGuard] ,loadChildren: () => (import('./modules/auth/auth.module').then(m => m.AuthModule))
+    path: 'login' ,loadChildren: () => (import('./modules/auth/auth.module').then(m => m.AuthModule))
   },
   
   {
-    path: '',  canActivate: [HomeGuard], canLoad:[HomeGuard], loadChildren: () => (import('./modules/home/home.module').then(m => m.HomeModule)),
+    path: '',  loadChildren: () => (import('./modules/home/home.module').then(m => m.HomeModule)),
   },
   {
     path: '**', redirectTo: 'login', pathMatch: 'full'

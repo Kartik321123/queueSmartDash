@@ -7,8 +7,8 @@
 
     <mat-drawer #drawer class="drawer mat-elevation-z1" mode="side" opened="true">
         <mat-toolbar class="logo-header flex-column-centered">
-            <img src="../../../assets/images/Vector.png" width="20%">
-            <h4 style="color: white; margin-left: 10px;">Cryptozack</h4>
+            <!-- <img src="../../../assets/images/Vector.png" width="20%"> -->
+            <h4 style="color: white; margin-left: 10px;">Queue Smart</h4>
         </mat-toolbar>
 
         <div class="menu-main" autosize>
@@ -38,10 +38,6 @@
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="logout()">
                     <mat-icon>logout</mat-icon> Logout
-                </button>
-                <button mat-menu-item (click)="runChron()">
-                    <mat-icon>sync</mat-icon>
-                    Run Chron
                 </button>
             </mat-menu>
         </div>
